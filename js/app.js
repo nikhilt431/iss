@@ -918,9 +918,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 
                 <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <button class="btn btn-outline btn-sm" style="flex: 1; min-width: 100px;" onclick="showQrBadgeModal('${p.id}')">
-                        📇 QR ब्याज
-                    </button>
                     ${hasEvaluated ? `
                         <button class="btn btn-gold btn-sm" style="flex: 1; min-width: 120px;" onclick="viewCertificateModal('${p.id}', false)">
                             🏆 प्राप्ति प्रमाणपत्र
@@ -1114,63 +1111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         location.reload();
     };
 
-    // Show QR Badge Modal
-    window.showQrBadgeModal = function(participantId) {
-        const p = window.db.getParticipantById(participantId);
-        if (!p) return;
-
-        const illaka = window.db.getIllakaById(p.illaka_id);
-        const qrUrl = `${window.location.origin}${window.location.pathname}?participant=${p.id}`;
-        const qrSvg = window.QRCodeGenerator.generateSVG(qrUrl, 180);
-
-        const modal = document.createElement('div');
-        modal.className = 'modal-overlay';
-        modal.onclick = (e) => { if (e.target === modal) closeActiveModals(); };
-        
-        modal.innerHTML = `
-            <div class="modal-content" style="max-width: 400px;">
-                <div class="modal-header">
-                    <h3 class="modal-title">सहभागी QR ब्याज</h3>
-                    <button class="modal-close" onclick="closeActiveModals()">×</button>
-                </div>
-                <div class="modal-body text-center" id="qr-badge-print-area">
-                    <div style="border: 2px solid var(--gold); border-radius: var(--radius-md); padding: 1.5rem; background: #fff; color: #000; box-shadow: var(--shadow-md);">
-                        <h3 style="color: var(--primary); font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem;">IGNITER TEAM</h3>
-                        <p style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold); font-weight: bold; margin-bottom: 1rem;">बाइबल पढ कण्ठस्त प्रतियोगिता</p>
-                        
-                        <div style="display: flex; justify-content: center; margin: 1rem 0;">
-                            ${qrSvg}
-                        </div>
-                        
-                        <h2 style="font-size: 1.4rem; color: #333; margin-top: 0.5rem;">${p.name_ne}</h2>
-                        <p style="font-size: 0.9rem; color: #666; font-weight: 600;">मण्डली: ${p.church_name}</p>
-                        <span class="role-badge" style="background: rgba(10,48,100,0.1); color: var(--primary); border: 1px solid var(--primary); margin-top: 0.5rem; display: inline-block;">
-                            ${illaka ? illaka.name_ne : ''}
-                        </span>
-                    </div>
-                </div>
-                <div class="modal-footer no-print">
-                    <button class="btn btn-outline" onclick="closeActiveModals()">बन्द गर्नुहोस्</button>
-                    <button class="btn btn-primary" onclick="printQrBadge()">🖨️ प्रिन्ट गर्नुहोस्</button>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(modal);
-    };
-
-    window.printQrBadge = function() {
-        const printContent = document.getElementById('qr-badge-print-area').innerHTML;
-        const originalContent = document.body.innerHTML;
-        
-        document.body.innerHTML = `
-            <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 2rem;">
-                <div style="width: 350px;">${printContent}</div>
-            </div>
-        `;
-        window.print();
-        // Restore SPA State by reloading or triggering SPA router navigate to current tab
-        location.reload();
-    };
+    // QR Badge functions removed
 
     // Show Certificate Viewer Modal
     window.viewCertificateModal = function(participantId, isParticipation = false) {
