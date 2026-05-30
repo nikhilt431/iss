@@ -1322,6 +1322,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     document.body.appendChild(modal);
                 }
+            } else {
+                // Show a premium helpful error modal if the participant doesn't exist in this browser's database (common deployment sync issue)
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay';
+                modal.onclick = (e) => { if (e.target === modal) closeActiveModals(); };
+                modal.innerHTML = `
+                    <div class="modal-content" style="max-width: 410px; border-top: 4px solid var(--danger);">
+                        <div class="modal-header" style="background: var(--danger); border-bottom: none;">
+                            <h3 class="modal-title">⚠️ सहभागी फेला परेन (Not Found)</h3>
+                            <button class="modal-close" onclick="closeActiveModals()">×</button>
+                        </div>
+                        <div class="modal-body text-center" style="padding: 2rem 1.5rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍❌</div>
+                            <h3 style="color: var(--danger); margin-bottom: 0.75rem;">सहभागीको विवरण फेला परेन!</h3>
+                            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;">
+                                स्क्यान गरिएको QR कोडको सहभागी ID (<b>${qParticipantId}</b>) यस मोबाइल/उपकरणको स्थानीय डाटाबेसमा फेला परेन।
+                            </p>
+                            
+                            <div style="text-align: left; background: var(--bg-main); border: 1px solid var(--border); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; line-height: 1.45;">
+                                💡 <b>किन यसो भयो? (Why did this happen):</b><br>
+                                यो प्रतियोगिता <b>अफलाइन-फर्स्ट</b> (Offline-first) भएकोले डाटा सुरक्षित रूपमा तपाइँको ब्राउजरको <code>localStorage</code> मा मात्र भण्डारण हुन्छ।<br><br>
+                                🔄 <b>यसलाई कसरी मिलाउने (How to Sync):</b><br>
+                                १. जुन कम्प्युटरमा सहभागी दर्ता गर्नुभएको थियो, त्यसको <b>एडमिन प्यानल</b>मा जानुहोस्।<br>
+                                २. <b>🛠️ प्रणाली सेटिङ र ब्याकअप</b> मा गई <b>ब्याकअप JSON डाउनलोड गर्नुहोस्</b>।<br>
+                                ३. त्यसपछि यो फोनको एडमिन प्यानलमा आई उक्त ब्याकअप फाइल <b>पुनर्स्थापना (Restore)</b> गर्नुहोस्।
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" style="width: 100%;" onclick="closeActiveModals()">बन्द गर्नुहोस् (Close)</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
             }
         }, 150);
     }
