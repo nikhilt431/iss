@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बाइबल पढ कण्ठस्त प्रतियोगिता - इग्नाइटर टिम</title>
+    <meta name="description" content="इग्नाइटर टिमद्वारा आयोजित बाइबल पढ कण्ठस्त प्रतियोगिताको आधिकारिक लाइभ ड्यासबोर्ड।">
+    
+    <!-- Design Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <!-- Google Identity Services client script for real integration drop-in -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- HEADER brand section -->
+        <header>
+            <div class="nav-wrapper">
+                <div class="brand-section">
+                    <!-- Unified High-Fidelity Vector Logo for Igniter Team (Menorah + Serif IGNITER + Sub-banner) -->
+                    <svg class="brand-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 310" fill="none" style="height: 60px; width: auto;">
+                        <!-- Menorah Branches -->
+                        <g stroke="currentColor" stroke-width="6" stroke-linecap="round">
+                            <!-- Center shaft -->
+                            <path d="M250,150 L250,60" />
+                            <!-- Inner branch pair -->
+                            <path d="M250,115 C210,115 190,95 190,60" />
+                            <path d="M250,115 C290,115 310,95 310,60" />
+                            <!-- Middle branch pair -->
+                            <path d="M250,130 C170,130 140,100 140,60" />
+                            <path d="M250,130 C330,130 360,100 360,60" />
+                            <!-- Outer branch pair -->
+                            <path d="M250,145 C130,145 90,105 90,60" />
+                            <path d="M250,145 C370,145 410,105 410,60" />
+                            
+                            <!-- Pedestal stand base -->
+                            <path d="M220,170 H280 M250,145 V170" stroke-width="8" />
+                            <path d="M205,178 H295" stroke="var(--gold)" stroke-width="6" />
+                        </g>
+                        <!-- Droplet flames (Gold) -->
+                        <g fill="var(--gold)">
+                            <path d="M250,48 C253,42 250,32 250,32 C250,32 247,42 250,48 Z" />
+                            <path d="M190,48 C193,42 190,32 190,32 C190,32 187,42 190,48 Z" />
+                            <path d="M310,48 C313,42 310,32 310,32 C310,32 307,42 310,48 Z" />
+                            <path d="M140,48 C143,42 140,32 140,32 C140,32 137,42 140,48 Z" />
+                            <path d="M360,48 C363,42 360,32 360,32 C360,32 357,42 360,48 Z" />
+                            <path d="M90,48 C93,42 90,32 90,32 C90,32 87,42 90,48 Z" />
+                            <path d="M410,48 C413,42 410,32 410,32 C410,32 407,42 410,48 Z" />
+                        </g>
+                        <!-- Bold Serif "IGNITER" Text -->
+                        <text x="250" y="235" font-family="'Cinzel', 'Georgia', 'Times New Roman', serif" font-size="76" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="4">IGNITER</text>
+                        
+                        <!-- Bottom banner block background -->
+                        <rect x="10" y="258" width="480" height="46" fill="currentColor" rx="4" />
+                        
+                        <!-- Dashed line on left -->
+                        <line x1="25" y1="281" x2="235" y2="281" stroke="var(--gold)" stroke-width="4" stroke-dasharray="8 6" />
+                        
+                        <!-- White script text inside banner -->
+                        <text x="365" y="287" font-family="'Outfit', 'Comfortaa', 'Inter', sans-serif" font-size="14.5" font-weight="800" fill="var(--bg-card)" text-anchor="middle">into the way of Jesus Christ</text>
+                    </svg>
+                    
+                    <!-- Vertical Divider Line -->
+                    <div style="width: 2px; height: 48px; background: rgba(255, 255, 255, 0.2); margin: 0 0.5rem 0 0.25rem;" class="no-print"></div>
+
+                    <div class="brand-title-group">
+                        <h1 style="font-size: 1.15rem; font-weight: 700;">बाइबल पढ कण्ठस्त प्रतियोगिता</h1>
+                        <p style="font-size: 0.7rem; color: var(--gold); font-weight: bold; text-transform: uppercase;">प्रतियोगिता नियन्त्रण प्रणाली</p>
+                    </div>
+                </div>
+
+                <div class="nav-controls">
+                    <!-- Nav tabs -->
+                    <ul class="nav-links">
+                        <li><button class="nav-item-btn active" id="nav-home">🏠 ड्यासबोर्ड</button></li>
+                        <li><button class="nav-item-btn" id="nav-live-score">🏆 लाइभ नतिजा</button></li>
+                        <li><button class="nav-item-btn" id="nav-participants">सहभागीहरू</button></li>
+                        <li><button class="nav-item-btn" id="nav-downloads">📥 डाउनलोडहरू</button></li>
+                        <li><button class="nav-item-btn" id="nav-notices">🔔 सूचना बोर्ड</button></li>
+                        <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
+                        <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
+                    </ul>
+
+                    <!-- Bilingual Language Selector Dropdown -->
+                    <div class="lang-switch-wrapper" style="margin-left: 0.75rem; margin-right: 0.5rem;">
+                        <select id="lang-select" style="padding: 0.3rem 0.6rem; font-size: 0.85rem; font-family: var(--font-heading); font-weight: 700; width: auto; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1.5px solid var(--gold); border-radius: var(--radius-sm); cursor: pointer; outline: none; transition: var(--transition);">
+                            <option value="ne" style="color: #000;" selected>🇳🇵 नेपाली</option>
+                            <option value="en" style="color: #000;">🇺🇸 English</option>
+                        </select>
+                    </div>
+
+                    <!-- Theme Selector -->
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="theme-toggle">
+                            <input type="checkbox" id="theme-toggle" />
+                            <div class="slider-round"></div>
+                        </label>
+                    </div>
+
+                    <!-- Role Badge / Auth Button -->
+                    <span class="role-badge" id="user-role-badge">दर्शक (Viewer)</span>
+                    <button class="btn btn-gold btn-sm" id="nav-login">🔑 लगइन</button>
+                    <button class="btn btn-danger btn-sm hidden" id="logout-btn">🚪 बाहिरिनुहोस्</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Live Announcement Ticker -->
+        <div class="ticker-wrap">
+            <div class="ticker-title">लाइभ अपडेट</div>
+            <div class="ticker">
+                <div id="ticker-marquee" style="display: flex;">
+                    <!-- notices loaded dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN APP CONTENT PANELS -->
+        <main>
+            
+            <!-- SECTION 1: HOME PAGE / DASHBOARD -->
+            <section id="section-home">
+                
+                <!-- Main Header Title Cards -->
+                <div class="card card-accent" style="margin-bottom: 2rem; text-align: center; background: radial-gradient(circle, rgba(10,48,100,0.05) 0%, transparent 80%), var(--bg-card);">
+                    <h2 id="home-event-title" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 0.5rem;">बाइबल पढ कण्ठस्त प्रतियोगिता २०८३</h2>
+                    <p id="home-event-subtitle" style="font-size: 1.1rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">इग्नाइटर टिम (Igniter Team)</p>
+                    
+                    <!-- Countdown timer -->
+                    <div style="margin-top: 2rem;">
+                        <h4 id="countdown-title" style="font-size: 0.95rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">प्रतियोगिता सुरु हुन बाँकी समय</h4>
+                        <div class="countdown-container">
+                            <div class="countdown-box">
+                                <div class="countdown-value" id="cd-days">००</div>
+                                <div class="countdown-label">दिन</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-value" id="cd-hours">००</div>
+                                <div class="countdown-label">घण्टा</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-value" id="cd-minutes">००</div>
+                                <div class="countdown-label">मिनेट</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-value" id="cd-seconds">००</div>
+                                <div class="countdown-label">सेकेन्ड</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Widgets Grid -->
+                <div class="card-grid">
+                    <!-- Widget 1: Total Participants -->
+                    <div class="card card-accent">
+                        <div class="widget-title">कुल सहभागीहरू (Total Participants)</div>
+                        <div class="widget-value" id="widget-total-participants">०</div>
+                        <div class="widget-desc">प्रतियोगितामा दर्ता भएका जम्मा प्रतिस्पर्धी</div>
+                    </div>
+
+                    <!-- Widget 2: Total Illakas -->
+                    <div class="card card-accent">
+                        <div class="widget-title">सम्बद्ध इलाकाहरू (Total Regions)</div>
+                        <div class="widget-value" id="widget-total-illakas">०</div>
+                        <div class="widget-desc">४ इलाकाहरू र थप नयाँ क्षेत्रहरू</div>
+                    </div>
+
+                    <!-- Widget 3: Top Scorer -->
+                    <div class="card card-accent card-champion">
+                        <div class="champion-ribbon">👑</div>
+                        <div class="widget-title">सर्वोत्कृष्ट प्रतियोगी (Top Scorer)</div>
+                        <div class="widget-value" id="widget-top-scorer">N/A</div>
+                        <div class="widget-desc" id="widget-top-scorer-desc">अझै मूल्याङ्कन भएको छैन</div>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Top 3 Section -->
+                <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                    🏆 शीर्ष ३ विजेताहरू (Top 3 Leaderboard)
+                </h2>
+                <div class="card-grid" id="top-3-leaderboard">
+                    <!-- Dynamic rendering -->
+                </div>
+
+                <!-- Prizes Showcase Section -->
+                <div style="margin-top: 2rem;">
+                    <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                        🎁 प्रतियोगिताका पुरस्कारहरू (Prizes)
+                    </h2>
+                    <div class="card-grid" id="public-prizes-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                        <!-- Dynamic rendering -->
+                    </div>
+                </div>
+
+                <!-- Recent announcements box -->
+                <div style="margin-top: 2.5rem;">
+                    <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                        📢 भर्खरैका सूचनाहरू (Recent Updates)
+                    </h2>
+                    <div id="recent-notices-container">
+                        <!-- Dynamic notices -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECTION 2: LIVE SCORE & RANKINGS BOARD -->
+            <section id="section-live-score" class="hidden">
+                <div class="action-row">
+                    <div>
+                        <h2 style="color: var(--primary); font-size: 1.5rem;">लाइभ स्कोरबोर्ड र श्रेणीकरण (Live Rankings)</h2>
+                        <span id="score-lock-indicator" class="role-badge success" style="margin-top: 0.25rem; display: inline-block;">🟢 लाइभ अंक प्रविष्टि खुला छ</span>
+                    </div>
+                    <div class="flex-center" style="gap: 0.75rem;">
+                        <button class="btn btn-outline" onclick="exportLiveScoresToExcel()">📊 Excel/CSV डाउनलोड</button>
+                        <button class="btn btn-primary" onclick="printResults()">🖨️ नतिजा प्रिन्ट गर्नुहोस्</button>
+                    </div>
+                </div>
+
+                <!-- Score Board Table -->
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>स्थान (Rank)</th>
+                                <th>सहभागीको नाम (Name)</th>
+                                <th>मण्डली (Church)</th>
+                                <th>इलाका (Area)</th>
+                                <th>श्रेणीगत अंक (Score Categories Breakdown)</th>
+                                <th>कुल प्राप्त अंक (Total)</th>
+                                <th class="no-print">कार्य (Action)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="live-score-table-body">
+                            <!-- Dynamically loaded score rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 3: PARTICIPANTS GALLERY DIRECTORY -->
+            <section id="section-participants" class="hidden">
+                <div class="action-row">
+                    <h2 style="color: var(--primary); font-size: 1.5rem;">प्रतिस्पर्धी सूची (Participants Directory)</h2>
+                    <div class="filter-group">
+                        <div class="search-input-wrapper">
+                            <input type="text" id="p-search-input" class="form-control" placeholder="🔍 सहभागीको नाम वा मण्डलीबाट खोज्नुहोस्...">
+                        </div>
+                        <select id="p-filter-illaka" class="form-control" style="width: auto;">
+                            <option value="">सबै इलाकाहरू (All Areas)</option>
+                            <!-- Dynamically preseeded options -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Grid of competitors cards -->
+                <div class="card-grid" id="public-participants-grid">
+                    <!-- Dynamic cards -->
+                </div>
+            </section>
+
+            <!-- SECTION 4: DOWNLOADS SECTION -->
+            <section id="section-downloads" class="hidden">
+                <h2 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                    📥 निर्देशिका र सामग्री डाउनलोड (Downloads Section)
+                </h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">प्रतियोगितासम्बन्धी नियमहरू, बाइबल खण्डहरू र कार्यतालिकाहरू यहाँबाट डाउनलोड गर्न सक्नुहुन्छ।</p>
+                
+                <div class="card-grid" id="public-downloads-grid">
+                    <!-- Dynamic material cards -->
+                </div>
+            </section>
+
+            <!-- SECTION 5: NOTICES SECTION -->
+            <section id="section-notices" class="hidden">
+                <h2 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                    🔔 आधिकारिक सूचना बोर्ड (Notice Board)
+                </h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमसम्बन्धी पछिल्ला निर्णय तथा सूचनाहरू यहाँ प्रकाशन गरिन्छ।</p>
+                
+                <div id="public-notices-container">
+                    <!-- Dynamic notice bulletin cards -->
+                </div>
+            </section>
+
+            <!-- SECTION 6: SECURE AUTH LOGIN PAGE -->
+            <section id="section-login" class="hidden">
+                <div style="max-width: 400px; margin: 3rem auto;" class="card card-accent">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <h2 style="color: var(--primary); font-size: 1.6rem;">सुरक्षित प्रणाली लगइन</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">एडमिन वा निर्णायक (Judge) विवरण प्रविष्ट गर्नुहोस्</p>
+                    </div>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label class="form-label" for="login-username">युजरनेम (Username):</label>
+                            <input type="text" class="form-control" id="login-username" required placeholder="admin वा judge">
+                        </div>
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                                <label class="form-label" for="login-password" style="margin-bottom: 0;">पासवर्ड (Password):</label>
+                                <a href="#" id="forgot-password-btn" style="font-size: 0.8rem; color: var(--gold); text-decoration: none; font-weight: bold; transition: var(--transition);">पासवर्ड बिर्सनुभयो?</a>
+                            </div>
+                            <input type="password" class="form-control" id="login-password" required placeholder="पासवर्ड">
+                        </div>
+                        <div style="margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">🚪 प्रणालीमा प्रवेश गर्नुहोस्</button>
+                        </div>
+                    </form>
+                    
+                    <div style="margin-top: 1.5rem; background: var(--bg-main); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.8rem;">
+                        <p style="font-weight: bold; margin-bottom: 0.25rem;">🔑 परीक्षणका लागि साख विवरण (Credentials):</p>
+                        <p>• <b>एडमिन:</b> admin / admin123</p>
+                        <p>• <b>निर्णायक:</b> judge / judge123</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: JUDGE SCORE EVALUATION PORTAL -->
+            <section id="section-judge" class="hidden">
+                <div class="action-row">
+                    <div>
+                        <h2 style="color: var(--primary); font-size: 1.5rem;">निर्णायक अंक प्रविष्टि तालिका (Judges Portal)</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">सहभागी चयन गरी तत्काल श्रेणीगत अंक प्रविष्ट गर्नुहोस्।</p>
+                    </div>
+                    <div class="flex-center" style="gap: 1rem;">
+                        <!-- Offline drafts sync badge indicator -->
+                        <button class="btn btn-gold btn-sm hidden" id="offline-drafts-badge" onclick="window.judgePanel.syncOfflineDrafts()">
+                            0 Drafts to sync
+                        </button>
+                        
+                        <select id="judge-status-filter" class="form-control" style="width: auto;">
+                            <option value="all">सबै सहभागीहरू (All)</option>
+                            <option value="pending" selected>मूल्यांकन बाँकी (Pending)</option>
+                            <option value="evaluated">मूल्यांकन गरिएका (Evaluated)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Competitor evaluation rows -->
+                <div id="judge-participants-list">
+                    <!-- Dynamic evaluation cards -->
+                </div>
+            </section>
+
+            <!-- SECTION 8: ADMINISTRATIVE CRUD CONTROL PANEL -->
+            <section id="section-admin" class="hidden">
+                <div class="action-row" style="background-color: var(--primary); border: none;">
+                    <h2 style="color: #fff; font-size: 1.5rem;">⚙️ नियन्त्रण कक्ष (Admin Panel)</h2>
+                    <span class="role-badge" style="background: rgba(255,255,255,0.2); color: white; border-color: white;">सुपर एडमिन</span>
+                </div>
+
+                <!-- Sidebar navigation and Content row -->
+                <div style="display: grid; grid-template-columns: 240px 1fr; gap: 2rem; margin-top: 1.5rem;">
+                    <!-- Sidebar list -->
+                    <aside class="no-print" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <button class="btn btn-outline admin-subnav-btn active" data-tab="participants" style="justify-content: flex-start;">👥 सहभागी व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="illakas" style="justify-content: flex-start;">📍 इलाका व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="notices" style="justify-content: flex-start;">📢 सूचना व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="materials" style="justify-content: flex-start;">📁 फाइल डाउनलोड व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="prizes" style="justify-content: flex-start;">🏆 पुरस्कार व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="settings" style="justify-content: flex-start;">🛠️ प्रणाली सेटिङ र ब्याकअप</button>
+                    </aside>
+
+                    <!-- Main CRUD bodies -->
+                    <div style="min-width: 0;">
+                        
+                        <!-- Admin Subtab 1: Participants CRUD -->
+                        <div class="admin-tab-content" id="admin-tab-participants">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">सहभागी व्यवस्थापन</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openParticipantModal()">➕ नयाँ सहभागी थप्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>फोटो</th>
+                                            <th>सहभागी नाम</th>
+                                            <th>मण्डली</th>
+                                            <th>इलाका</th>
+                                            <th>उमेर समुह</th>
+                                            <th>स्थिति (Status)</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-participants-table-body">
+                                        <!-- Loaded dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab 2: Illaka CRUD -->
+                        <div class="admin-tab-content hidden" id="admin-tab-illakas">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">इलाका (क्षेत्र) व्यवस्थापन</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openIllakaModal()">➕ नयाँ इलाका थप्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>इलाका नाम (Region Area)</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-illakas-table-body">
+                                        <!-- Loaded dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab 3: Notices Publishing -->
+                        <div class="admin-tab-content hidden" id="admin-tab-notices">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">सूचना बोर्ड नियन्त्रण</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openNoticeModal()">➕ नयाँ सूचना प्रकाशित गर्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>शीर्षक</th>
+                                            <th>पूर्ण विवरण</th>
+                                            <th>स्थिति</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-notices-table-body">
+                                        <!-- Loaded dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab 4: Materials Upload -->
+                        <div class="admin-tab-content hidden" id="admin-tab-materials">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">डाउनलोड फाइल व्यवस्थापन</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openMaterialModal()">➕ नयाँ फाइल अपलोड गर्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>फाइलको नाम</th>
+                                            <th>प्रकार</th>
+                                            <th>साइज</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-materials-table-body">
+                                        <!-- Loaded dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab: Prizes CRUD -->
+                        <div class="admin-tab-content hidden" id="admin-tab-prizes">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">🏆 पुरस्कार व्यवस्थापन (Prizes)</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openPrizeModal()">➕ नयाँ पुरस्कार थप्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>पुरस्कार शीर्षक</th>
+                                            <th>रकम / उपहार</th>
+                                            <th>थप विवरण</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-prizes-table-body">
+                                        <!-- Dynamic prizes rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab 5: Event Settings & Backup manager -->
+                        <div class="admin-tab-content hidden" id="admin-tab-settings">
+                            <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+                                🛠️ प्रतियोगिता कन्फिगरेसन सेटिङ
+                            </h3>
+                            
+                            <form id="admin-settings-form" onsubmit="window.adminPanel.saveSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+                                <div class="form-group">
+                                    <label class="form-label">प्रतियोगिताको नाम (Event Name):</label>
+                                    <input type="text" id="set-event-title" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">सहायक शीर्षक (Subtitle / Organiser):</label>
+                                    <input type="text" id="set-event-subtitle" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">कार्यक्रम हुने मिति र समय (Target Event Date):</label>
+                                    <input type="datetime-local" id="set-event-date" class="form-control" required>
+                                </div>
+                                <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+                                    <input type="checkbox" id="set-event-lock" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <label for="set-event-lock" style="font-weight: 600; cursor: pointer;">🔐 निर्णायक स्कोर प्रविष्टि लक गर्नुहोस् (Lock score entries)</label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">💾 सेटिङ सुरक्षित गर्नुहोस्</button>
+                            </form>
+
+
+                            <!-- Auth Settings Form -->
+                            <h3 style="color: var(--primary); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+                                🔐 सुरक्षा र पासवर्ड सेटिङ (Security & Passwords)
+                            </h3>
+                            <form id="admin-auth-settings-form" onsubmit="window.adminPanel.saveAuthSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+                                <div class="form-group">
+                                    <label class="form-label">नयाँ एडमिन पासवर्ड (Admin Password):</label>
+                                    <input type="password" id="set-admin-pass" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">एडमिन रिकभरी ईमेल (Admin Google Recovery Email):</label>
+                                    <input type="email" id="set-admin-email" class="form-control" placeholder="admin@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">नयाँ निर्णायक पासवर्ड (Judge Password):</label>
+                                    <input type="password" id="set-judge-pass" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">निर्णायक रिकभरी ईमेल (Judge Google Recovery Email):</label>
+                                    <input type="email" id="set-judge-email" class="form-control" placeholder="judge@gmail.com">
+                                </div>
+                                <button type="submit" class="btn btn-gold" style="margin-top: 1rem;">🔑 पासवर्ड सुरक्षित गर्नुहोस्</button>
+                            </form>
+
+                            <!-- Customizable Certificates Form -->
+                            <h3 style="color: var(--primary); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+                                🎓 प्रशंसा-पत्र अनुकूलन सेटिङ (Customize Event Certificate)
+                            </h3>
+                            <form id="admin-certificate-form" onsubmit="window.adminPanel.saveCertificateSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+                                <div class="form-group">
+                                    <label class="form-label">प्रमाणपत्र बोर्डर र थिम रङ (Theme Border Color):</label>
+                                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                        <input type="color" id="cert-theme-color" class="form-control" style="width: 60px; height: 42px; padding: 0.2rem; cursor: pointer;" required>
+                                        <span style="font-size: 0.85rem; color: var(--text-muted);">बोर्डर र मुख्य ब्रान्डको रङ छनोट गर्नुहोस्</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">संस्थाको लोगो (Custom Logo Image):</label>
+                                    <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
+                                        <input type="file" id="cert-logo-file" class="form-control" accept="image/*" onchange="window.adminPanel.previewCertImage(this, 'cert-logo-preview')">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="window.adminPanel.removeCertImage('cert-logo-file', 'cert-logo-preview')" title="Remove">🗑️</button>
+                                    </div>
+                                    <img id="cert-logo-preview" style="display: none; max-height: 60px; margin-top: 0.5rem;" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">वाटरमार्क (Background Watermark Image):</label>
+                                    <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
+                                        <input type="file" id="cert-watermark-file" class="form-control" accept="image/*" onchange="window.adminPanel.previewCertImage(this, 'cert-watermark-preview')">
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="window.adminPanel.removeCertImage('cert-watermark-file', 'cert-watermark-preview')" title="Remove">🗑️</button>
+                                    </div>
+                                    <img id="cert-watermark-preview" style="display: none; max-height: 100px; margin-top: 0.5rem;" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">प्रमाणपत्र शीर्षक - नेपाली (Certificate Title - NE):</label>
+                                    <input type="text" id="cert-title-ne" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Certificate Title - English (EN):</label>
+                                    <input type="text" id="cert-title-en" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">प्रमाणपत्र विवरण - नेपाली (NE):</label>
+                                    <textarea id="cert-desc-ne" class="form-control" rows="3" required></textarea>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">* कुल अंक देखाउन <b>{score}</b> र स्थान देखाउन <b>{rank}</b> ट्याग राख्नुहोस्।</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Certificate Description - English (EN):</label>
+                                    <textarea id="cert-desc-en" class="form-control" rows="3" required></textarea>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted);">* Use <b>{score}</b> for marks obtained and <b>{rank}</b> for achieved position.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">बाइबल खण्ड वाटरमार्क - नेपाली (Scripture - NE):</label>
+                                    <input type="text" id="cert-verse-ne" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Scripture Watermark - English (EN):</label>
+                                    <input type="text" id="cert-verse-en" class="form-control" required>
+                                </div>
+                                
+                                <div id="admin-signatories-container">
+                                    <!-- Dynamic signatories -->
+                                </div>
+                                <button type="button" class="btn btn-outline btn-sm" onclick="window.adminPanel.addSignatoryField()" style="margin-bottom: 1.5rem;">➕ थप हस्ताक्षरकर्ता (Add Signatory)</button>
+
+                                <div>
+                                    <button type="submit" class="btn btn-gold" style="margin-top: 0.5rem;">🎓 प्रमाणपत्र थिम सुरक्षित गर्नुहोस्</button>
+                                </div>
+                            </form>
+
+                            <!-- Backup and Restore Data -->
+                            <h3 style="color: var(--danger); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+                                💾 डाटा ब्याकअप र पुनर्स्थापना (System Backup & Restore)
+                            </h3>
+                            <div class="card" style="border-color: rgba(239, 68, 68, 0.2);">
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                                    यस खण्डबाट तपाईं पूरै प्रणालीको डाटाब्याकअप डाउनलोड गर्न सक्नुहुन्छ र आवश्यक परेमा कुनै पनि ब्याकअप फाइल लोड गरी पुनर्स्थापना (Restore) गर्न सक्नुहुन्छ।
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                                    <button class="btn btn-primary" onclick="window.adminPanel.triggerBackupDownload()">📥 ब्याकअप JSON डाउनलोड गर्नुहोस्</button>
+                                    
+                                    <div style="position: relative;">
+                                        <button class="btn btn-gold">📤 JSON ब्याकअप लोड गर्नुहोस्</button>
+                                        <input type="file" accept=".json" onchange="window.adminPanel.triggerRestore(this)" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+                                    </div>
+                                    
+                                    <button class="btn btn-danger" onclick="window.adminPanel.triggerResetDb()">⚠️ पूर्ण फ्याक्ट्री रिसेट</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER branding Section -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo-text">
+                    ⛪ <span>Bible पढ कण्ठस्त प्रतियोगिता</span>
+                </div>
+                <p>प्रविधि विकास र व्यवस्थापन: इग्नाइटर टिम (Igniter Team) | © २०२६। सबै अधिकार सुरक्षित।</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">"तेरो वचन मेरो पाइलाका निम्ति बत्ती, मेरो बाटोका निम्ति उज्यालो हो।" - भजनसंग्रह ११९:१०५</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then((reg) => console.log('PWA Service Worker registered successfully', reg.scope))
+                    .catch((err) => console.error('PWA Service Worker registration failed', err));
+            });
+        }
+    </script>
+
+    <!-- Project Execution JS Module Assets -->
+    <script src="js/db.js"></script>
+    <script src="js/qrcode.js"></script>
+    <script src="js/certificate.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/judge.js"></script>
+    <script src="js/admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    /* Premium Christian Theme (Royal Blue + Gold + White) */
+    --primary: #0a3064;         /* Royal Dark Blue */
+    --primary-light: #164e8e;   /* Medium Blue */
+    --primary-rgb: 10, 48, 100;
+    --gold: #d4af37;            /* Radiant Gold */
+    --gold-light: #f3e5ab;      /* Creamy Pale Gold */
+    --gold-rgb: 212, 175, 55;
+    --bg-main: #f8fafc;         /* Pure Soft Slate White */
+    --bg-card: #ffffff;         /* Clean White Card */
+    --text-main: #0f172a;       /* Slate Dark 900 */
+    --text-muted: #64748b;      /* Slate Grey 500 */
+    --border: #e2e8f0;          /* Clean Slate 200 */
+    
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    
+    --font-heading: 'Outfit', 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(10, 48, 100, 0.05), 0 4px 6px -2px rgba(10, 48, 100, 0.02);
+    --shadow-premium: 0 20px 25px -5px rgba(10, 48, 100, 0.1), 0 10px 10px -5px rgba(10, 48, 100, 0.04);
+    
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode Variable Overrides */
+[data-theme="dark"] {
+    --bg-main: #070f1e;         /* Sacred Deep Navy */
+    --bg-card: #0f1c35;         /* Spiritual Slate Blue */
+    --text-main: #f1f5f9;       /* Cream White */
+    --text-muted: #94a3b8;      /* Light Slate Grey */
+    --border: rgba(212, 175, 55, 0.15); /* Delicate gold-tint borders */
+    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --shadow-premium: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: var(--transition);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* Layout Framework */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Brand Navigation */
+header {
+    background-color: var(--primary);
+    color: #ffffff;
+    border-bottom: 3px solid var(--gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+header[data-theme="dark"] {
+    background-color: #050b16;
+}
+
+.nav-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.brand-logo-svg {
+    height: 48px;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.brand-title-group h1 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.brand-title-group p {
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+}
+
+.nav-item-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-item-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gold);
+}
+
+.nav-item-btn.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+}
+
+/* User Role Indicator Badge */
+.role-badge {
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* Main Content Wrapper */
+main {
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    transition: var(--transition);
+}
+
+/* Footer Section */
+footer {
+    background-color: #07152b;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.footer-logo-text {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-logo-text span {
+    color: var(--gold);
+}
+
+/* Utility Helpers */
+.hidden {
+    display: none !important;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Base Print Optimization */
+@media print {
+    header, footer, .no-print, .nav-controls, .action-row, button, .modal, .toast {
+        display: none !important;
+    }
+    
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+    
+    main {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    .card {
+        border: 1px solid #000000 !important;
+        box-shadow: none !important;
+        background: #ffffff !important;
+        page-break-inside: avoid;
+    }
+}
