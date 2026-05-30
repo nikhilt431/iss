@@ -178,8 +178,12 @@ class LocalDatabase {
     save() {
         try {
             localStorage.setItem(DB_KEY, JSON.stringify(this.state));
-            // Trigger a storage event to alert other tabs if running multi-screen dashboard
+            // Notify other tabs on the same browser
             window.dispatchEvent(new Event('db_updated'));
+            // Push to Firebase so ALL viewers get the update
+            if (window.FirebaseSync) {
+                window.FirebaseSync.pushToCloud(this.state);
+            }
         } catch (e) {
             console.error('Database write error:', e);
         }
@@ -535,3 +539,11 @@ const db = new LocalDatabase();
 
 // Export to window object for access in SPAs
 window.db = db;
+
+// Start Firebase real-time sync AFTER window.db is ready
+// FirebaseSync is defined in js/firebase-sync.js (loaded before this file)
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.FirebaseSync) {
+        window.FirebaseSync.init();
+    }
+});

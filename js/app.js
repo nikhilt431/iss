@@ -330,6 +330,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make router available globally
     window.spaRouter = { navigateTo };
 
+    // ── Auto-refresh when Firebase pushes a live update ──────────────────
+    // This fires on every device/browser that has the page open.
+    window.addEventListener('db_updated', () => {
+        const activeBtn = document.querySelector('.nav-item-btn.active');
+        if (activeBtn) {
+            const navId = activeBtn.id;
+            // Re-render data for the current section only (no full page reload)
+            if (navId === 'nav-home') {
+                renderDashboardStats();
+                renderPublicTop3();
+                renderPublicNotices();
+                renderPublicPrizes();
+                renderLiveScoreBoard();
+            } else if (navId === 'nav-live-score') {
+                renderLiveScores();
+            } else if (navId === 'nav-participants') {
+                renderPublicParticipants();
+            } else if (navId === 'nav-notices') {
+                renderPublicNotices();
+            } else if (navId === 'nav-admin') {
+                if (window.adminPanel) window.adminPanel.init();
+            } else if (navId === 'nav-judge') {
+                if (window.judgePanel) window.judgePanel.init();
+            }
+        }
+        // Always refresh ticker
+        renderTicker();
+    });
+
+
     // 3. User Mock Authentication System
     const loginForm = document.getElementById('login-form');
     const roleBadge = document.getElementById('user-role-badge');

@@ -653,6 +653,13 @@
         }
     </script>
 
+    <!-- Firebase v9 Compat SDK (enables real-time sync for all viewers) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Sync Layer (must load BEFORE db.js) -->
+    <script src="js/firebase-sync.js"></script>
+
     <!-- Project Execution JS Module Assets -->
     <script src="js/db.js"></script>
     <script src="js/qrcode.js"></script>
