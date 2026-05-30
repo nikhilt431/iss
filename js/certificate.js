@@ -181,7 +181,7 @@ window.CertificateGenerator = {
         if (isParticipation) {
             descTemplate = lang === 'en' 
                 ? 'is proudly awarded this certificate for successfully participating in the "Bible Memorization Contest 2026" organized by Igniter Team. We appreciate your effort and dedication.'
-                : 'लाई इग्नाइटर टिमद्वारा आयोजित "बाइबल पढ कण्ठस्त प्रतियोगिता २०८३" मा सफलतापूर्वक सहभागी हुनुभएकोमा यो प्रमाणपत्र प्रदान गरिएको छ। उहाँको प्रयास र समर्पणको हामी उच्च कदर गर्दछौं।';
+                : 'लाई इग्नाइटर टिमद्वारा आयोजित "बाइबल पद कण्ठस्थ प्रतियोगिता २०८३" मा सफलतापूर्वक सहभागी हुनुभएकोमा यो प्रमाणपत्र प्रदान गरिएको छ। उहाँको प्रयास र समर्पणको हामी उच्च कदर गर्दछौं।';
         } else {
             // Parse placeholders for achievement
             descTemplate = descTemplate.replace(/{score}/g, score).replace(/{rank}/g, rank);

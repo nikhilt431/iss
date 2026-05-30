@@ -16,7 +16,7 @@ const INITIAL_DATA = {
         { id: 'c2', name_ne: 'गति (Speed)', name_en: 'Speed', max_marks: 20 },
         { id: 'c3', name_ne: 'उच्चारण (Pronunciation)', name_en: 'Pronunciation', max_marks: 20 },
         { id: 'c4', name_ne: 'आत्मविश्वास (Confidence)', name_en: 'Confidence', max_marks: 15 },
-        { id: 'c5', name_ne: 'कण्ठस्त स्तर (Memorization Level)', name_en: 'Memorization Level', max_marks: 15 }
+        { id: 'c5', name_ne: 'कण्ठस्थ स्तर (Memorization Level)', name_en: 'Memorization Level', max_marks: 15 }
     ],
     participants: [
         {
@@ -82,7 +82,7 @@ const INITIAL_DATA = {
     ],
     scores: [
         // Abhishek Rai scores (Total: 88)
-        { id: 's1', participant_id: 'p1', category_id: 'c1', judge_name: 'पास्टर प्रकाश लिम्बु', marks_obtained: 27, comments: 'अति राम्रो कण्ठस्त' },
+        { id: 's1', participant_id: 'p1', category_id: 'c1', judge_name: 'पास्टर प्रकाश लिम्बु', marks_obtained: 27, comments: 'अति राम्रो कण्ठस्थ' },
         { id: 's2', participant_id: 'p1', category_id: 'c2', judge_name: 'पास्टर प्रकाश लिम्बु', marks_obtained: 18, comments: '' },
         { id: 's3', participant_id: 'p1', category_id: 'c3', judge_name: 'पास्टर प्रकाश लिम्बु', marks_obtained: 17, comments: '' },
         { id: 's4', participant_id: 'p1', category_id: 'c4', judge_name: 'पास्टर प्रकाश लिम्बु', marks_obtained: 13, comments: '' },
@@ -117,10 +117,10 @@ const INITIAL_DATA = {
     materials: [
         { id: 'm1', title_ne: 'प्रतियोगिता नियम र निर्देशिका २०२६ (PDF)', file_type: 'PDF', file_size: '1.2 MB', file_url: '#' },
         { id: 'm2', title_ne: 'प्रतिस्पर्धाको पूर्ण कार्यतालिका (Schedule Image)', file_type: 'Image', file_size: '850 KB', file_url: '#' },
-        { id: 'm3', title_ne: 'कण्ठस्त गर्नुपर्ने मुख्य बाइबल खण्डहरू (Text)', file_type: 'DOC', file_size: '140 KB', file_url: '#' }
+        { id: 'm3', title_ne: 'कण्ठस्थ गर्नुपर्ने मुख्य बाइबल खण्डहरू (Text)', file_type: 'DOC', file_size: '140 KB', file_url: '#' }
     ],
     event_settings: {
-        title_ne: 'बाइबल पढ कण्ठस्त प्रतियोगिता २०८३',
+        title_ne: 'बाइबल पद कण्ठस्थ प्रतियोगिता २०८३',
         subtitle_ne: 'इग्नाइटर टिम (Igniter Team)',
         event_date: new Date(Date.now() + 10 * 3600 * 1000 * 24).toISOString(), // 10 days in future
         lock_scores: false,
@@ -129,7 +129,7 @@ const INITIAL_DATA = {
     certificate_settings: {
         title_ne: 'प्रशंसा-पत्र',
         title_en: 'Certificate of Appreciation',
-        description_ne: 'लाई इग्नाइटर टिमद्वारा आयोजित "बाइबल पढ कण्ठस्त प्रतियोगिता २०८३" मा कुल अंक {score} प्राप्त गरी {rank} स्थान हासिल गर्नुभएकोमा उहाँको अथक प्रयास र बाइबल कण्ठस्तको उच्च सम्मान गर्दै यो प्रमाणपत्र प्रदान गरिएको छ।',
+        description_ne: 'लाई इग्नाइटर टिमद्वारा आयोजित "बाइबल पद कण्ठस्थ प्रतियोगिता २०८३" मा कुल अंक {score} प्राप्त गरी {rank} स्थान हासिल गर्नुभएकोमा उहाँको अथक प्रयास र बाइबल कण्ठस्थको उच्च सम्मान गर्दै यो प्रमाणपत्र प्रदान गरिएको छ।',
         description_en: 'is proudly awarded this certificate for successfully competing in the "Bible Memorization Contest 2026" organized by Igniter Team, scoring a total of {score} marks and achieving the {rank} rank. In recognition of their outstanding dedication and memorization excellence.',
         verse_ne: '"तपाईंको वचन मेरो खुट्टाको निम्ति बत्ती र मेरो बाटोको निम्ति उज्यालो हो।" - भजनसंग्रह ११९:१०५',
         verse_en: '"Your word is a lamp for my feet, a light on my path." - Psalm 119:105',
@@ -165,6 +165,25 @@ class LocalDatabase {
                 this.state = JSON.parse(dataStr);
                 // Ensure all fields exist
                 this.state = { ...INITIAL_DATA, ...this.state };
+                
+                // Auto-fix spelling mistakes if they are cached in localStorage
+                if (this.state.event_settings) {
+                    if (this.state.event_settings.title_ne.includes('पढ')) {
+                        this.state.event_settings.title_ne = this.state.event_settings.title_ne.replace(/पढ/g, 'पद');
+                    }
+                    if (this.state.event_settings.title_ne.includes('कण्ठस्त')) {
+                        this.state.event_settings.title_ne = this.state.event_settings.title_ne.replace(/कण्ठस्त/g, 'कण्ठस्थ');
+                    }
+                }
+                if (this.state.certificate_settings && this.state.certificate_settings.description_ne) {
+                    if (this.state.certificate_settings.description_ne.includes('पढ')) {
+                        this.state.certificate_settings.description_ne = this.state.certificate_settings.description_ne.replace(/पढ/g, 'पद');
+                    }
+                    if (this.state.certificate_settings.description_ne.includes('कण्ठस्त')) {
+                        this.state.certificate_settings.description_ne = this.state.certificate_settings.description_ne.replace(/कण्ठस्त/g, 'कण्ठस्थ');
+                    }
+                }
+                
             } else {
                 this.state = JSON.parse(JSON.stringify(INITIAL_DATA));
                 this.save();

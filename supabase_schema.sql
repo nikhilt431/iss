@@ -1,4 +1,4 @@
--- Supabase Schema for "Bible पढ कण्ठस्त प्रतियोगिता"
+-- Supabase Schema for "Bible पद कण्ठस्थ प्रतियोगिता"
 -- Execute this SQL script in your Supabase SQL Editor to provision the tables and security rules.
 
 -- 1. ENABLE UUID GENERATION
@@ -65,7 +65,7 @@ CREATE TABLE public.materials (
 -- 8. CREATE EVENT SETTINGS TABLE (Single row configuration)
 CREATE TABLE public.event_settings (
     id INTEGER PRIMARY KEY DEFAULT 1 CHECK (id = 1),
-    title_ne VARCHAR(255) NOT NULL DEFAULT 'बाइबल पढ कण्ठस्त प्रतियोगिता २०८३',
+    title_ne VARCHAR(255) NOT NULL DEFAULT 'बाइबल पद कण्ठस्थ प्रतियोगिता २०८३',
     subtitle_ne VARCHAR(255) NOT NULL DEFAULT 'इग्नाइटर टिम (Igniter Team)',
     event_date TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT (CURRENT_TIMESTAMP + INTERVAL '10 days'),
     lock_scores BOOLEAN NOT NULL DEFAULT FALSE,
@@ -85,11 +85,11 @@ INSERT INTO public.score_categories (id, name_ne, max_marks) VALUES
     ('c2222222-2222-2222-2222-222222222222', 'गति (Speed)', 20),
     ('c3333333-3333-3333-3333-333333333333', 'उच्चारण (Pronunciation)', 20),
     ('c4444444-4444-4444-4444-444444444444', 'आत्मविश्वास (Confidence)', 15),
-    ('c5555555-5555-5555-5555-555555555555', 'कण्ठस्त स्तर (Memorization Level)', 15)
+    ('c5555555-5555-5555-5555-555555555555', 'कण्ठस्थ स्तर (Memorization Level)', 15)
 ON CONFLICT (name_ne) DO NOTHING;
 
 INSERT INTO public.event_settings (id, title_ne, subtitle_ne, lock_scores, dashboard_visible)
-VALUES (1, 'बाइबल पढ कण्ठस्त प्रतियोगिता २०८३', 'इग्नाइटर टिम (Igniter Team)', FALSE, TRUE)
+VALUES (1, 'बाइबल पद कण्ठस्थ प्रतियोगिता २०८३', 'इग्नाइटर टिम (Igniter Team)', FALSE, TRUE)
 ON CONFLICT (id) DO NOTHING;
 
 -- 10. ENABLE ROW LEVEL SECURITY (RLS)

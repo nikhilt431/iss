@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Countdown section
             'countdown-title': 'प्रतियोगिता सुरु हुन बाँकी समय',
-            'home-event-title': 'बाइबल पढ कण्ठस्त प्रतियोगिता २०८३',
+            'home-event-title': 'बाइबल पद कण्ठस्थ प्रतियोगिता २०८३',
             'home-event-subtitle': 'इग्नाइटर टिम (Igniter Team)',
             
             // System roles
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Toggle locale attributes
         document.documentElement.lang = lang;
-        document.title = lang === 'en' ? 'Bible Memorization Contest - Igniter Team' : 'बाइबल पढ कण्ठस्त प्रतियोगिता - इग्नाइटर टिम';
+        document.title = lang === 'en' ? 'Bible Memorization Contest - Igniter Team' : 'बाइबल पद कण्ठस्थ प्रतियोगिता - इग्नाइटर टिम';
 
         // Translate countdown boxes labels
         const labels = document.querySelectorAll('.countdown-label');
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Setup Live Score Board
             renderLiveScoreBoard();
         } else if (navId === 'nav-live-score') {
-            renderLiveScores();
+            renderLiveScoreBoard();
         } else if (navId === 'nav-participants') {
             renderPublicParticipants();
         } else if (navId === 'nav-downloads') {
@@ -324,8 +324,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 targetId = 'nav-home';
             }
             navigateTo(targetId);
+            
+            // Close mobile menu on nav item click
+            const navControls = document.querySelector('.nav-controls');
+            if (navControls) {
+                navControls.classList.remove('show-mobile');
+            }
         });
     });
+
+    // 2.5 Mobile Navigation Toggle
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const navControls = document.querySelector('.nav-controls');
+    if (mobileToggle && navControls) {
+        mobileToggle.addEventListener('click', () => {
+            navControls.classList.toggle('show-mobile');
+        });
+    }
 
     // Make router available globally
     window.spaRouter = { navigateTo };
@@ -344,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderPublicPrizes();
                 renderLiveScoreBoard();
             } else if (navId === 'nav-live-score') {
-                renderLiveScores();
+                renderLiveScoreBoard();
             } else if (navId === 'nav-participants') {
                 renderPublicParticipants();
             } else if (navId === 'nav-notices') {
@@ -636,7 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const notices = window.db.getNotices().filter(n => n.is_ticker);
         if (notices.length === 0) {
-            ticker.innerHTML = '<span class="ticker-item">बाइबल पढ कण्ठस्त प्रतियोगितामा यहाँहरूलाई स्वागत छ!</span>';
+            ticker.innerHTML = '<span class="ticker-item">बाइबल पद कण्ठस्थ प्रतियोगितामा यहाँहरूलाई स्वागत छ!</span>';
             return;
         }
 
@@ -1131,7 +1146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="width: 100%; max-width: 450px; border: 2px solid var(--gold); border-radius: var(--radius-md); padding: 2rem; background: #fff; box-shadow: var(--shadow-lg);">
                     <div style="text-align: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 1rem;">
                         <h2 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.25rem;">IGNITER TEAM</h2>
-                        <p style="font-size: 0.85rem; color: var(--gold); font-weight: bold; text-transform: uppercase;">बाइबल पढ कण्ठस्त प्रतियोगिता - स्कोर कार्ड</p>
+                        <p style="font-size: 0.85rem; color: var(--gold); font-weight: bold; text-transform: uppercase;">बाइबल पद कण्ठस्थ प्रतियोगिता - स्कोर कार्ड</p>
                     </div>
                     ${printContent}
                 </div>
