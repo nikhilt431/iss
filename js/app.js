@@ -1279,4 +1279,50 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTicker();
     startCountdown();
     navigateTo('nav-home');
+
+    // Parse URL parameter to show participant detailed marks on QR scan
+    const urlParams = new URLSearchParams(window.location.search);
+    const qParticipantId = urlParams.get('participant');
+    if (qParticipantId) {
+        setTimeout(() => {
+            const p = window.db.getParticipantById(qParticipantId);
+            if (p) {
+                const ranked = window.db.getRankedParticipants();
+                const scoreObj = ranked.find(r => r.id === qParticipantId);
+                
+                if (scoreObj && scoreObj.evaluated) {
+                    window.viewParticipantDetails(qParticipantId);
+                } else {
+                    // Show basic info if not evaluated yet
+                    const illaka = window.db.getIllakaById(p.illaka_id);
+                    const modal = document.createElement('div');
+                    modal.className = 'modal-overlay';
+                    modal.onclick = (e) => { if (e.target === modal) closeActiveModals(); };
+                    modal.innerHTML = `
+                        <div class="modal-content" style="max-width: 400px;">
+                            <div class="modal-header">
+                                <h3 class="modal-title">सहभागी विवरण (Competitor Info)</h3>
+                                <button class="modal-close" onclick="closeActiveModals()">×</button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div style="font-size: 3.5rem; margin-bottom: 1rem;">👤</div>
+                                <h2 style="color: var(--primary);">${p.name_ne}</h2>
+                                <p style="color: var(--text-muted); font-size: 0.95rem;">${p.church_name}</p>
+                                <p style="color: var(--gold); font-weight: bold; margin-top: 0.5rem;">${illaka ? illaka.name_ne : ''}</p>
+                                
+                                <div style="margin-top: 1.5rem; background: #fffbeb; border: 1px solid #fde8c3; color: #b7791f; padding: 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600;">
+                                    ⌛ मूल्यांकन कार्य जारी छ...<br>
+                                    (Evaluation Pending)
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-outline" onclick="closeActiveModals()">बन्द गर्नुहोस्</button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                }
+            }
+        }, 150);
+    }
 });
