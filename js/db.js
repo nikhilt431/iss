@@ -150,7 +150,15 @@ const INITIAL_DATA = {
         admin_recovery_email: '',
         judge_pass: 'judge123',
         judge_recovery_email: ''
-    }
+    },
+    gallery: [
+        { id: 'g1', title_ne: 'Igniter Team working in 2023', image_url: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80', order: 1 },
+        { id: 'g2', title_ne: 'Bible Quiz Event 2025', image_url: 'https://images.unsplash.com/photo-1511649475669-e288648b2339?auto=format&fit=crop&w=800&q=80', order: 2 }
+    ],
+    team_members: [
+        { id: 't1', name: 'Nikhil Sharma', role: 'Coordinator & Lead Developer', photo_url: '', order: 1 },
+        { id: 't2', name: 'Pst. Prakash Limbu', role: 'Chief Advisor', photo_url: '', order: 2 }
+    ]
 };
 
 class LocalDatabase {
@@ -422,10 +430,14 @@ class LocalDatabase {
         .filter(p => p.attended || p.evaluated) // only display evaluated or present ones in live rankings
         .sort((a, b) => b.total_score - a.total_score)
         .map((p, idx, arr) => {
-            // Handle tie rankings
+            // Handle tie rankings correctly by finding the first participant with this score
             let rank = idx + 1;
             if (idx > 0 && p.total_score === arr[idx - 1].total_score) {
-                rank = arr[idx - 1].rank;
+                let firstSameScoreIdx = idx - 1;
+                while (firstSameScoreIdx > 0 && arr[firstSameScoreIdx - 1].total_score === p.total_score) {
+                    firstSameScoreIdx--;
+                }
+                rank = firstSameScoreIdx + 1;
             }
             return { ...p, rank };
         });
@@ -550,6 +562,55 @@ class LocalDatabase {
         this.state.certificate_settings = { ...this.getCertificateSettings(), ...settings };
         this.save();
         return this.state.certificate_settings;
+    }
+    // --- Gallery CRUD ---
+    getGallery() {
+        return this.state.gallery || [];
+    }
+    saveGalleryPhoto(photo) {
+        if(!this.state.gallery) this.state.gallery = [];
+        if (photo.id) {
+            const index = this.state.gallery.findIndex(g => g.id === photo.id);
+            if (index !== -1) {
+                this.state.gallery[index] = { ...this.state.gallery[index], ...photo };
+            }
+        } else {
+            photo.id = 'g_' + Date.now();
+            this.state.gallery.push(photo);
+        }
+        this.save();
+        return photo;
+    }
+    deleteGalleryPhoto(id) {
+        if(!this.state.gallery) return false;
+        this.state.gallery = this.state.gallery.filter(g => g.id !== id);
+        this.save();
+        return true;
+    }
+
+    // --- Team Members CRUD ---
+    getTeamMembers() {
+        return this.state.team_members || [];
+    }
+    saveTeamMember(member) {
+        if(!this.state.team_members) this.state.team_members = [];
+        if (member.id) {
+            const index = this.state.team_members.findIndex(t => t.id === member.id);
+            if (index !== -1) {
+                this.state.team_members[index] = { ...this.state.team_members[index], ...member };
+            }
+        } else {
+            member.id = 't_' + Date.now();
+            this.state.team_members.push(member);
+        }
+        this.save();
+        return member;
+    }
+    deleteTeamMember(id) {
+        if(!this.state.team_members) return false;
+        this.state.team_members = this.state.team_members.filter(t => t.id !== id);
+        this.save();
+        return true;
     }
 }
 

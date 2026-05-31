@@ -87,6 +87,7 @@
                         <li><button class="nav-item-btn" id="nav-participants">सहभागीहरू</button></li>
                         <li><button class="nav-item-btn" id="nav-downloads">📥 डाउनलोडहरू</button></li>
                         <li><button class="nav-item-btn" id="nav-notices">🔔 सूचना बोर्ड</button></li>
+                        <li><button class="nav-item-btn" id="nav-team">🤝 हाम्रो टिम</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
                     </ul>
@@ -213,6 +214,19 @@
                     </div>
                 </div>
 
+                <!-- Gallery Photo Slider -->
+                <div style="margin-top: 3.5rem; margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                        📸 हाम्रा कार्यक्रमहरू (Photo Gallery)
+                    </h2>
+                    <div class="gallery-slider-wrapper" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-md); position: relative; max-width: 800px; margin: 0 auto; height: 400px; background: var(--bg-card);">
+                        <div class="gallery-slider" id="dashboard-gallery-slider" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
+                            <!-- Dynamic images here -->
+                        </div>
+                        <div class="gallery-caption" id="dashboard-gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 48, 100, 0.8); color: white; padding: 1rem; text-align: center; font-weight: bold;"></div>
+                    </div>
+                </div>
+
             </section>
 
             <!-- SECTION 2: LIVE SCORE & RANKINGS BOARD -->
@@ -294,6 +308,18 @@
                 </div>
             </section>
 
+            <!-- SECTION 5B: OUR TEAM SECTION -->
+            <section id="section-team" class="hidden">
+                <h2 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                    🤝 हाम्रो टिम (Our Team)
+                </h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">यस कार्यक्रमलाई सफल बनाउन योगदान पुर्‍याउनुहुने सम्पूर्ण टिम सदस्यहरू।</p>
+                
+                <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                    <!-- Dynamic team cards -->
+                </div>
+            </section>
+
             <!-- SECTION 6: SECURE AUTH LOGIN PAGE -->
             <section id="section-login" class="hidden">
                 <div style="max-width: 400px; margin: 3rem auto;" class="card card-accent">
@@ -369,6 +395,8 @@
                         <button class="btn btn-outline admin-subnav-btn" data-tab="notices" style="justify-content: flex-start;">📢 सूचना व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="materials" style="justify-content: flex-start;">📁 फाइल डाउनलोड व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="prizes" style="justify-content: flex-start;">🏆 पुरस्कार व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="gallery" style="justify-content: flex-start;">📸 ग्यालरी व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="team" style="justify-content: flex-start;">🤝 टिम व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="settings" style="justify-content: flex-start;">🛠️ प्रणाली सेटिङ र ब्याकअप</button>
                     </aside>
 
@@ -487,6 +515,52 @@
                                     </thead>
                                     <tbody id="admin-prizes-table-body">
                                         <!-- Dynamic prizes rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab: Gallery CRUD -->
+                        <div class="admin-tab-content hidden" id="admin-tab-gallery">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">📸 ग्यालरी व्यवस्थापन (Gallery)</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openGalleryModal()">➕ नयाँ फोटो थप्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>तस्बिर</th>
+                                            <th>क्याप्सन (Caption)</th>
+                                            <th>अर्डर</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-gallery-table-body">
+                                        <!-- Dynamic gallery rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Admin Subtab: Team CRUD -->
+                        <div class="admin-tab-content hidden" id="admin-tab-team">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--primary);">🤝 टिम व्यवस्थापन (Our Team)</h3>
+                                <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openTeamModal()">➕ नयाँ सदस्य थप्नुहोस्</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>फोटो</th>
+                                            <th>नाम (Name)</th>
+                                            <th>भूमिका (Role)</th>
+                                            <th>कार्य (Actions)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-team-table-body">
+                                        <!-- Dynamic team rows -->
                                     </tbody>
                                 </table>
                             </div>

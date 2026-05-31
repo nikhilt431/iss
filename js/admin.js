@@ -3,6 +3,31 @@
  * Manages Illaka CRUD, Participant CRUD, Notices, Downloads, System settings and Backups
  */
 
+// --- Google Drive URL Converter ---
+// Converts any Google Drive sharing link to a direct embeddable image URL.
+window.convertGoogleDriveUrl = function(url) {
+    if (!url || url.trim() === '') return url;
+    url = url.trim();
+
+    // Already a direct uc?export link — leave as-is
+    if (url.includes('drive.google.com/uc')) return url;
+
+    // Pattern: /file/d/FILE_ID/view OR /file/d/FILE_ID/preview
+    const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch) {
+        return 'https://drive.google.com/uc?export=view&id=' + fileMatch[1];
+    }
+
+    // Pattern: open?id=FILE_ID or id=FILE_ID anywhere
+    const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (idMatch) {
+        return 'https://drive.google.com/uc?export=view&id=' + idMatch[1];
+    }
+
+    // Not a Google Drive link — return unchanged
+    return url;
+};
+
 window.adminPanel = {
     init: function() {
         this.renderSubTab('participants');
@@ -39,6 +64,10 @@ window.adminPanel = {
             this.renderMaterialsTable();
         } else if (tabName === 'prizes') {
             this.renderPrizesTable();
+        } else if (tabName === 'gallery') {
+            this.renderGalleryTable();
+        } else if (tabName === 'team') {
+            this.renderTeamTable();
         }
     },
 
@@ -493,51 +522,127 @@ window.adminPanel = {
         modal.onclick = (e) => { if (e.target === modal) window.closeActiveModals(); };
 
         modal.innerHTML = `
-            <div class="modal-content" style="max-width: 450px;">
+            <div class="modal-content" style="max-width: 500px;">
                 <div class="modal-header">
-                    <h3 class="modal-title">नयाँ डाउनलोड फाइल थप्नुहोस्</h3>
+                    <h3 class="modal-title">नयाँ डाउनलोड फाइल थप्नुहोस् (Upload File)</h3>
                     <button class="modal-close" onclick="window.closeActiveModals()">×</button>
                 </div>
                 <div class="modal-body">
-                    <form id="admin-material-form" onsubmit="window.adminPanel.saveMaterial(event)">
+                    <form id="admin-material-form">
                         <div class="form-group">
+                            <label class="form-label">सामग्री अपलोड गर्नुहोस् (Choose File):</label>
+                            <input type="file" id="material-file-upload" class="form-control" style="padding: 0.5rem;" required>
+                            <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">Note: For very large files, please share a Google Drive link below instead.</small>
+                        </div>
+                        
+                        <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-weight: bold;">- OR -</div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">बाह्य लिङ्क (External URL / Google Drive):</label>
+                            <input type="url" id="material-url" class="form-control" placeholder="उदा: https://drive.google.com/...">
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1rem;">
                             <label class="form-label">सामग्रीको नाम (File Title):</label>
                             <input type="text" id="material-title" class="form-control" required placeholder="उदा: प्रतियोगिता समय तालिका र नियम PDF">
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">फाइल प्रकार (Type):</label>
-                            <select id="material-type" class="form-control">
-                                <option value="PDF">PDF File</option>
-                                <option value="Image">Image (.png / .jpg)</option>
-                                <option value="DOC">DOC / Text (.docx)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">फाइल साइज (Size Description):</label>
-                            <input type="text" id="material-size" class="form-control" required placeholder="उदा: 1.2 MB">
-                        </div>
+                        
+                        <input type="hidden" id="material-size" value="">
+                        <input type="hidden" id="material-type" value="">
+                        
                         <div class="modal-footer" style="padding: 1.5rem 0 0 0; background: transparent; border-top: none;">
                             <button type="button" class="btn btn-outline" onclick="window.closeActiveModals()">रद्द गर्नुहोस्</button>
-                            <button type="submit" class="btn btn-primary">📁 सुरक्षित गर्नुहोस्</button>
+                            <button type="submit" class="btn btn-primary" id="material-submit-btn">📁 सुरक्षित गर्नुहोस्</button>
                         </div>
                     </form>
                 </div>
             </div>
         `;
         document.body.appendChild(modal);
+
+        const form = document.getElementById('admin-material-form');
+        const fileInput = document.getElementById('material-file-upload');
+        const urlInput = document.getElementById('material-url');
+        const titleInput = document.getElementById('material-title');
+        const submitBtn = document.getElementById('material-submit-btn');
+
+        // Auto-fill title from filename
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (!titleInput.value) {
+                    // remove extension for title
+                    titleInput.value = file.name.split('.').slice(0, -1).join('.');
+                }
+                urlInput.value = ''; // clear URL if file is selected
+            }
+        });
+
+        // Clear file if URL is typed
+        urlInput.addEventListener('input', (e) => {
+            if (e.target.value.trim() !== '') {
+                fileInput.value = '';
+                fileInput.removeAttribute('required');
+            } else {
+                fileInput.setAttribute('required', 'true');
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const title = titleInput.value.trim();
+            const urlVal = urlInput.value.trim();
+            
+            if (urlVal !== '') {
+                // Save external URL directly
+                window.adminPanel.saveMaterialData({
+                    title_ne: title,
+                    file_type: 'Link',
+                    file_size: 'External',
+                    file_url: urlVal
+                });
+            } else if (fileInput.files.length > 0) {
+                // Process File Upload via FileReader (Base64)
+                const file = fileInput.files[0];
+                
+                // Firestore doc limit is 1MB, let's limit file size to ~700KB for safety
+                if (file.size > 700 * 1024) {
+                    window.showToast('फाइल साइज धेरै ठूलो भयो! कृपया ७०० KB भन्दा सानो फाइल छान्नुहोस् वा Google Drive लिङ्क प्रयोग गर्नुहोस्।', 'danger');
+                    return;
+                }
+
+                submitBtn.textContent = 'लोड हुँदैछ...';
+                submitBtn.disabled = true;
+
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const base64String = ev.target.result;
+                    
+                    // calculate friendly size
+                    let friendlySize = (file.size / 1024).toFixed(1) + ' KB';
+                    if (file.size > 1024 * 1024) friendlySize = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+                    
+                    // simple type inference
+                    let ext = file.name.split('.').pop().toUpperCase();
+                    if (ext.length > 4) ext = 'FILE';
+
+                    window.adminPanel.saveMaterialData({
+                        title_ne: title,
+                        file_type: ext,
+                        file_size: friendlySize,
+                        file_url: base64String
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     },
 
-    saveMaterial: function(e) {
-        e.preventDefault();
-        const data = {
-            title_ne: document.getElementById('material-title').value.trim(),
-            file_type: document.getElementById('material-type').value,
-            file_size: document.getElementById('material-size').value.trim(),
-            file_url: '#'
-        };
+    saveMaterialData: function(data) {
         window.db.saveMaterial(data);
         window.closeActiveModals();
-        window.showToast('फाइल विवरण थपियो!');
+        window.showToast('फाइल सफलतापूर्वक अपलोड र सुरक्षित भयो!');
         this.renderMaterialsTable();
     },
 
@@ -770,14 +875,21 @@ window.adminPanel = {
     },
 
     // Export / Import
-    downloadBackup: function() {
+    triggerBackupDownload: function() {
         const jsonStr = window.db.exportBackup();
         const blob = new Blob([jsonStr], { type: 'application/json' });
         const link = document.createElement('a');
         link.download = `igniter_bible_contest_backup_${Date.now()}.json`;
         link.href = URL.createObjectURL(blob);
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(link.href), 100);
         window.showToast('डाटा ब्याकअप JSON फाइल डाउनलोड भयो!');
+    },
+
+    downloadBackup: function() {
+        this.triggerBackupDownload();
     },
 
     triggerRestore: function(input) {
@@ -805,6 +917,210 @@ window.adminPanel = {
             window.showToast('प्रणाली सफलतापूर्वक रिसेट भयो!');
             window.dispatchEvent(new Event('db_updated'));
             this.renderSubTab('settings');
+        }
+    },
+
+    // --- Gallery CRUD Actions ---
+    renderGalleryTable: function() {
+        const tbody = document.getElementById('admin-gallery-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        const gallery = window.db.getGallery();
+        if (gallery.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center" style="padding: 2rem; color: var(--text-muted);">कुनै फोटो थपिएको छैन।</td></tr>`;
+            return;
+        }
+        gallery.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(g => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><img src="${g.image_url}" style="width:80px;height:50px;object-fit:cover;border-radius:4px;"></td>
+                <td style="font-weight: 700;">${g.title_ne}</td>
+                <td>${g.order || 0}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteGallery('${g.id}')">🗑️ मेट्नुहोस्</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    },
+
+    openGalleryModal: function() {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.onclick = (e) => { if (e.target === modal) window.closeActiveModals(); };
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 480px;">
+                <div class="modal-header">
+                    <h3 class="modal-title">नयाँ फोटो थप्नुहोस् (Gallery)</h3>
+                    <button class="modal-close" onclick="window.closeActiveModals()">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="admin-gallery-form">
+                        <div class="form-group">
+                            <label class="form-label">📷 फोटो अपलोड गर्नुहोस् (Choose Photo):</label>
+                            <input type="file" id="gallery-file-input" class="form-control" accept="image/*" style="padding: 0.5rem;">
+                        </div>
+                        <div style="text-align: center; margin-top: 0.75rem;">
+                            <img id="gallery-photo-preview" src="" style="display: none; max-height: 180px; max-width: 100%; border-radius: 8px; object-fit: cover; border: 2px solid var(--gold);">
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">क्याप्सन (Caption / Title):</label>
+                            <input type="text" id="gallery-title" class="form-control" required placeholder="उदा: प्रतियोगिता २०२५ को सम्झना">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">देखाउने क्रम (Display Order):</label>
+                            <input type="number" id="gallery-order" class="form-control" value="1" required>
+                        </div>
+                        <div class="modal-footer" style="padding: 1.5rem 0 0 0; background: transparent; border-top: none;">
+                            <button type="button" class="btn btn-outline" onclick="window.closeActiveModals()">रद्द गर्नुहोस्</button>
+                            <button type="submit" class="btn btn-primary">📁 सुरक्षित गर्नुहोस्</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // File input preview using FileReader
+        const fileInput = document.getElementById('gallery-file-input');
+        const preview = document.getElementById('gallery-photo-preview');
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    preview.src = ev.target.result;
+                    preview.dataset.base64 = ev.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        // Form submit
+        document.getElementById('admin-gallery-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const base64 = preview.dataset.base64;
+            if (!base64) {
+                window.showToast('कृपया फोटो छान्नुहोस्!', 'danger');
+                return;
+            }
+            window.db.saveGalleryPhoto({
+                title_ne: document.getElementById('gallery-title').value.trim(),
+                image_url: base64,
+                order: parseInt(document.getElementById('gallery-order').value) || 1
+            });
+            window.closeActiveModals();
+            window.showToast('फोटो सफलतापूर्वक अपलोड भयो!');
+            window.adminPanel.renderGalleryTable();
+        });
+    },
+
+    deleteGallery: function(id) {
+        if (confirm('के तपाईं निश्चित रूपमा यो फोटो मेटाउन चाहनुहुन्छ?')) {
+            window.db.deleteGalleryPhoto(id);
+            window.showToast('फोटो मेटाइयो!');
+            this.renderGalleryTable();
+        }
+    },
+
+    // --- Team CRUD Actions ---
+    renderTeamTable: function() {
+        const tbody = document.getElementById('admin-team-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        const team = window.db.getTeamMembers();
+        if (team.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center" style="padding: 2rem; color: var(--text-muted);">कुनै सदस्य थपिएको छैन।</td></tr>`;
+            return;
+        }
+        team.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(t => {
+            const photoUrl = t.photo_url || 'https://via.placeholder.com/50?text=👤';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><img src="${photoUrl}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;"></td>
+                <td style="font-weight: 700;">${t.name}</td>
+                <td>${t.role}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteTeam('${t.id}')">🗑️ मेट्नुहोस्</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    },
+
+    openTeamModal: function() {
+        const modal = document.createElement('div');
+        modal.className = 'modal-overlay';
+        modal.onclick = (e) => { if (e.target === modal) window.closeActiveModals(); };
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width: 450px;">
+                <div class="modal-header">
+                    <h3 class="modal-title">नयाँ सदस्य थप्नुहोस् (Our Team)</h3>
+                    <button class="modal-close" onclick="window.closeActiveModals()">×</button>
+                </div>
+                <div class="modal-body">
+                    <form id="admin-team-form">
+                        <div class="form-group">
+                            <label class="form-label">सदस्यको नाम (Name):</label>
+                            <input type="text" id="team-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">भूमिका (Role):</label>
+                            <input type="text" id="team-role" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">📷 फोटो अपलोड गर्नुहोस् (Choose Photo):</label>
+                            <input type="file" id="team-file-input" class="form-control" accept="image/*" style="padding: 0.5rem;">
+                        </div>
+                        <div style="text-align: center; margin-top: 0.75rem;">
+                            <img id="team-photo-preview" src="" style="display: none; width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold);">
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">देखाउने क्रम (Display Order):</label>
+                            <input type="number" id="team-order" class="form-control" value="1" required>
+                        </div>
+                        <div class="modal-footer" style="padding: 1.5rem 0 0 0; background: transparent; border-top: none;">
+                            <button type="button" class="btn btn-outline" onclick="window.closeActiveModals()">रद्द गर्नुहोस्</button>
+                            <button type="submit" class="btn btn-primary">📁 सुरक्षित गर्नुहोस्</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // File input preview using FileReader
+        const fileInput = document.getElementById('team-file-input');
+        const preview = document.getElementById('team-photo-preview');
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    preview.src = ev.target.result;
+                    preview.dataset.base64 = ev.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+
+        // Form submit
+        document.getElementById('admin-team-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const base64 = preview.dataset.base64 || '';
+            window.db.saveTeamMember({
+                name: document.getElementById('team-name').value.trim(),
+                role: document.getElementById('team-role').value.trim(),
+                photo_url: base64,
+                order: parseInt(document.getElementById('team-order').value) || 1
+            });
+            window.closeActiveModals();
+            window.showToast('टिम सदस्य सफलतापूर्वक अपलोड भयो!');
+            window.adminPanel.renderTeamTable();
+        });
+    },
+
+    deleteTeam: function(id) {
+        if (confirm('के तपाईं निश्चित रूपमा यो सदस्य मेटाउन चाहनुहुन्छ?')) {
+            window.db.deleteTeamMember(id);
+            window.showToast('सदस्य मेटाइयो!');
+            this.renderTeamTable();
         }
     }
 };

@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav-participants': 'सहभागीहरू',
             'nav-downloads': '📥 डाउनलोडहरू',
             'nav-notices': '🔔 सूचना बोर्ड',
+            'nav-team': '🤝 हाम्रो टिम',
             'nav-judge': '📝 जज प्यानल',
             'nav-admin': '⚙️ एडमिन प्यानल',
             'nav-login': '🔑 लगइन',
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav-participants': 'Participants',
             'nav-downloads': '📥 Downloads',
             'nav-notices': '🔔 Notice Board',
+            'nav-team': '🤝 Our Team',
             'nav-judge': '📝 Judge Panel',
             'nav-admin': '⚙️ Admin Panel',
             'nav-login': '🔑 Login',
@@ -266,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'nav-participants': 'section-participants',
         'nav-downloads': 'section-downloads',
         'nav-notices': 'section-notices',
+        'nav-team': 'section-team',
         'nav-login': 'section-login',
         'nav-admin': 'section-admin',
         'nav-judge': 'section-judge'
@@ -297,6 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicTop3();
             renderPublicNotices();
             renderPublicPrizes();
+            renderPublicGallerySlider();
             
             // Setup Live Score Board
             renderLiveScoreBoard();
@@ -308,6 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicDownloads();
         } else if (navId === 'nav-notices') {
             renderPublicNotices();
+        } else if (navId === 'nav-team') {
+            renderPublicTeam();
         } else if (navId === 'nav-admin') {
             if (window.adminPanel) window.adminPanel.init();
         } else if (navId === 'nav-judge') {
@@ -364,6 +370,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderPublicParticipants();
             } else if (navId === 'nav-notices') {
                 renderPublicNotices();
+            } else if (navId === 'nav-team') {
+                renderPublicTeam();
             } else if (navId === 'nav-admin') {
                 if (window.adminPanel) window.adminPanel.init();
             } else if (navId === 'nav-judge') {
@@ -1009,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;">${m.title_ne}</h4>
                 </div>
-                <button class="btn btn-primary btn-sm" style="margin-top: 1rem;" onclick="triggerDownload('${m.title_ne}')">
+                <button class="btn btn-primary btn-sm" style="margin-top: 1rem;" onclick="triggerDownload('${m.id}')">
                     ⬇️ डाउनलोड गर्नुहोस्
                 </button>
             `;
@@ -1017,8 +1025,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    window.triggerDownload = function(title) {
-        showToast(`'${title}' डाउनलोड सुरु भयो!`);
+    window.triggerDownload = function(id) {
+        const materials = window.db.getMaterials();
+        const m = materials.find(x => x.id === id);
+        if(!m || !m.file_url || m.file_url === '#') {
+            showToast('यस सामग्रीको फाइल उपलब्ध छैन।', 'danger');
+            return;
+        }
+        
+        if (m.file_url.startsWith('http')) {
+            window.open(m.file_url, '_blank');
+        } else if (m.file_url.startsWith('data:')) {
+            const link = document.createElement("a");
+            link.setAttribute("href", m.file_url);
+            
+            let ext = m.file_type.toLowerCase();
+            if(ext === 'image') ext = 'png';
+            if(ext === 'link' || ext === 'external') ext = 'pdf';
+            
+            link.setAttribute("download", `${m.title_ne.replace(/ /g, '_')}.${ext}`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast(`'${m.title_ne}' डाउनलोड सुरु भयो!`);
+        } else {
+            showToast('यस सामग्रीको फाइल उपलब्ध छैन।', 'danger');
+        }
     };
 
     // 10. Render Public Notices
@@ -1075,6 +1107,71 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="font-size: 1.5rem; font-weight: 900; color: var(--gold); margin-bottom: 0.5rem; font-family: var(--font-heading);">${p.amount}</div>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">${p.description_ne || ''}</p>
             `;
+            container.appendChild(card);
+        });
+    }
+
+    // --- Render Gallery Slider ---
+    let sliderInterval = null;
+    function renderPublicGallerySlider() {
+        const slider = document.getElementById('dashboard-gallery-slider');
+        const caption = document.getElementById('dashboard-gallery-caption');
+        if (!slider) return;
+        
+        slider.innerHTML = '';
+        const gallery = window.db.getGallery();
+        if (gallery.length === 0) {
+            slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">कुनै तस्बिर उपलब्ध छैन।</div>';
+            caption.style.display = 'none';
+            return;
+        }
+
+        gallery.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(g => {
+            const img = document.createElement('img');
+            img.src = g.image_url;
+            img.alt = g.title_ne;
+            img.style.minWidth = '100%';
+            img.style.height = '100%';
+            img.style.objectFit = 'cover';
+            img.dataset.caption = g.title_ne;
+            slider.appendChild(img);
+        });
+
+        // Initialize Slider Animation
+        let currentIndex = 0;
+        caption.style.display = 'block';
+        caption.textContent = gallery[0].title_ne;
+        
+        if (sliderInterval) clearInterval(sliderInterval);
+        if (gallery.length > 1) {
+            sliderInterval = setInterval(function() {
+                currentIndex = (currentIndex + 1) % gallery.length;
+                slider.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+                caption.textContent = gallery[currentIndex].title_ne;
+            }, 3000);
+        }
+    }
+
+    // --- Render Public Team ---
+    function renderPublicTeam() {
+        const container = document.getElementById('public-team-grid');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const team = window.db.getTeamMembers();
+        if (team.length === 0) {
+            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">कुनै टिम सदस्य थपिएको छैन।</div>';
+            return;
+        }
+
+        team.sort(function(a,b) { return (a.order || 0) - (b.order || 0); }).forEach(function(t) {
+            const photoUrl = t.photo_url && t.photo_url.trim() !== '' ? t.photo_url : 'https://via.placeholder.com/150?text=%F0%9F%91%A4';
+            const card = document.createElement('div');
+            card.className = 'card card-accent';
+            card.style.textAlign = 'center';
+            card.innerHTML = '<img src="' + photoUrl + '" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem auto; display: block; border: 3px solid var(--gold);">'
+                + '<h3 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.25rem;">' + t.name + '</h3>'
+                + '<p style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem;">' + t.role + '</p>';
             container.appendChild(card);
         });
     }
