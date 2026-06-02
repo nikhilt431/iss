@@ -28,6 +28,82 @@ window.convertGoogleDriveUrl = function(url) {
     return url;
 };
 
+// --- Client-Side Image Compression Tool ---
+// Resizes and compresses images to avoid localStorage QuotaExceededError
+window.compressImage = function(file, options = {}) {
+    return new Promise((resolve, reject) => {
+        const maxWidth = options.maxWidth || 800;
+        const maxHeight = options.maxHeight || 800;
+        const quality = options.quality !== undefined ? options.quality : 0.7;
+        const toPng = !!options.toPng;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+
+                // Scale down maintaining aspect ratio
+                if (width > maxWidth || height > maxHeight) {
+                    const ratio = Math.min(maxWidth / width, maxHeight / height);
+                    width = Math.round(width * ratio);
+                    height = Math.round(height * ratio);
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const mimeType = toPng ? 'image/png' : 'image/jpeg';
+                const dataUrl = canvas.toDataURL(mimeType, quality);
+                resolve(dataUrl);
+            };
+            img.onerror = function() {
+                reject(new Error('छवि लोड गर्न असफल भयो।'));
+            };
+            img.src = e.target.result;
+        };
+        reader.onerror = function() {
+            reject(new Error('फाइल पढ्न असफल भयो।'));
+        };
+        reader.readAsDataURL(file);
+    });
+};
+
+// --- FileStore URL Helpers ---
+// Resolves a filestore:// key or a plain data URL / external URL to a usable src.
+window.resolveUrl = function(url) {
+    if (!url) return Promise.resolve('');
+    if (url.startsWith('filestore://')) {
+        const key = url.slice('filestore://'.length);
+        return window.FileStore.get(key).then(data => data || '');
+    }
+    return Promise.resolve(url);
+};
+
+// Finds all <img data-fs-key="..."> in container and loads them from FileStore.
+// Also handles <a data-fs-key="..."> and <source data-fs-key="...">.
+window.hydrateImages = function(container) {
+    container = container || document;
+    const imgs = container.querySelectorAll('[data-fs-key]');
+    imgs.forEach(el => {
+        const key = el.dataset.fsKey;
+        if (!key) return;
+        window.FileStore.get(key).then(data => {
+            if (!data) return;
+            if (el.tagName === 'IMG') {
+                el.src = data;
+            } else if (el.tagName === 'A') {
+                el.href = data;
+            }
+        }).catch(() => {});
+    });
+};
+
 window.adminPanel = {
     init: function() {
         this.renderSubTab('participants');
@@ -87,11 +163,14 @@ window.adminPanel = {
 
         participants.forEach(p => {
             const illaka = illakas.find(i => i.id === p.illaka_id);
-            const photoUrl = p.photo_url || 'https://via.placeholder.com/40?text=सहभागी';
+            const isFileStore = p.photo_url && p.photo_url.startsWith('filestore://');
+            const fsKey = isFileStore ? p.photo_url.slice('filestore://'.length) : '';
+            const placeholderSrc = 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>' + (p.name_ne[0] || '?') + '</text></svg>';
+            const imgSrc = isFileStore ? placeholderSrc : (p.photo_url || placeholderSrc);
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>
-                    <img class="avatar-ring" src="${photoUrl}" alt="${p.name_ne}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>${p.name_ne[0]}</text></svg>'">
+                    <img class="avatar-ring" ${isFileStore ? `data-fs-key="${fsKey}"` : ''} src="${imgSrc}" alt="${p.name_ne}" onerror="this.src='${placeholderSrc}'">
                 </td>
                 <td style="font-weight: 700; color: var(--primary);">${p.name_ne}</td>
                 <td>${p.church_name}</td>
@@ -109,6 +188,7 @@ window.adminPanel = {
             `;
             tbody.appendChild(tr);
         });
+        window.hydrateImages(tbody);
     },
 
     openParticipantModal: function(id = '') {
@@ -180,37 +260,76 @@ window.adminPanel = {
         const file = input.files[0];
         if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById('participant-photo-preview');
-            if (preview) {
-                preview.src = e.target.result;
-                preview.dataset.base64 = e.target.result; // store base64 string
-            }
-        };
-        reader.readAsDataURL(file);
+        const preview = document.getElementById('participant-photo-preview');
+        if (preview) {
+            preview.style.opacity = '0.5';
+        }
+
+        window.compressImage(file, { maxWidth: 200, maxHeight: 200, quality: 0.7 })
+            .then(base64 => {
+                if (preview) {
+                    preview.src = base64;
+                    preview.dataset.base64 = base64;
+                    preview.style.opacity = '1';
+                }
+            })
+            .catch(err => {
+                console.error('Participant photo compression error:', err);
+                window.showToast('फोटो लोड गर्न समस्या भयो!', 'danger');
+            });
     },
 
     saveParticipant: function(e, id) {
         e.preventDefault();
         
         const preview = document.getElementById('participant-photo-preview');
-        const photoUrl = preview ? (preview.dataset.base64 || preview.src) : '';
+        const base64 = preview ? preview.dataset.base64 : null;
+        const existingSrc = preview ? preview.src : '';
 
         const data = {
             name_ne: document.getElementById('participant-name').value.trim(),
             church_name: document.getElementById('participant-church').value.trim(),
             illaka_id: document.getElementById('participant-illaka').value,
-            age_group: document.getElementById('participant-age').value,
-            photo_url: photoUrl.startsWith('http') ? '' : photoUrl // only save if upload exists
+            age_group: document.getElementById('participant-age').value
         };
+
+        // Preserve existing photo if no new upload
+        if (!base64) {
+            if (id) {
+                const existing = window.db.getParticipantById(id);
+                data.photo_url = existing ? existing.photo_url : '';
+            } else {
+                data.photo_url = '';
+            }
+        }
 
         if (id) data.id = id;
 
-        window.db.saveParticipant(data);
-        window.closeActiveModals();
-        window.showToast(id ? 'सहभागी विवरण सम्पादन गरियो!' : 'नयाँ सहभागी सफलतापूर्वक थपियो!');
-        this.renderParticipantsTable();
+        const saveAndClose = () => {
+            window.db.saveParticipant(data);
+            window.closeActiveModals();
+            window.showToast(id ? 'सहभागी विवरण सम्पादन गरियो!' : 'नयाँ सहभागी सफलतापूर्वक थपियो!');
+            this.renderParticipantsTable();
+        };
+
+        if (base64) {
+            // Save photo to FileStore, store reference key in state
+            const savedId = data.id || ('p_' + Date.now());
+            const fsKey = 'participant_photo_' + savedId;
+            window.FileStore.put(fsKey, base64)
+                .then(() => {
+                    data.photo_url = 'filestore://' + fsKey;
+                    if (!data.id) data.id = savedId;
+                    saveAndClose();
+                })
+                .catch(err => {
+                    console.error('Photo save error:', err);
+                    data.photo_url = base64; // fallback
+                    saveAndClose();
+                });
+        } else {
+            saveAndClose();
+        }
     },
 
     deleteParticipant: function(id) {
@@ -503,16 +622,38 @@ window.adminPanel = {
         }
 
         materials.forEach(m => {
+            const isFS = m.file_url && m.file_url.startsWith('filestore://');
+            const fsKey = isFS ? m.file_url.slice('filestore://'.length) : '';
+            const isExternal = m.file_type === 'Link';
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="font-weight: 700; color: var(--primary);">${m.title_ne}</td>
                 <td><span class="role-badge" style="background: var(--primary); color: white; border: none;">${m.file_type}</span></td>
                 <td>${m.file_size}</td>
-                <td>
+                <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+                    ${isExternal
+                        ? `<a href="${m.file_url}" target="_blank" class="btn btn-outline btn-sm">🔗 खोल्नुहोस्</a>`
+                        : isFS
+                            ? `<a data-fs-key="${fsKey}" download="${m.title_ne}" class="btn btn-outline btn-sm" onclick="window.adminPanel.handleFsDownload(event,'${fsKey}','${m.title_ne}.${m.file_type.toLowerCase()}')">⬇️ डाउनलोड</a>`
+                            : `<a href="${m.file_url}" download="${m.title_ne}" class="btn btn-outline btn-sm">⬇️ डाउनलोड</a>`
+                    }
                     <button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteMaterial('${m.id}')">🗑️ मेट्नुहोस्</button>
                 </td>
             `;
             tbody.appendChild(tr);
+        });
+    },
+
+    handleFsDownload: function(e, fsKey, filename) {
+        e.preventDefault();
+        window.FileStore.get(fsKey).then(data => {
+            if (!data) { window.showToast('फाइल फेला परेन!', 'danger'); return; }
+            const a = document.createElement('a');
+            a.href = data;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         });
     },
 
@@ -590,51 +731,64 @@ window.adminPanel = {
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const title = titleInput.value.trim();
             const urlVal = urlInput.value.trim();
-            
+
             if (urlVal !== '') {
-                // Save external URL directly
+                // Save external URL directly (no file storage needed)
                 window.adminPanel.saveMaterialData({
                     title_ne: title,
                     file_type: 'Link',
                     file_size: 'External',
-                    file_url: urlVal
+                    file_url: window.convertGoogleDriveUrl(urlVal)
                 });
             } else if (fileInput.files.length > 0) {
-                // Process File Upload via FileReader (Base64)
+                // Process File Upload via FileReader → IndexedDB (no size limit!)
                 const file = fileInput.files[0];
-                
-                // Firestore doc limit is 1MB, let's limit file size to ~700KB for safety
-                if (file.size > 700 * 1024) {
-                    window.showToast('फाइल साइज धेरै ठूलो भयो! कृपया ७०० KB भन्दा सानो फाइल छान्नुहोस् वा Google Drive लिङ्क प्रयोग गर्नुहोस्।', 'danger');
-                    return;
-                }
 
-                submitBtn.textContent = 'लोड हुँदैछ...';
+                submitBtn.textContent = 'अपलोड हुँदैछ...';
                 submitBtn.disabled = true;
+
+                // calculate friendly size
+                let friendlySize = (file.size / 1024).toFixed(1) + ' KB';
+                if (file.size > 1024 * 1024) friendlySize = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+
+                // simple type inference
+                let ext = file.name.split('.').pop().toUpperCase();
+                if (ext.length > 5) ext = 'FILE';
 
                 const reader = new FileReader();
                 reader.onload = (ev) => {
                     const base64String = ev.target.result;
-                    
-                    // calculate friendly size
-                    let friendlySize = (file.size / 1024).toFixed(1) + ' KB';
-                    if (file.size > 1024 * 1024) friendlySize = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
-                    
-                    // simple type inference
-                    let ext = file.name.split('.').pop().toUpperCase();
-                    if (ext.length > 4) ext = 'FILE';
+                    const materialId = 'm_' + Date.now();
+                    const fsKey = 'material_' + materialId;
 
-                    window.adminPanel.saveMaterialData({
-                        title_ne: title,
-                        file_type: ext,
-                        file_size: friendlySize,
-                        file_url: base64String
-                    });
+                    window.FileStore.put(fsKey, base64String)
+                        .then(() => {
+                            window.adminPanel.saveMaterialData({
+                                id: materialId,
+                                title_ne: title,
+                                file_type: ext,
+                                file_size: friendlySize,
+                                file_url: 'filestore://' + fsKey
+                            });
+                        })
+                        .catch(err => {
+                            console.error('Material FileStore error:', err);
+                            submitBtn.textContent = '📁 सुरक्षित गर्नुहोस्';
+                            submitBtn.disabled = false;
+                            window.showToast('फाइल सुरक्षित गर्न समस्या भयो!', 'danger');
+                        });
+                };
+                reader.onerror = () => {
+                    submitBtn.textContent = '📁 सुरक्षित गर्नुहोस्';
+                    submitBtn.disabled = false;
+                    window.showToast('फाइल पढ्न समस्या भयो!', 'danger');
                 };
                 reader.readAsDataURL(file);
+            } else {
+                window.showToast('कृपया फाइल छान्नुहोस् वा लिङ्क टाइप गर्नुहोस्!', 'danger');
             }
         });
     },
@@ -678,24 +832,25 @@ window.adminPanel = {
         // Load Certificate Settings
         const cert = window.db.getCertificateSettings();
         document.getElementById('cert-theme-color').value = cert.theme_color || '#0a3064';
-        
-        const logoPreview = document.getElementById('cert-logo-preview');
-        if (cert.logo_url) {
-            logoPreview.src = cert.logo_url;
-            logoPreview.style.display = 'block';
-        } else {
-            logoPreview.style.display = 'none';
-            logoPreview.removeAttribute('src');
-        }
 
-        const watermarkPreview = document.getElementById('cert-watermark-preview');
-        if (cert.watermark_url) {
-            watermarkPreview.src = cert.watermark_url;
-            watermarkPreview.style.display = 'block';
-        } else {
-            watermarkPreview.style.display = 'none';
-            watermarkPreview.removeAttribute('src');
-        }
+        const loadCertImg = (url, previewId) => {
+            const preview = document.getElementById(previewId);
+            if (!preview) return;
+            if (!url) { preview.style.display = 'none'; preview.removeAttribute('src'); return; }
+            window.resolveUrl(url).then(src => {
+                if (src) {
+                    preview.src = src;
+                    preview.dataset.fsRef = url.startsWith('filestore://') ? url : '';
+                    preview.style.display = 'block';
+                } else {
+                    preview.style.display = 'none';
+                    preview.removeAttribute('src');
+                }
+            });
+        };
+
+        loadCertImg(cert.logo_url, 'cert-logo-preview');
+        loadCertImg(cert.watermark_url, 'cert-watermark-preview');
 
         document.getElementById('cert-title-ne').value = cert.title_ne || '';
         document.getElementById('cert-title-en').value = cert.title_en || '';
@@ -721,9 +876,6 @@ window.adminPanel = {
         const div = document.createElement('div');
         div.className = 'signatory-block';
         div.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border: 1px solid var(--border); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; position: relative;';
-        
-        const previewSrc = sig.signature_url || '';
-        const previewDisplay = previewSrc ? 'block' : 'none';
 
         div.innerHTML = `
             <button type="button" onclick="this.parentElement.remove()" style="position: absolute; top: 0.5rem; right: 0.5rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--danger);">×</button>
@@ -746,38 +898,72 @@ window.adminPanel = {
                     <input type="file" class="form-control sig-file" accept="image/*" onchange="window.adminPanel.previewSignature(this)">
                     <button type="button" class="btn btn-danger btn-sm" onclick="window.adminPanel.removeSignature(this)" title="Remove">🗑️</button>
                 </div>
-                <img class="sig-preview" src="${previewSrc}" style="display: ${previewDisplay}; max-height: 50px; margin-top: 0.5rem;" />
+                <img class="sig-preview" style="display: none; max-height: 50px; margin-top: 0.5rem;" />
             </div>
         `;
         container.appendChild(div);
+
+        // Load existing signature from FileStore if needed
+        if (sig.signature_url) {
+            const preview = div.querySelector('.sig-preview');
+            window.resolveUrl(sig.signature_url).then(src => {
+                if (src && preview) {
+                    preview.src = src;
+                    preview.dataset.fsRef = sig.signature_url.startsWith('filestore://') ? sig.signature_url : '';
+                    preview.style.display = 'block';
+                }
+            });
+        }
     },
 
     previewSignature: function(input) {
         const file = input.files[0];
         if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = input.parentElement.querySelector('.sig-preview');
-            if (preview) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-        };
-        reader.readAsDataURL(file);
+        
+        const preview = input.closest('.form-group').querySelector('.sig-preview');
+        if (preview) {
+            preview.style.opacity = '0.5';
+        }
+
+        window.compressImage(file, { maxWidth: 300, maxHeight: 150, toPng: true })
+            .then(base64 => {
+                if (preview) {
+                    preview.src = base64;
+                    preview.style.display = 'block';
+                    preview.style.opacity = '1';
+                }
+            })
+            .catch(err => {
+                console.error('Signature compression error:', err);
+                window.showToast('हस्ताक्षर लोड गर्न समस्या भयो!', 'danger');
+            });
     },
 
     previewCertImage: function(input, previewId) {
         const file = input.files[0];
         if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const preview = document.getElementById(previewId);
-            if (preview) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-        };
-        reader.readAsDataURL(file);
+        
+        const preview = document.getElementById(previewId);
+        if (preview) {
+            preview.style.opacity = '0.5';
+        }
+
+        const isWatermark = previewId.includes('watermark');
+        const maxWidth = isWatermark ? 800 : 300;
+        const maxHeight = isWatermark ? 800 : 300;
+
+        window.compressImage(file, { maxWidth: maxWidth, maxHeight: maxHeight, toPng: true })
+            .then(base64 => {
+                if (preview) {
+                    preview.src = base64;
+                    preview.style.display = 'block';
+                    preview.style.opacity = '1';
+                }
+            })
+            .catch(err => {
+                console.error('Cert image compression error:', err);
+                window.showToast('फोटो लोड गर्न समस्या भयो!', 'danger');
+            });
     },
 
     removeCertImage: function(inputId, previewId) {
@@ -809,38 +995,98 @@ window.adminPanel = {
 
     saveCertificateSettingsForm: function(e) {
         e.preventDefault();
-        
-        const signatories = [];
-        document.querySelectorAll('#admin-signatories-container .signatory-block').forEach((block, idx) => {
-            const preview = block.querySelector('.sig-preview');
-            signatories.push({
-                id: 'sig' + (idx + 1),
-                name: block.querySelector('.sig-name').value.trim(),
-                title_ne: block.querySelector('.sig-title-ne').value.trim(),
-                title_en: block.querySelector('.sig-title-en').value.trim(),
-                signature_url: preview ? preview.src : ''
-            });
-        });
+
+        const btn = e.target.querySelector('[type=submit]');
+        if (btn) { btn.disabled = true; btn.textContent = 'सुरक्षित हुँदैछ...'; }
+
+        const getImgData = (imgEl) => {
+            if (!imgEl) return { src: '', isNew: false };
+            const src = imgEl.src;
+            // Blank / pointing to page itself
+            if (!src || src === window.location.href || src.endsWith('/index.html') || src === '') {
+                return { src: '', isNew: false };
+            }
+            // Already a filestore reference stored in a data attribute
+            if (imgEl.dataset.fsRef) return { src: imgEl.dataset.fsRef, isNew: false };
+            // New upload (base64)
+            if (src.startsWith('data:')) return { src: src, isNew: true };
+            // External URL
+            return { src: src, isNew: false };
+        };
 
         const logoPreview = document.getElementById('cert-logo-preview');
         const watermarkPreview = document.getElementById('cert-watermark-preview');
+        const logoData = getImgData(logoPreview);
+        const watermarkData = getImgData(watermarkPreview);
 
-        const settings = {
-            theme_color: document.getElementById('cert-theme-color').value,
-            logo_url: logoPreview.src || '',
-            watermark_url: watermarkPreview.src || '',
-            title_ne: document.getElementById('cert-title-ne').value.trim(),
-            title_en: document.getElementById('cert-title-en').value.trim(),
-            description_ne: document.getElementById('cert-desc-ne').value.trim(),
-            description_en: document.getElementById('cert-desc-en').value.trim(),
-            verse_ne: document.getElementById('cert-verse-ne').value.trim(),
-            verse_en: document.getElementById('cert-verse-en').value.trim(),
-            signatories: signatories
-        };
+        // Collect signatory data
+        const signatoryBlocks = document.querySelectorAll('#admin-signatories-container .signatory-block');
+        const sigDataArr = [];
+        signatoryBlocks.forEach((block, idx) => {
+            const preview = block.querySelector('.sig-preview');
+            const sigData = getImgData(preview);
+            sigDataArr.push({
+                idx,
+                name: block.querySelector('.sig-name').value.trim(),
+                title_ne: block.querySelector('.sig-title-ne').value.trim(),
+                title_en: block.querySelector('.sig-title-en').value.trim(),
+                sigData
+            });
+        });
 
-        window.db.saveCertificateSettings(settings);
-        window.showToast('प्रमाणपत्र सेटिङ सुरक्षित गरियो!');
-        window.dispatchEvent(new Event('db_updated'));
+        // Build list of FileStore save promises
+        const saves = [];
+        let logoUrl = logoData.isNew ? null : logoData.src;
+        let watermarkUrl = watermarkData.isNew ? null : watermarkData.src;
+
+        if (logoData.isNew) {
+            const key = 'cert_logo';
+            saves.push(window.FileStore.put(key, logoData.src).then(() => { logoUrl = 'filestore://' + key; }));
+        }
+        if (watermarkData.isNew) {
+            const key = 'cert_watermark';
+            saves.push(window.FileStore.put(key, watermarkData.src).then(() => { watermarkUrl = 'filestore://' + key; }));
+        }
+
+        const sigUrls = sigDataArr.map(s => s.sigData.isNew ? null : s.sigData.src);
+        sigDataArr.forEach((s, i) => {
+            if (s.sigData.isNew) {
+                const key = 'cert_sig_' + (i + 1);
+                saves.push(window.FileStore.put(key, s.sigData.src).then(() => { sigUrls[i] = 'filestore://' + key; }));
+            }
+        });
+
+        Promise.all(saves).then(() => {
+            const signatories = sigDataArr.map((s, i) => ({
+                id: 'sig' + (s.idx + 1),
+                name: s.name,
+                title_ne: s.title_ne,
+                title_en: s.title_en,
+                signature_url: sigUrls[i] || ''
+            }));
+
+            const settings = {
+                theme_color: document.getElementById('cert-theme-color').value,
+                logo_url: logoUrl || '',
+                watermark_url: watermarkUrl || '',
+                title_ne: document.getElementById('cert-title-ne').value.trim(),
+                title_en: document.getElementById('cert-title-en').value.trim(),
+                description_ne: document.getElementById('cert-desc-ne').value.trim(),
+                description_en: document.getElementById('cert-desc-en').value.trim(),
+                verse_ne: document.getElementById('cert-verse-ne').value.trim(),
+                verse_en: document.getElementById('cert-verse-en').value.trim(),
+                signatories
+            };
+
+            window.db.saveCertificateSettings(settings);
+            if (btn) { btn.disabled = false; btn.textContent = '💾 सुरक्षित गर्नुहोस्'; }
+            window.showToast('प्रमाणपत्र सेटिङ सुरक्षित गरियो!');
+            window.dispatchEvent(new Event('db_updated'));
+        }).catch(err => {
+            console.error('Certificate settings save error:', err);
+            if (btn) { btn.disabled = false; btn.textContent = '💾 सुरक्षित गर्नुहोस्'; }
+            window.showToast('सुरक्षित गर्न समस्या भयो! पुन: प्रयास गर्नुहोस्।', 'danger');
+        });
     },
 
     saveSettingsForm: function(e) {
@@ -931,15 +1177,19 @@ window.adminPanel = {
             return;
         }
         gallery.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(g => {
+            const isFS = g.image_url && g.image_url.startsWith('filestore://');
+            const fsKey = isFS ? g.image_url.slice('filestore://'.length) : '';
+            const imgSrc = isFS ? '' : (g.image_url || '');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><img src="${g.image_url}" style="width:80px;height:50px;object-fit:cover;border-radius:4px;"></td>
+                <td><img ${isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`} style="width:80px;height:50px;object-fit:cover;border-radius:4px;background:#eee;"></td>
                 <td style="font-weight: 700;">${g.title_ne}</td>
                 <td>${g.order || 0}</td>
                 <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteGallery('${g.id}')">🗑️ मेट्नुहोस्</button></td>
             `;
             tbody.appendChild(tr);
         });
+        window.hydrateImages(tbody);
     },
 
     openGalleryModal: function() {
@@ -984,17 +1234,22 @@ window.adminPanel = {
         const preview = document.getElementById('gallery-photo-preview');
         fileInput.addEventListener('change', function() {
             if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    preview.src = ev.target.result;
-                    preview.dataset.base64 = ev.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(fileInput.files[0]);
+                preview.style.opacity = '0.5';
+                window.compressImage(fileInput.files[0], { maxWidth: 800, maxHeight: 800, quality: 0.6 })
+                    .then(base64 => {
+                        preview.src = base64;
+                        preview.dataset.base64 = base64;
+                        preview.style.display = 'block';
+                        preview.style.opacity = '1';
+                    })
+                    .catch(err => {
+                        console.error('Gallery image compression error:', err);
+                        window.showToast('फोटो लोड गर्न समस्या भयो!', 'danger');
+                    });
             }
         });
 
-        // Form submit
+        // Form submit — stores image in FileStore, not localStorage
         document.getElementById('admin-gallery-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const base64 = preview.dataset.base64;
@@ -1002,14 +1257,28 @@ window.adminPanel = {
                 window.showToast('कृपया फोटो छान्नुहोस्!', 'danger');
                 return;
             }
-            window.db.saveGalleryPhoto({
-                title_ne: document.getElementById('gallery-title').value.trim(),
-                image_url: base64,
-                order: parseInt(document.getElementById('gallery-order').value) || 1
-            });
-            window.closeActiveModals();
-            window.showToast('फोटो सफलतापूर्वक अपलोड भयो!');
-            window.adminPanel.renderGalleryTable();
+            const submitBtn = e.target.querySelector('[type=submit]');
+            if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'अपलोड हुँदैछ...'; }
+
+            const photoId = 'g_' + Date.now();
+            const fsKey = 'gallery_' + photoId;
+            window.FileStore.put(fsKey, base64)
+                .then(() => {
+                    window.db.saveGalleryPhoto({
+                        id: photoId,
+                        title_ne: document.getElementById('gallery-title').value.trim(),
+                        image_url: 'filestore://' + fsKey,
+                        order: parseInt(document.getElementById('gallery-order').value) || 1
+                    });
+                    window.closeActiveModals();
+                    window.showToast('फोटो सफलतापूर्वक अपलोड भयो!');
+                    window.adminPanel.renderGalleryTable();
+                })
+                .catch(err => {
+                    console.error('Gallery FileStore error:', err);
+                    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '📁 सुरक्षित गर्नुहोस्'; }
+                    window.showToast('फोटो सुरक्षित गर्न समस्या भयो!', 'danger');
+                });
         });
     },
 
@@ -1032,16 +1301,19 @@ window.adminPanel = {
             return;
         }
         team.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(t => {
-            const photoUrl = t.photo_url || 'https://via.placeholder.com/50?text=👤';
+            const isFS = t.photo_url && t.photo_url.startsWith('filestore://');
+            const fsKey = isFS ? t.photo_url.slice('filestore://'.length) : '';
+            const imgSrc = isFS ? '' : (t.photo_url || 'https://via.placeholder.com/50?text=👤');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><img src="${photoUrl}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;"></td>
+                <td><img ${isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`} style="width:50px;height:50px;border-radius:50%;object-fit:cover;background:#eee;"></td>
                 <td style="font-weight: 700;">${t.name}</td>
                 <td>${t.role}</td>
-                <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteTeam('${t.id}')">🗑️ मेट्नुहोस्</button></td>
+                <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteTeam('${t.id}')">🗑️ मेट्नुहោस्</button></td>
             `;
             tbody.appendChild(tr);
         });
+        window.hydrateImages(tbody);
     },
 
     openTeamModal: function() {
@@ -1090,29 +1362,56 @@ window.adminPanel = {
         const preview = document.getElementById('team-photo-preview');
         fileInput.addEventListener('change', function() {
             if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    preview.src = ev.target.result;
-                    preview.dataset.base64 = ev.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(fileInput.files[0]);
+                preview.style.opacity = '0.5';
+                window.compressImage(fileInput.files[0], { maxWidth: 300, maxHeight: 300, quality: 0.7 })
+                    .then(base64 => {
+                        preview.src = base64;
+                        preview.dataset.base64 = base64;
+                        preview.style.display = 'block';
+                        preview.style.opacity = '1';
+                    })
+                    .catch(err => {
+                        console.error('Team image compression error:', err);
+                        window.showToast('फोटो लोड गर्न समस्या भयो!', 'danger');
+                    });
             }
         });
 
-        // Form submit
+        // Form submit — stores photo in FileStore, not localStorage
         document.getElementById('admin-team-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const base64 = preview.dataset.base64 || '';
-            window.db.saveTeamMember({
+            const submitBtn = e.target.querySelector('[type=submit]');
+
+            const memberData = {
                 name: document.getElementById('team-name').value.trim(),
                 role: document.getElementById('team-role').value.trim(),
-                photo_url: base64,
                 order: parseInt(document.getElementById('team-order').value) || 1
-            });
-            window.closeActiveModals();
-            window.showToast('टिम सदस्य सफलतापूर्वक अपलोड भयो!');
-            window.adminPanel.renderTeamTable();
+            };
+
+            const doSave = (photoUrl) => {
+                memberData.photo_url = photoUrl;
+                window.db.saveTeamMember(memberData);
+                window.closeActiveModals();
+                window.showToast('टिम सदस्य सफलतापूर्वक अपलोड भयो!');
+                window.adminPanel.renderTeamTable();
+            };
+
+            if (base64) {
+                if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'अपलोड हुँदैछ...'; }
+                const memberId = 't_' + Date.now();
+                const fsKey = 'team_' + memberId;
+                memberData.id = memberId;
+                window.FileStore.put(fsKey, base64)
+                    .then(() => doSave('filestore://' + fsKey))
+                    .catch(err => {
+                        console.error('Team FileStore error:', err);
+                        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '📁 सुरक्षित गर्नुहोस्'; }
+                        window.showToast('फोटो सुरक्षित गर्न समस्या भयो!', 'danger');
+                    });
+            } else {
+                doSave('');
+            }
         });
     },
 

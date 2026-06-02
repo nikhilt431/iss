@@ -192,6 +192,35 @@ class LocalDatabase {
                     }
                 }
                 
+                // Self-healing database loader to prune invalid HTML page URLs
+                let cleaned = false;
+                if (this.state.certificate_settings) {
+                    const cleanUrl = (url) => {
+                        if (!url) return '';
+                        if (url.includes('index.html') || url.startsWith('file://') || (url.startsWith('http') && !url.includes('google') && !url.includes('unsplash') && !url.includes('cloudinary') && !url.includes('via.placeholder') && !url.includes('data:image'))) {
+                            cleaned = true;
+                            return '';
+                        }
+                        return url;
+                    };
+                    
+                    const origLogo = this.state.certificate_settings.logo_url;
+                    const origWatermark = this.state.certificate_settings.watermark_url;
+                    
+                    this.state.certificate_settings.logo_url = cleanUrl(origLogo);
+                    this.state.certificate_settings.watermark_url = cleanUrl(origWatermark);
+                    
+                    if (this.state.certificate_settings.signatories) {
+                        this.state.certificate_settings.signatories.forEach(sig => {
+                            const origSig = sig.signature_url;
+                            sig.signature_url = cleanUrl(origSig);
+                        });
+                    }
+                }
+                if (cleaned) {
+                    this.save();
+                }
+                
             } else {
                 this.state = JSON.parse(JSON.stringify(INITIAL_DATA));
                 this.save();

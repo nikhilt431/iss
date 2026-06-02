@@ -9,6 +9,61 @@ window.CertificateGenerator = {
         const canvas = document.getElementById(canvasId);
         if (!canvas) return;
 
+        // Fetch custom certificate settings
+        const settings = window.db.getCertificateSettings();
+
+        // Resolve all image URLs (supports filestore://, data:, and https:)
+        const resolveAll = () => {
+            const promises = [];
+
+            const resolveAndLoad = (url) => {
+                if (!url) return Promise.resolve(null);
+                return (window.resolveUrl ? window.resolveUrl(url) : Promise.resolve(url))
+                    .then(src => {
+                        if (!src) return null;
+                        return new Promise(resolve => {
+                            const img = new Image();
+                            img.crossOrigin = 'anonymous';
+                            img.onload = () => resolve(img);
+                            img.onerror = () => resolve(null);
+                            img.src = src;
+                        });
+                    });
+            };
+
+            const result = {};
+
+            promises.push(resolveAndLoad(settings.watermark_url).then(img => { if (img) result.watermark = img; }));
+            promises.push(resolveAndLoad(settings.logo_url).then(img => { if (img) result.logo = img; }));
+
+            const signatories = settings.signatories || [];
+            signatories.forEach((sig, idx) => {
+                promises.push(resolveAndLoad(sig.signature_url).then(img => { if (img) result['sig_' + idx] = img; }));
+            });
+
+            return Promise.all(promises).then(() => result);
+        };
+
+        resolveAll().then((loadedImages) => {
+            this.draw({
+                canvas,
+                name,
+                church,
+                illaka,
+                score,
+                rank,
+                ageGroup,
+                dateStr,
+                isParticipation,
+                settings,
+                loadedImages
+            });
+        });
+    },
+
+
+    // Synchronously draw all elements now that all images are preloaded
+    draw: function({ canvas, name, church, illaka, score, rank, ageGroup, dateStr, isParticipation, settings, loadedImages }) {
         const ctx = canvas.getContext('2d');
         
         // Define high-res dimensions (A4 ratio: 1414 x 1000)
@@ -17,9 +72,6 @@ window.CertificateGenerator = {
         
         const w = canvas.width;
         const h = canvas.height;
-
-        // Fetch custom certificate settings
-        const settings = window.db.getCertificateSettings();
         const lang = localStorage.getItem('lang') || 'ne';
         
         const themeColor = settings.theme_color || '#0a3064'; // Custom Admin Border Color
@@ -70,19 +122,16 @@ window.CertificateGenerator = {
         drawCorner(w - 45, h - 45, Math.PI); // Bottom-right
         drawCorner(45, h - 45, -Math.PI / 2); // Bottom-left
 
-        // 4. Subtle Watermark in Center
-        if (settings.watermark_url && settings.watermark_url.startsWith('data:image')) {
-            const wmImg = new Image();
-            wmImg.onload = () => {
-                ctx.save();
-                ctx.globalAlpha = 0.08;
-                const wmRatio = wmImg.naturalWidth / wmImg.naturalHeight;
-                const wmHeight = 450;
-                const wmWidth = wmHeight * wmRatio;
-                ctx.drawImage(wmImg, w / 2 - wmWidth / 2, h / 2 - wmHeight / 2, wmWidth, wmHeight);
-                ctx.restore();
-            };
-            wmImg.src = settings.watermark_url;
+        // 4. Subtle Watermark in Center (Under the text)
+        if (loadedImages.watermark) {
+            const wmImg = loadedImages.watermark;
+            ctx.save();
+            ctx.globalAlpha = 0.08;
+            const wmRatio = wmImg.naturalWidth / wmImg.naturalHeight;
+            const wmHeight = 450;
+            const wmWidth = wmHeight * wmRatio;
+            ctx.drawImage(wmImg, w / 2 - wmWidth / 2, h / 2 - wmHeight / 2, wmWidth, wmHeight);
+            ctx.restore();
         } else {
             ctx.save();
             ctx.globalAlpha = 0.035;
@@ -108,15 +157,12 @@ window.CertificateGenerator = {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-        if (settings.logo_url && settings.logo_url.startsWith('data:image')) {
-            const logoImg = new Image();
-            logoImg.onload = () => {
-                const logoRatio = logoImg.naturalWidth / logoImg.naturalHeight;
-                const logoHeight = 120;
-                const logoWidth = logoHeight * logoRatio;
-                ctx.drawImage(logoImg, w / 2 - logoWidth / 2, 70, logoWidth, logoHeight);
-            };
-            logoImg.src = settings.logo_url;
+        if (loadedImages.logo) {
+            const logoImg = loadedImages.logo;
+            const logoRatio = logoImg.naturalWidth / logoImg.naturalHeight;
+            const logoHeight = 120;
+            const logoWidth = logoHeight * logoRatio;
+            ctx.drawImage(logoImg, w / 2 - logoWidth / 2, 70, logoWidth, logoHeight);
         } else {
             ctx.fillStyle = goldColor;
             ctx.font = 'bold 24px "Outfit", "Inter", "Arial"';
@@ -226,15 +272,12 @@ window.CertificateGenerator = {
             ctx.font = '18px "Inter", "Noto Sans", "Arial"';
             ctx.fillText(lang === 'en' ? sig.title_en : sig.title_ne, cx, sigY + 10);
 
-            if (sig.signature_url && sig.signature_url.startsWith('data:image')) {
-                const img = new Image();
-                img.onload = () => {
-                    const imgRatio = img.naturalWidth / img.naturalHeight;
-                    const drawHeight = 60;
-                    const drawWidth = drawHeight * imgRatio;
-                    ctx.drawImage(img, cx - drawWidth / 2, sigY - 25 - drawHeight, drawWidth, drawHeight);
-                };
-                img.src = sig.signature_url;
+            const sigImg = loadedImages['sig_' + idx];
+            if (sigImg) {
+                const imgRatio = sigImg.naturalWidth / sigImg.naturalHeight;
+                const drawHeight = 60;
+                const drawWidth = drawHeight * imgRatio;
+                ctx.drawImage(sigImg, cx - drawWidth / 2, sigY - 25 - drawHeight, drawWidth, drawHeight);
             } else {
                 ctx.fillStyle = '#222222';
                 ctx.font = 'italic 23px "Brush Script MT", "Arial"';

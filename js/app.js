@@ -757,14 +757,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ranked.slice(0, 3).forEach((p, idx) => {
             const card = document.createElement('div');
             card.className = `card card-accent ${idx === 0 ? 'card-champion' : ''}`;
-            
-            // Generate QR ID badge offline URL
-            const photoUrl = p.photo_url || 'https://via.placeholder.com/120?text=सहभागी';
-            
+
+            const isFS = p.photo_url && p.photo_url.startsWith('filestore://');
+            const fsKey = isFS ? p.photo_url.slice('filestore://'.length) : '';
+            const placeholder = `data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>${p.name_ne[0]}</text></svg>`;
+            const imgSrc = isFS ? placeholder : (p.photo_url || placeholder);
+
             card.innerHTML = `
                 ${idx === 0 ? '<div class="champion-ribbon">👑</div>' : ''}
                 <div class="text-center">
-                    <img class="avatar-large" src="${photoUrl}" alt="${p.name_ne}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>${p.name_ne[0]}</text></svg>'">
+                    <img class="avatar-large" ${isFS ? `data-fs-key="${fsKey}"` : ''} src="${imgSrc}" alt="${p.name_ne}" onerror="this.src='${placeholder}'">
                     <span class="rank-badge rank-${idx + 1}" style="margin-bottom: 0.5rem;">${idx + 1}</span>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.25rem;">${p.name_ne}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">${p.church_name}</p>
@@ -776,6 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             top3Grid.appendChild(card);
         });
+        if (window.hydrateImages) window.hydrateImages(top3Grid);
     }
 
     function renderPublicNotices() {
@@ -942,13 +945,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const illaka = window.db.getIllakaById(p.illaka_id);
             const scoreObj = ranked.find(r => r.id === p.id);
             const hasEvaluated = scoreObj && scoreObj.evaluated;
-            const photoUrl = p.photo_url || 'https://via.placeholder.com/80?text=सहभागी';
+
+            const isFS = p.photo_url && p.photo_url.startsWith('filestore://');
+            const fsKey = isFS ? p.photo_url.slice('filestore://'.length) : '';
+            const placeholder = `data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>${p.name_ne[0]}</text></svg>`;
+            const imgSrc = isFS ? placeholder : (p.photo_url || placeholder);
 
             const card = document.createElement('div');
             card.className = 'card card-accent';
             card.innerHTML = `
                 <div style="display: flex; gap: 1rem; align-items: center;">
-                    <img class="avatar-ring" style="width: 60px; height: 60px;" src="${photoUrl}" alt="${p.name_ne}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>${p.name_ne[0]}</text></svg>'">
+                    <img class="avatar-ring" style="width: 60px; height: 60px;" ${isFS ? `data-fs-key="${fsKey}"` : ''} src="${imgSrc}" alt="${p.name_ne}" onerror="this.src='${placeholder}'">
                     <div style="flex: 1;">
                         <h3 style="font-size: 1.1rem; color: var(--primary);">${p.name_ne}</h3>
                         <p style="font-size: 0.85rem; color: var(--text-muted);">${p.church_name}</p>
@@ -986,6 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             container.appendChild(card);
         });
+        if (window.hydrateImages) window.hydrateImages(container);
     }
 
     if (pSearchInput) pSearchInput.addEventListener('input', renderPublicParticipants);
@@ -1028,22 +1036,37 @@ document.addEventListener('DOMContentLoaded', () => {
     window.triggerDownload = function(id) {
         const materials = window.db.getMaterials();
         const m = materials.find(x => x.id === id);
-        if(!m || !m.file_url || m.file_url === '#') {
+        if (!m || !m.file_url || m.file_url === '#') {
             showToast('यस सामग्रीको फाइल उपलब्ध छैन।', 'danger');
             return;
         }
-        
+
         if (m.file_url.startsWith('http')) {
+            // External URL (Google Drive, etc.)
             window.open(m.file_url, '_blank');
+        } else if (m.file_url.startsWith('filestore://')) {
+            // File stored in IndexedDB
+            const fsKey = m.file_url.slice('filestore://'.length);
+            window.FileStore.get(fsKey).then(data => {
+                if (!data) { showToast('फाइल फेला परेन!', 'danger'); return; }
+                let ext = m.file_type ? m.file_type.toLowerCase() : 'file';
+                if (ext === 'link' || ext === 'external') ext = 'pdf';
+                const a = document.createElement('a');
+                a.href = data;
+                a.download = `${m.title_ne.replace(/ /g, '_')}.${ext}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                showToast(`'${m.title_ne}' डाउनलोड सुरु भयो!`);
+            }).catch(() => showToast('फाइल डाउनलोड गर्न समस्या भयो!', 'danger'));
         } else if (m.file_url.startsWith('data:')) {
-            const link = document.createElement("a");
-            link.setAttribute("href", m.file_url);
-            
-            let ext = m.file_type.toLowerCase();
-            if(ext === 'image') ext = 'png';
-            if(ext === 'link' || ext === 'external') ext = 'pdf';
-            
-            link.setAttribute("download", `${m.title_ne.replace(/ /g, '_')}.${ext}`);
+            // Legacy base64 inline data
+            let ext = m.file_type ? m.file_type.toLowerCase() : 'file';
+            if (ext === 'image') ext = 'png';
+            if (ext === 'link' || ext === 'external') ext = 'pdf';
+            const link = document.createElement('a');
+            link.setAttribute('href', m.file_url);
+            link.setAttribute('download', `${m.title_ne.replace(/ /g, '_')}.${ext}`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -1117,37 +1140,51 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = document.getElementById('dashboard-gallery-slider');
         const caption = document.getElementById('dashboard-gallery-caption');
         if (!slider) return;
-        
+
         slider.innerHTML = '';
         const gallery = window.db.getGallery();
         if (gallery.length === 0) {
             slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">कुनै तस्बिर उपलब्ध छैन।</div>';
-            caption.style.display = 'none';
+            if (caption) caption.style.display = 'none';
             return;
         }
 
-        gallery.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(g => {
+        const sorted = gallery.slice().sort((a,b) => (a.order || 0) - (b.order || 0));
+
+        sorted.forEach(g => {
             const img = document.createElement('img');
-            img.src = g.image_url;
             img.alt = g.title_ne;
             img.style.minWidth = '100%';
             img.style.height = '100%';
             img.style.objectFit = 'cover';
             img.dataset.caption = g.title_ne;
+
+            if (g.image_url && g.image_url.startsWith('filestore://')) {
+                const fsKey = g.image_url.slice('filestore://'.length);
+                img.src = ''; // placeholder while loading
+                img.style.background = '#1e293b';
+                window.FileStore.get(fsKey).then(data => {
+                    if (data) img.src = data;
+                }).catch(() => {});
+            } else {
+                img.src = g.image_url || '';
+            }
             slider.appendChild(img);
         });
 
         // Initialize Slider Animation
         let currentIndex = 0;
-        caption.style.display = 'block';
-        caption.textContent = gallery[0].title_ne;
-        
+        if (caption) {
+            caption.style.display = 'block';
+            caption.textContent = sorted[0].title_ne;
+        }
+
         if (sliderInterval) clearInterval(sliderInterval);
-        if (gallery.length > 1) {
+        if (sorted.length > 1) {
             sliderInterval = setInterval(function() {
-                currentIndex = (currentIndex + 1) % gallery.length;
+                currentIndex = (currentIndex + 1) % sorted.length;
                 slider.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-                caption.textContent = gallery[currentIndex].title_ne;
+                if (caption) caption.textContent = sorted[currentIndex].title_ne;
             }, 3000);
         }
     }
@@ -1165,15 +1202,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         team.sort(function(a,b) { return (a.order || 0) - (b.order || 0); }).forEach(function(t) {
-            const photoUrl = t.photo_url && t.photo_url.trim() !== '' ? t.photo_url : 'https://via.placeholder.com/150?text=%F0%9F%91%A4';
+            const isFS = t.photo_url && t.photo_url.startsWith('filestore://');
+            const fsKey = isFS ? t.photo_url.slice('filestore://'.length) : '';
+            const imgSrc = isFS ? '' : (t.photo_url && t.photo_url.trim() !== '' ? t.photo_url : 'https://via.placeholder.com/150?text=%F0%9F%91%A4');
+
             const card = document.createElement('div');
             card.className = 'card card-accent';
             card.style.textAlign = 'center';
-            card.innerHTML = '<img src="' + photoUrl + '" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem auto; display: block; border: 3px solid var(--gold);">'
+            card.innerHTML = '<img '
+                + (isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`)
+                + ' style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem auto; display: block; border: 3px solid var(--gold); background: #eee;">'
                 + '<h3 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.25rem;">' + t.name + '</h3>'
                 + '<p style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem;">' + t.role + '</p>';
             container.appendChild(card);
         });
+        if (window.hydrateImages) window.hydrateImages(container);
     }
 
     // --- Detail & Action Modals ---
