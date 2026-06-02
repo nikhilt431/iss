@@ -144,6 +144,10 @@ window.adminPanel = {
             this.renderGalleryTable();
         } else if (tabName === 'team') {
             this.renderTeamTable();
+        } else if (tabName === 'contact_settings') {
+            this.loadContactSettingsForm();
+        } else if (tabName === 'inbox') {
+            this.renderMessagesTable();
         }
     },
 
@@ -1420,6 +1424,67 @@ window.adminPanel = {
             window.db.deleteTeamMember(id);
             window.showToast('सदस्य मेटाइयो!');
             this.renderTeamTable();
+        }
+    },
+
+    // --- Contact Settings ---
+    loadContactSettingsForm: function() {
+        const settings = window.db.getContactSettings ? window.db.getContactSettings() : null;
+        if (!settings) return;
+
+        document.getElementById('cs-address').value = settings.address || '';
+        document.getElementById('cs-phone').value = settings.phone || '';
+        document.getElementById('cs-email').value = settings.email || '';
+        document.getElementById('cs-map-url').value = settings.google_map_url || '';
+
+        // Setup save listener once
+        if (!this._contactSettingsBound) {
+            document.getElementById('btn-save-contact-settings').addEventListener('click', () => {
+                window.db.updateContactSettings({
+                    address: document.getElementById('cs-address').value.trim(),
+                    phone: document.getElementById('cs-phone').value.trim(),
+                    email: document.getElementById('cs-email').value.trim(),
+                    google_map_url: document.getElementById('cs-map-url').value.trim()
+                });
+                window.showToast('सम्पर्क विवरण सुरक्षित भयो!', 'success');
+            });
+            this._contactSettingsBound = true;
+        }
+    },
+
+    // --- Inbox Messages ---
+    renderMessagesTable: function() {
+        const tbody = document.getElementById('admin-messages-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        const messages = window.db.getMessages ? window.db.getMessages() : [];
+        
+        if (messages.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center">इनबक्स खाली छ।</td></tr>';
+            return;
+        }
+
+        messages.forEach(m => {
+            const dateStr = new Date(m.created_at).toLocaleString();
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${dateStr}</td>
+                <td><strong>${m.name}</strong></td>
+                <td>${m.contact}</td>
+                <td>${m.message}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteMessage('${m.id}')">🗑️ मेटाउनुहोस्</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    },
+
+    deleteMessage: function(id) {
+        if (confirm('के तपाईं यो सन्देश मेटाउन निश्चित हुनुहुन्छ?')) {
+            window.db.deleteMessage(id);
+            window.showToast('सन्देश मेटाइयो!');
+            this.renderMessagesTable();
         }
     }
 };

@@ -158,7 +158,14 @@ const INITIAL_DATA = {
     team_members: [
         { id: 't1', name: 'Nikhil Sharma', role: 'Coordinator & Lead Developer', photo_url: '', order: 1 },
         { id: 't2', name: 'Pst. Prakash Limbu', role: 'Chief Advisor', photo_url: '', order: 2 }
-    ]
+    ],
+    contact_settings: {
+        address: 'Kathmandu, Nepal',
+        phone: '+977 9800000000',
+        email: 'info@igniterteam.org',
+        google_map_url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113032.64621396606!2d85.25005527299307!3d27.708942726359553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1717240324869!5m2!1sen!2snp'
+    },
+    messages: [] // Contact form submissions
 };
 
 class LocalDatabase {
@@ -640,6 +647,39 @@ class LocalDatabase {
         this.state.team_members = this.state.team_members.filter(t => t.id !== id);
         this.save();
         return true;
+    }
+    // --- Messages (Contact Form) ---
+    getMessages() {
+        return [...(this.state.messages || [])].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
+    addMessage(msg) {
+        if (!this.state.messages) this.state.messages = [];
+        this.state.messages.push({
+            id: 'msg_' + Date.now(),
+            name: msg.name,
+            contact: msg.contact,
+            message: msg.message,
+            read: false,
+            created_at: new Date().toISOString()
+        });
+        this.save();
+    }
+
+    deleteMessage(id) {
+        if (!this.state.messages) return;
+        this.state.messages = this.state.messages.filter(m => m.id !== id);
+        this.save();
+    }
+
+    // --- Contact Settings ---
+    getContactSettings() {
+        return { ...this.state.contact_settings };
+    }
+
+    updateContactSettings(settings) {
+        this.state.contact_settings = { ...this.state.contact_settings, ...settings };
+        this.save();
     }
 }
 

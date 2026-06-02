@@ -27,12 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const TRANSLATIONS = {
         ne: {
             // Header tabs
-            'nav-home': '🏠 ड्यासबोर्ड',
-            'nav-live-score': '🏆 लाइभ नतिजा',
+            'nav-org-home': '🏠 गृहपृष्ठ',
+            'nav-about': '📖 हाम्रो बारेमा',
+            'nav-tournament-group': '🏆 प्रतियोगिता ▾',
+            'nav-home': 'ड्यासबोर्ड',
+            'nav-live-score': 'लाइभ नतिजा',
             'nav-participants': 'सहभागीहरू',
-            'nav-downloads': '📥 डाउनलोडहरू',
-            'nav-notices': '🔔 सूचना बोर्ड',
+            'nav-downloads': 'डाउनलोडहरू',
+            'nav-notices': '🔔 समाचार',
+            'nav-gallery': '🖼️ ग्यालरी',
             'nav-team': '🤝 हाम्रो टिम',
+            'nav-contact': '📞 सम्पर्क',
             'nav-judge': '📝 जज प्यानल',
             'nav-admin': '⚙️ एडमिन प्यानल',
             'nav-login': '🔑 लगइन',
@@ -50,12 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         en: {
             // Header tabs
-            'nav-home': '🏠 Dashboard',
-            'nav-live-score': '🏆 Live Result',
+            'nav-org-home': '🏠 Home',
+            'nav-about': '📖 About Us',
+            'nav-tournament-group': '🏆 Tournament ▾',
+            'nav-home': 'Dashboard',
+            'nav-live-score': 'Live Result',
             'nav-participants': 'Participants',
-            'nav-downloads': '📥 Downloads',
-            'nav-notices': '🔔 Notice Board',
-            'nav-team': '🤝 Our Team',
+            'nav-downloads': 'Downloads',
+            'nav-notices': '🔔 News',
+            'nav-gallery': '🖼️ Gallery',
+            'nav-team': '🤝 Team',
+            'nav-contact': '📞 Contact',
             'nav-judge': '📝 Judge Panel',
             'nav-admin': '⚙️ Admin Panel',
             'nav-login': '🔑 Login',
@@ -261,8 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 2. SPA Router Engine
-    const navButtons = document.querySelectorAll('.nav-item-btn, .brand-section, #nav-login');
+    const navButtons = document.querySelectorAll('.nav-item-btn, .brand-section, #nav-login, .nav-dropdown-content button');
     const sections = {
+        'nav-org-home': 'section-org-home',
+        'nav-about': 'section-about',
+        'nav-contact': 'section-contact',
+        'nav-gallery': 'section-gallery',
         'nav-home': 'section-home',
         'nav-live-score': 'section-live-score',
         'nav-participants': 'section-participants',
@@ -275,14 +289,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function navigateTo(navId) {
+        if (navId === 'nav-tournament-group') return; // Do nothing for dropdown parent
+
         // Toggle Active nav state
-        document.querySelectorAll('.nav-item-btn').forEach(btn => {
+        document.querySelectorAll('.nav-item-btn, .nav-dropdown-content button').forEach(btn => {
             btn.classList.remove('active');
-            if (btn.id === navId) btn.classList.add('active');
+            if (btn.id === navId) {
+                btn.classList.add('active');
+                // If it's a dropdown child, also highlight the parent
+                if (btn.parentElement.classList.contains('nav-dropdown-content')) {
+                    btn.parentElement.previousElementSibling.classList.add('active');
+                }
+            }
         });
 
         // Hide all sections, show target
-        const targetSectionId = sections[navId] || 'section-home';
+        const targetSectionId = sections[navId] || 'section-org-home';
         Object.values(sections).forEach(secId => {
             const el = document.getElementById(secId);
             if (el) el.classList.add('hidden');
@@ -293,16 +315,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Close details modals if any
         closeActiveModals();
+        
+        // Persist tab
+        sessionStorage.setItem('active_tab', navId);
 
         // Initialize section-specific scripts
-        if (navId === 'nav-home') {
+        if (navId === 'nav-org-home') {
+            // Nothing specific yet
+        } else if (navId === 'nav-contact') {
+            renderPublicContactInfo();
+        } else if (navId === 'nav-home') {
             renderDashboardStats();
             renderPublicTop3();
             renderPublicNotices();
             renderPublicPrizes();
-            renderPublicGallerySlider();
-            
-            // Setup Live Score Board
             renderLiveScoreBoard();
         } else if (navId === 'nav-live-score') {
             renderLiveScoreBoard();
@@ -312,6 +338,8 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicDownloads();
         } else if (navId === 'nav-notices') {
             renderPublicNotices();
+        } else if (navId === 'nav-gallery') {
+            renderPublicGallerySlider();
         } else if (navId === 'nav-team') {
             renderPublicTeam();
         } else if (navId === 'nav-admin') {
@@ -361,9 +389,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navId === 'nav-home') {
                 renderDashboardStats();
                 renderPublicTop3();
-                renderPublicNotices();
                 renderPublicPrizes();
                 renderLiveScoreBoard();
+            } else if (navId === 'nav-org-home') {
+                // Countdown updates dynamically via startCountdown setInterval
+            } else if (navId === 'nav-gallery') {
+                renderPublicGallerySlider();
             } else if (navId === 'nav-live-score') {
                 renderLiveScoreBoard();
             } else if (navId === 'nav-participants') {
@@ -674,7 +705,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const updateTimer = () => {
             const settings = window.db.getSettings();
+            const wrapper = document.getElementById('org-countdown-wrapper');
+            if (!settings.event_date || settings.event_date.trim() === '') {
+                if (wrapper) wrapper.classList.add('hidden');
+                if (timerInterval) clearInterval(timerInterval);
+                return;
+            }
+
             const targetDate = new Date(settings.event_date).getTime();
+            if (isNaN(targetDate)) {
+                if (wrapper) wrapper.classList.add('hidden');
+                if (timerInterval) clearInterval(timerInterval);
+                return;
+            }
+
+            if (wrapper) wrapper.classList.remove('hidden');
+
             const now = new Date().getTime();
             const distance = targetDate - now;
 
@@ -1135,58 +1181,69 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Render Gallery Slider ---
-    let sliderInterval = null;
+    let sliderIntervals = [];
     function renderPublicGallerySlider() {
-        const slider = document.getElementById('dashboard-gallery-slider');
-        const caption = document.getElementById('dashboard-gallery-caption');
-        if (!slider) return;
+        const sliderIds = ['dashboard-gallery-slider', 'dashboard-gallery-slider-2'];
+        
+        // Clear old intervals
+        sliderIntervals.forEach(interval => clearInterval(interval));
+        sliderIntervals = [];
 
-        slider.innerHTML = '';
         const gallery = window.db.getGallery();
-        if (gallery.length === 0) {
-            slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">कुनै तस्बिर उपलब्ध छैन।</div>';
-            if (caption) caption.style.display = 'none';
-            return;
-        }
-
         const sorted = gallery.slice().sort((a,b) => (a.order || 0) - (b.order || 0));
 
-        sorted.forEach(g => {
-            const img = document.createElement('img');
-            img.alt = g.title_ne;
-            img.style.minWidth = '100%';
-            img.style.height = '100%';
-            img.style.objectFit = 'cover';
-            img.dataset.caption = g.title_ne;
+        sliderIds.forEach(id => {
+            const slider = document.getElementById(id);
+            if (!slider) return;
+            
+            // Assume caption has same ID + '-caption' (only the first one had it in old HTML, so we might just find it)
+            // Wait, the original HTML had id="dashboard-gallery-caption". I'll use id + '-caption'
+            const caption = document.getElementById(id + '-caption');
+            slider.innerHTML = '';
 
-            if (g.image_url && g.image_url.startsWith('filestore://')) {
-                const fsKey = g.image_url.slice('filestore://'.length);
-                img.src = ''; // placeholder while loading
-                img.style.background = '#1e293b';
-                window.FileStore.get(fsKey).then(data => {
-                    if (data) img.src = data;
-                }).catch(() => {});
-            } else {
-                img.src = g.image_url || '';
+            if (gallery.length === 0) {
+                slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">कुनै तस्बिर उपलब्ध छैन।</div>';
+                if (caption) caption.style.display = 'none';
+                return;
             }
-            slider.appendChild(img);
+
+            sorted.forEach(g => {
+                const img = document.createElement('img');
+                img.alt = g.title_ne;
+                img.style.minWidth = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.dataset.caption = g.title_ne;
+
+                if (g.image_url && g.image_url.startsWith('filestore://')) {
+                    const fsKey = g.image_url.slice('filestore://'.length);
+                    img.src = ''; // placeholder while loading
+                    img.style.background = '#1e293b';
+                    window.FileStore.get(fsKey).then(data => {
+                        if (data) img.src = data;
+                    }).catch(() => {});
+                } else {
+                    img.src = g.image_url || '';
+                }
+                slider.appendChild(img);
+            });
+
+            // Initialize Slider Animation for this specific slider
+            let currentIndex = 0;
+            if (caption) {
+                caption.style.display = 'block';
+                caption.textContent = sorted[0].title_ne;
+            }
+
+            if (sorted.length > 1) {
+                const interval = setInterval(function() {
+                    currentIndex = (currentIndex + 1) % sorted.length;
+                    slider.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+                    if (caption) caption.textContent = sorted[currentIndex].title_ne;
+                }, 3000);
+                sliderIntervals.push(interval);
+            }
         });
-
-        // Initialize Slider Animation
-        let currentIndex = 0;
-        if (caption) {
-            caption.style.display = 'block';
-            caption.textContent = sorted[0].title_ne;
-        }
-
-        if (sliderInterval) clearInterval(sliderInterval);
-        if (sorted.length > 1) {
-            sliderInterval = setInterval(function() {
-                currentIndex = (currentIndex + 1) % sorted.length;
-                slider.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-                if (caption) caption.textContent = sorted[currentIndex].title_ne;
-            }, 3000);
-        }
     }
 
     // --- Render Public Team ---
@@ -1399,12 +1456,72 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // 13. Public Contact Render
+    function renderPublicContactInfo() {
+        const contactSettings = window.db.getContactSettings ? window.db.getContactSettings() : null;
+        if (!contactSettings) return;
+
+        const pTags = document.querySelectorAll('#section-contact .contact-icon-row p');
+        if (pTags.length >= 3) {
+            pTags[0].textContent = contactSettings.address || '';
+            pTags[1].textContent = contactSettings.phone || '';
+            pTags[2].textContent = contactSettings.email || '';
+        }
+
+        let mapWrapper = document.getElementById('public-map-wrapper');
+        if (!mapWrapper) {
+            mapWrapper = document.createElement('div');
+            mapWrapper.id = 'public-map-wrapper';
+            mapWrapper.className = 'card';
+            mapWrapper.style.marginTop = '2rem';
+            mapWrapper.style.padding = '0';
+            mapWrapper.style.overflow = 'hidden';
+            
+            // Insert it at the end of section-contact
+            const sectionContact = document.getElementById('section-contact');
+            if (sectionContact) sectionContact.appendChild(mapWrapper);
+        }
+
+        if (contactSettings.google_map_url) {
+            mapWrapper.innerHTML = `<iframe src="${contactSettings.google_map_url}" width="100%" height="450" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+        } else {
+            mapWrapper.innerHTML = '';
+        }
+    }
+
+    // Contact Form Submit Handler
+    const contactForm = document.getElementById('public-contact-form');
+    if (contactForm) {
+        // Remove the inline onsubmit handler in HTML from earlier and bind it properly here
+        contactForm.onsubmit = (e) => {
+            e.preventDefault();
+            const inputs = contactForm.querySelectorAll('input, textarea');
+            if (inputs.length >= 3 && window.db.addMessage) {
+                window.db.addMessage({
+                    name: inputs[0].value,
+                    contact: inputs[1].value,
+                    message: inputs[2].value
+                });
+                showToast('सन्देश सफलतापूर्वक पठाइयो! हामी छिट्टै सम्पर्क गर्नेछौं।', 'success');
+                contactForm.reset();
+            }
+        };
+    }
+
     // 12. App Initialization
     window.translateUI(savedLang);
     updateAuthUI();
-    renderTicker();
+    // Start global widgets
     startCountdown();
-    navigateTo('nav-home');
+    renderTicker();
+
+    // Default Load State
+    const savedTab = sessionStorage.getItem('active_tab');
+    if (savedTab && sections[savedTab]) {
+        navigateTo(savedTab);
+    } else {
+        navigateTo('nav-org-home');
+    }
 
     // Parse URL parameter to show participant detailed marks on QR scan
     const urlParams = new URLSearchParams(window.location.search);

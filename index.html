@@ -82,12 +82,21 @@
                 <div class="nav-controls">
                     <!-- Nav tabs -->
                     <ul class="nav-links">
-                        <li><button class="nav-item-btn active" id="nav-home">🏠 ड्यासबोर्ड</button></li>
-                        <li><button class="nav-item-btn" id="nav-live-score">🏆 लाइभ नतिजा</button></li>
-                        <li><button class="nav-item-btn" id="nav-participants">सहभागीहरू</button></li>
-                        <li><button class="nav-item-btn" id="nav-downloads">📥 डाउनलोडहरू</button></li>
-                        <li><button class="nav-item-btn" id="nav-notices">🔔 सूचना बोर्ड</button></li>
-                        <li><button class="nav-item-btn" id="nav-team">🤝 हाम्रो टिम</button></li>
+                        <li><button class="nav-item-btn active" id="nav-org-home">🏠 गृहपृष्ठ (Home)</button></li>
+                        <li><button class="nav-item-btn" id="nav-about">📖 हाम्रो बारेमा (About)</button></li>
+                        <li class="nav-dropdown">
+                            <button class="nav-item-btn" id="nav-tournament-group">🏆 प्रतियोगिता (Tournament) ▾</button>
+                            <div class="nav-dropdown-content">
+                                <button id="nav-home">ड्यासबोर्ड (Dashboard)</button>
+                                <button id="nav-live-score">लाइभ नतिजा (Live Score)</button>
+                                <button id="nav-participants">सहभागीहरू (Participants)</button>
+                                <button id="nav-downloads">डाउनलोडहरू (Downloads)</button>
+                            </div>
+                        </li>
+                        <li><button class="nav-item-btn" id="nav-notices">🔔 समाचार (News)</button></li>
+                        <li><button class="nav-item-btn" id="nav-gallery">🖼️ ग्यालरी (Gallery)</button></li>
+                        <li><button class="nav-item-btn" id="nav-team">🤝 हाम्रो टिम (Team)</button></li>
+                        <li><button class="nav-item-btn" id="nav-contact">📞 सम्पर्क (Contact)</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
                     </ul>
@@ -129,16 +138,19 @@
         <!-- MAIN APP CONTENT PANELS -->
         <main>
             
-            <!-- SECTION 1: HOME PAGE / DASHBOARD -->
-            <section id="section-home">
+            <!-- SECTION 0: ORGANIZATION HOME PAGE -->
+            <section id="section-org-home">
+                <div class="about-hero" style="margin-bottom: 2rem;">
+                    <h1 id="org-hero-title" style="font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-heading); font-weight: 900;">Igniter Team</h1>
+                    <p id="org-hero-subtitle" style="font-size: 1.25rem; font-weight: 500; opacity: 0.9;">Into the Way of Jesus Christ</p>
+                </div>
                 
-                <!-- Main Header Title Cards -->
-                <div class="card card-accent" style="margin-bottom: 2rem; text-align: center; background: radial-gradient(circle, rgba(10,48,100,0.05) 0%, transparent 80%), var(--bg-card);">
-                    <h2 id="home-event-title" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 0.5rem;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३</h2>
-                    <p id="home-event-subtitle" style="font-size: 1.1rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">इग्नाइटर टिम (Igniter Team)</p>
+                <!-- Event Countdown Widget (Only shows if active) -->
+                <div id="org-countdown-wrapper" class="card card-accent text-center hidden" style="margin-bottom: 2rem;">
+                    <h2 id="home-event-title" style="font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३</h2>
+                    <p id="home-event-subtitle" style="font-size: 1rem; color: var(--gold); font-weight: 600; text-transform: uppercase;">इग्नाइटर टिम (Igniter Team)</p>
                     
-                    <!-- Countdown timer -->
-                    <div style="margin-top: 2rem;">
+                    <div style="margin-top: 1.5rem;">
                         <h4 id="countdown-title" style="font-size: 0.95rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">प्रतियोगिता सुरु हुन बाँकी समय</h4>
                         <div class="countdown-container">
                             <div class="countdown-box">
@@ -159,6 +171,120 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">हाम्रो उद्देश्य (Our Purpose)</h3>
+                        <p style="color: var(--text-main); line-height: 1.6;">ख्रीष्टियन युवा तथा बालबालिकाहरूलाई परमेश्वरको वचन (बाइबल) अध्ययन र कण्ठस्थ गर्न प्रोत्साहित गर्नु हाम्रो मुख्य उद्देश्य हो।</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 1rem;">आगामी कार्यक्रम (Upcoming Events)</h3>
+                        <p style="color: var(--text-main); line-height: 1.6;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३ का लागि तयारी सुरु भइसकेको छ। कृपया "प्रतियोगिता" मेनुबाट थप जानकारी लिनुहोस्।</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: ABOUT US -->
+            <section id="section-about" class="hidden">
+                <div class="about-hero">
+                    <h2 id="about-title" style="font-size: 2.5rem; margin-bottom: 1rem;">हाम्रो बारेमा (About Us)</h2>
+                    <p id="about-subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">इग्नाइटर टिम (Igniter Team) परमेश्वरको वचनलाई युवा पुस्तामा पुर्याउने एउटा सक्रिय समूह हो।</p>
+                </div>
+                
+                <div style="background: var(--bg-card); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.5rem;">हाम्रो कथा (Our Story)</h3>
+                    <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                        Igniter Team started with a simple vision: to ignite the passion for Jesus Christ among the youth. 
+                        We organize events, study sessions, and competitions that challenge individuals to dive deeper into the Holy Scriptures.
+                    </p>
+                    <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8;">
+                        यस समूहले विशेषगरी बाइबल पद कण्ठस्थ प्रतियोगिता लगायतका विभिन्न कार्यक्रमहरू मार्फत मण्डलीका युवा तथा बालबालिकाहरूलाई आत्मिक रूपमा वृद्धि हुन मद्दत गरिरहेको छ।
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECTION: CONTACT US -->
+            <section id="section-contact" class="hidden">
+                <h2 style="font-size: 2rem; color: var(--primary); margin-bottom: 2rem; text-align: center;">सम्पर्क गर्नुहोस् (Contact Us)</h2>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-info-card">
+                            <h3 style="color: var(--primary); margin-bottom: 2rem;">सम्पर्क विवरण</h3>
+                            
+                            <div class="contact-icon-row">
+                                <div class="icon">📍</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.25rem;">ठेगाना (Address)</h4>
+                                    <p style="color: var(--text-muted);">Kathmandu, Nepal</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-icon-row">
+                                <div class="icon">📞</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.25rem;">फोन (Phone)</h4>
+                                    <p style="color: var(--text-muted);">+977 9800000000</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-icon-row">
+                                <div class="icon">✉️</div>
+                                <div>
+                                    <h4 style="margin-bottom: 0.25rem;">ईमेल (Email)</h4>
+                                    <p style="color: var(--text-muted);">info@igniterteam.org</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-wrapper">
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 1.5rem;">हामीलाई सन्देश पठाउनुहोस्</h3>
+                            <form id="public-contact-form" onsubmit="event.preventDefault(); showToast('सन्देश सफलतापूर्वक पठाइयो! हामी छिट्टै सम्पर्क गर्नेछौं।', 'success'); this.reset();">
+                                <div class="form-group">
+                                    <label class="form-label">पूरा नाम (Full Name)</label>
+                                    <input type="text" class="form-control" required placeholder="तपाईंको नाम">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">ईमेल वा फोन (Email / Phone)</label>
+                                    <input type="text" class="form-control" required placeholder="सम्पर्क विवरण">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">सन्देश (Message)</label>
+                                    <textarea class="form-control" rows="5" required placeholder="तपाईंको सन्देश यहाँ लेख्नुहोस्..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">सन्देश पठाउनुहोस् (Send Message)</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: GLOBAL GALLERY -->
+            <section id="section-gallery" class="hidden">
+                <h2 style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;">हाम्रो ग्यालरी (Our Gallery)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमका झलकहरू</p>
+                
+                <!-- We will reuse the slider from the dashboard here for now -->
+                <div class="card card-accent" style="padding: 1rem;">
+                    <div style="position: relative; width: 100%; height: 500px; background: var(--bg-main); border-radius: var(--radius-md); overflow: hidden;">
+                        <div id="dashboard-gallery-slider" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
+                            <!-- JS will inject slider imgs here -->
+                        </div>
+                        <div id="dashboard-gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 48, 100, 0.85); color: white; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: center; display: none;"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 1: TOURNAMENT DASHBOARD -->
+            <section id="section-home" class="hidden">
+                
+                <!-- Main Header Title Cards -->
+                <div class="card card-accent" style="margin-bottom: 2rem; text-align: center; background: radial-gradient(circle, rgba(10,48,100,0.05) 0%, transparent 80%), var(--bg-card);">
+                    <h2 style="font-size: 2.2rem; color: var(--primary); margin-bottom: 0.5rem;">प्रतियोगिता ड्यासबोर्ड</h2>
+                    <p style="font-size: 1.1rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Tournament Dashboard</p>
                 </div>
 
                 <!-- Stats Widgets Grid -->
@@ -397,6 +523,8 @@
                         <button class="btn btn-outline admin-subnav-btn" data-tab="prizes" style="justify-content: flex-start;">🏆 पुरस्कार व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="gallery" style="justify-content: flex-start;">📸 ग्यालरी व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="team" style="justify-content: flex-start;">🤝 टिम व्यवस्थापन</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="contact_settings" style="justify-content: flex-start;">📞 सम्पर्क सेटिङ</button>
+                        <button class="btn btn-outline admin-subnav-btn" data-tab="inbox" style="justify-content: flex-start;">📬 सन्देश इनबक्स</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="settings" style="justify-content: flex-start;">🛠️ प्रणाली सेटिङ र ब्याकअप</button>
                     </aside>
 
