@@ -20,8 +20,8 @@ window.convertGoogleDriveUrl = function(url) {
 
     const id = extractId(url);
     if (id) {
-        // Use the thumbnail endpoint which reliably bypasses strict CORB/Cookie blocks for public images
-        return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+        // Use the lh3.googleusercontent.com endpoint for Google Drive images (best for direct embedding in 2024+)
+        return `https://lh3.googleusercontent.com/d/${id}`;
     }
 
     // Not a Google Drive link — return unchanged
@@ -317,20 +317,10 @@ window.adminPanel = {
         };
 
         if (base64) {
-            // Save photo to FileStore, store reference key in state
-            const savedId = data.id || ('p_' + Date.now());
-            const fsKey = 'participant_photo_' + savedId;
-            window.FileStore.put(fsKey, base64)
-                .then(() => {
-                    data.photo_url = 'filestore://' + fsKey;
-                    if (!data.id) data.id = savedId;
-                    saveAndClose();
-                })
-                .catch(err => {
-                    console.error('Photo save error:', err);
-                    data.photo_url = base64; // fallback
-                    saveAndClose();
-                });
+            // Save photo base64 directly into state so it synchronizes via Firebase Sync to all devices
+            data.photo_url = base64;
+            if (!data.id) data.id = 'p_' + Date.now();
+            saveAndClose();
         } else {
             saveAndClose();
         }
@@ -350,6 +340,22 @@ window.adminPanel = {
             p.eliminated = !p.eliminated;
             window.db.saveParticipant(p);
             window.showToast(p.eliminated ? 'सहभागी बाहिरिएको सूचीमा राखियो!' : 'सहभागी सक्रिय सूचीमा राखियो!');
+            this.renderParticipantsTable();
+        }
+    },
+
+    triggerBulkElimination: function() {
+        const input = document.getElementById('bulk-elimination-score');
+        const limit = parseFloat(input.value);
+        if (isNaN(limit)) {
+            window.showToast('कृपया मान्य अंक राख्नुहोस्!', 'danger');
+            return;
+        }
+        
+        if (confirm(`तपाईं ${limit} अंकभन्दा कम ल्याउने सबै सहभागीहरूलाई फेल (Eliminate) गर्न लाग्नुभएको छ। के तपाईं निश्चित हुनुहुन्छ?`)) {
+            const count = window.db.bulkEliminateBelowScore(limit);
+            window.showToast(`${count} सहभागीहरूलाई फेल (Eliminate) गरियो!`, 'success');
+            input.value = '';
             this.renderParticipantsTable();
         }
     },
@@ -824,7 +830,31 @@ window.adminPanel = {
         dateObj.setMinutes(dateObj.getMinutes() - dateObj.getTimezoneOffset());
         document.getElementById('set-event-date').value = dateObj.toISOString().slice(0, 16);
         
+        document.getElementById('set-event-time').value = settings.event_time || '';
+        document.getElementById('set-event-address').value = settings.event_address || '';
+        document.getElementById('set-event-location-map').value = settings.event_location_map || '';
+        
+        const churchImgPreview = document.getElementById('event-church-image-preview');
+        const churchImgInput = document.getElementById('set-event-church-image');
+        if (settings.event_church_image) {
+            if (settings.event_church_image.startsWith('filestore://')) {
+                window.resolveUrl(settings.event_church_image).then(src => {
+                    churchImgPreview.src = src;
+                    churchImgPreview.style.display = 'block';
+                });
+            } else {
+                churchImgPreview.src = settings.event_church_image;
+                churchImgPreview.style.display = 'block';
+            }
+            churchImgInput.value = settings.event_church_image;
+        } else {
+            churchImgPreview.style.display = 'none';
+            churchImgInput.value = '';
+        }
+
         document.getElementById('set-event-lock').checked = settings.lock_scores;
+        
+        this.renderRoundsManagement();
 
         // Load Auth Settings
         const auth = window.db.getAuthSettings();
@@ -1038,76 +1068,129 @@ window.adminPanel = {
             });
         });
 
-        // Build list of FileStore save promises
-        const saves = [];
-        let logoUrl = logoData.isNew ? null : logoData.src;
-        let watermarkUrl = watermarkData.isNew ? null : watermarkData.src;
-
-        if (logoData.isNew) {
-            const key = 'cert_logo';
-            saves.push(window.FileStore.put(key, logoData.src).then(() => { logoUrl = 'filestore://' + key; }));
-        }
-        if (watermarkData.isNew) {
-            const key = 'cert_watermark';
-            saves.push(window.FileStore.put(key, watermarkData.src).then(() => { watermarkUrl = 'filestore://' + key; }));
-        }
-
-        const sigUrls = sigDataArr.map(s => s.sigData.isNew ? null : s.sigData.src);
-        sigDataArr.forEach((s, i) => {
-            if (s.sigData.isNew) {
-                const key = 'cert_sig_' + (i + 1);
-                saves.push(window.FileStore.put(key, s.sigData.src).then(() => { sigUrls[i] = 'filestore://' + key; }));
-            }
-        });
-
-        Promise.all(saves).then(() => {
-            const signatories = sigDataArr.map((s, i) => ({
+        const settings = {
+            theme_color: document.getElementById('cert-theme-color').value,
+            logo_url: logoData.src,
+            watermark_url: watermarkData.src,
+            title_ne: document.getElementById('cert-title-ne').value.trim(),
+            title_en: document.getElementById('cert-title-en').value.trim(),
+            description_ne: document.getElementById('cert-desc-ne').value.trim(),
+            description_en: document.getElementById('cert-desc-en').value.trim(),
+            verse_ne: document.getElementById('cert-verse-ne').value.trim(),
+            verse_en: document.getElementById('cert-verse-en').value.trim(),
+            signatories: sigDataArr.map((s, i) => ({
                 id: 'sig' + (s.idx + 1),
                 name: s.name,
                 title_ne: s.title_ne,
                 title_en: s.title_en,
-                signature_url: sigUrls[i] || ''
-            }));
+                signature_url: s.sigData.src || ''
+            }))
+        };
 
-            const settings = {
-                theme_color: document.getElementById('cert-theme-color').value,
-                logo_url: logoUrl || '',
-                watermark_url: watermarkUrl || '',
-                title_ne: document.getElementById('cert-title-ne').value.trim(),
-                title_en: document.getElementById('cert-title-en').value.trim(),
-                description_ne: document.getElementById('cert-desc-ne').value.trim(),
-                description_en: document.getElementById('cert-desc-en').value.trim(),
-                verse_ne: document.getElementById('cert-verse-ne').value.trim(),
-                verse_en: document.getElementById('cert-verse-en').value.trim(),
-                signatories
-            };
-
-            window.db.saveCertificateSettings(settings);
-            if (btn) { btn.disabled = false; btn.textContent = '💾 सुरक्षित गर्नुहोस्'; }
-            window.showToast('प्रमाणपत्र सेटिङ सुरक्षित गरियो!');
-            window.dispatchEvent(new Event('db_updated'));
-        }).catch(err => {
-            console.error('Certificate settings save error:', err);
-            if (btn) { btn.disabled = false; btn.textContent = '💾 सुरक्षित गर्नुहोस्'; }
-            window.showToast('सुरक्षित गर्न समस्या भयो! पुन: प्रयास गर्नुहोस्।', 'danger');
-        });
+        window.db.saveCertificateSettings(settings);
+        if (btn) { btn.disabled = false; btn.textContent = '💾 सुरक्षित गर्नुहोस्'; }
+        window.showToast('प्रमाणपत्र सेटिङ सुरक्षित गरियो!');
+        window.dispatchEvent(new Event('db_updated'));
     },
 
     saveSettingsForm: function(e) {
         e.preventDefault();
         
+        const preview = document.getElementById('event-church-image-preview');
         const settings = {
             title_ne: document.getElementById('set-event-title').value.trim(),
             subtitle_ne: document.getElementById('set-event-subtitle').value.trim(),
             event_date: new Date(document.getElementById('set-event-date').value).toISOString(),
-            lock_scores: document.getElementById('set-event-lock').checked
+            event_time: document.getElementById('set-event-time').value.trim(),
+            event_address: document.getElementById('set-event-address').value.trim(),
+            event_location_map: document.getElementById('set-event-location-map').value.trim(),
+            event_church_image: preview.dataset.base64 || document.getElementById('set-event-church-image').value.trim(),
+            lock_scores: document.getElementById('set-event-lock').checked,
+            active_round_id: window.db.state.event_settings.active_round_id
         };
 
         window.db.saveSettings(settings);
         window.showToast('सेटिङ सुरक्षित गरियो!');
-        
-        // Notify other components to refresh
         window.dispatchEvent(new Event('db_updated'));
+    },
+
+    previewEventChurchImage: function(input) {
+        if (input.files && input.files[0]) {
+            const preview = document.getElementById('event-church-image-preview');
+            window.compressImage(input.files[0], { maxWidth: 600, maxHeight: 400, quality: 0.5 }).then(base64 => {
+                preview.src = base64;
+                preview.dataset.base64 = base64;
+                preview.style.display = 'block';
+                document.getElementById('set-event-church-image').value = '';
+            });
+        }
+    },
+
+    // --- Rounds Management ---
+    renderRoundsManagement: function() {
+        const rounds = window.db.getRounds();
+        const activeId = window.db.state.event_settings.active_round_id || 'r1';
+        
+        const select = document.getElementById('set-active-round');
+        select.innerHTML = '';
+        rounds.forEach(r => {
+            const opt = document.createElement('option');
+            opt.value = r.id;
+            opt.textContent = r.name;
+            if (r.id === activeId) opt.selected = true;
+            select.appendChild(opt);
+        });
+
+        const list = document.getElementById('rounds-list-container');
+        list.innerHTML = '';
+        rounds.forEach(r => {
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.justifyContent = 'space-between';
+            div.style.alignItems = 'center';
+            div.style.padding = '0.5rem';
+            div.style.borderBottom = '1px solid var(--border)';
+            
+            const isActive = (r.id === activeId);
+            
+            div.innerHTML = `
+                <div>
+                    <span style="font-weight: 600;">${r.name}</span>
+                    ${isActive ? '<span class="role-badge success" style="margin-left:0.5rem;font-size:0.7rem;">सक्रिय (Active)</span>' : ''}
+                </div>
+                <button class="btn btn-outline btn-sm" onclick="window.adminPanel.deleteRound('${r.id}')" ${isActive ? 'disabled title="सक्रिय चरण मेट्न सकिँदैन"' : ''} style="color:var(--danger); border-color:var(--danger);">🗑️ मेट्नुहोस्</button>
+            `;
+            list.appendChild(div);
+        });
+    },
+
+    changeActiveRound: function(id) {
+        window.db.setActiveRound(id);
+        window.showToast('सक्रिय चरण परिवर्तन गरियो!');
+        this.renderRoundsManagement();
+    },
+
+    addNewRound: function() {
+        const input = document.getElementById('new-round-name');
+        const name = input.value.trim();
+        if (!name) return;
+        
+        window.db.saveRound({ name: name });
+        input.value = '';
+        window.showToast('नयाँ चरण थपियो!');
+        this.renderRoundsManagement();
+    },
+
+    deleteRound: function(id) {
+        if (confirm('के तपाईं यो चरण हटाउन चाहनुहुन्छ? यससँग सम्बन्धित अंकहरू मेटिँदैनन्।')) {
+            try {
+                window.db.deleteRound(id);
+                window.showToast('चरण मेटियो!');
+                this.renderRoundsManagement();
+            } catch(e) {
+                window.showToast(e.message, 'danger');
+            }
+        }
     },
 
     saveAuthSettingsForm: function(e) {
@@ -1181,19 +1264,15 @@ window.adminPanel = {
             return;
         }
         gallery.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(g => {
-            const isFS = g.image_url && g.image_url.startsWith('filestore://');
-            const fsKey = isFS ? g.image_url.slice('filestore://'.length) : '';
-            const imgSrc = isFS ? '' : (g.image_url || '');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><img ${isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`} style="width:80px;height:50px;object-fit:cover;border-radius:4px;background:#eee;"></td>
+                <td><img src="${g.image_url}" style="width:80px;height:50px;object-fit:cover;border-radius:4px;background:#eee;"></td>
                 <td style="font-weight: 700;">${g.title_ne}</td>
                 <td>${g.order || 0}</td>
                 <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteGallery('${g.id}')">🗑️ मेट्नुहोस्</button></td>
             `;
             tbody.appendChild(tr);
         });
-        window.hydrateImages(tbody);
     },
 
     openGalleryModal: function() {
@@ -1211,7 +1290,6 @@ window.adminPanel = {
                         <div class="form-group">
                             <label class="form-label">📷 फोटोको लिङ्क (Image URL / Google Drive Link):</label>
                             <input type="url" id="gallery-image-url" class="form-control" placeholder="उदा: https://drive.google.com/file/d/.../view">
-                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">(यो लिङ्क राखेमा तलको फाइल छान्नुपर्दैन। यो स्थायी र सुरक्षित तरिका हो।)</p>
                         </div>
                         <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-weight: bold;">-- वा (OR) --</div>
                         <div class="form-group">
@@ -1245,7 +1323,7 @@ window.adminPanel = {
         fileInput.addEventListener('change', function() {
             if (fileInput.files && fileInput.files[0]) {
                 preview.style.opacity = '0.5';
-                window.compressImage(fileInput.files[0], { maxWidth: 800, maxHeight: 800, quality: 0.6 })
+                window.compressImage(fileInput.files[0], { maxWidth: 600, maxHeight: 600, quality: 0.5 })
                     .then(base64 => {
                         preview.src = base64;
                         preview.dataset.base64 = base64;

@@ -17,15 +17,38 @@ window.judgePanel = {
         if (!container) return;
         container.innerHTML = '';
 
-        const filterVal = document.getElementById('judge-status-filter').value; // 'all', 'pending', 'evaluated'
+        // Show active round name
+        const activeRound = window.db.getActiveRound();
+        const roundBadge = document.getElementById('judge-active-round-badge');
+        if (roundBadge) {
+            roundBadge.textContent = '🏆 सक्रिय चरण: ' + activeRound.name;
+        }
+
+        const filterVal = document.getElementById('judge-status-filter').value;
         const participants = window.db.getParticipants();
         const ranked = window.db.getRankedParticipants();
+        const activeRoundId = activeRound.id;
 
         const filtered = participants.filter(p => {
-            if (p.eliminated) return false; // Hide eliminated participants from scoring
-            const isEvaluated = ranked.some(r => r.id === p.id && r.evaluated);
-            if (filterVal === 'pending') return !isEvaluated;
-            if (filterVal === 'evaluated') return isEvaluated;
+            const rankedP = ranked.find(r => r.id === p.id);
+            const isEvaluated = rankedP && rankedP.evaluated;
+            const isEliminated = !!p.eliminated;
+
+            // Check if participant has scores in the ACTIVE round
+            const activeRoundScores = window.db.getParticipantScores(p.id).filter(s => (s.round_id || 'r1') === activeRoundId);
+            const hasActiveRoundScores = activeRoundScores.length > 0;
+
+            if (filterVal === 'passed') return !isEliminated;
+            if (filterVal === 'eliminated') return isEliminated;
+            if (filterVal === 'pending') {
+                if (isEliminated) return false;
+                return !hasActiveRoundScores;
+            }
+            if (filterVal === 'evaluated') {
+                if (isEliminated) return false;
+                return hasActiveRoundScores;
+            }
+            // 'all' — show everyone including eliminated
             return true;
         });
 
@@ -35,8 +58,11 @@ window.judgePanel = {
         }
 
         filtered.forEach(p => {
-            const isEvaluated = ranked.some(r => r.id === p.id && r.evaluated);
+            const isEliminated = !!p.eliminated;
+            const activeRoundScores = window.db.getParticipantScores(p.id).filter(s => (s.round_id || 'r1') === activeRoundId);
+            const hasActiveRoundScores = activeRoundScores.length > 0;
             const scoreObj = ranked.find(r => r.id === p.id);
+            const roundScore = scoreObj && scoreObj.round_scores ? (scoreObj.round_scores[activeRoundId] || 0) : 0;
             const photoUrl = p.photo_url || 'https://via.placeholder.com/60?text=सहभागी';
             const illaka = window.db.getIllakaById(p.illaka_id);
 
@@ -47,7 +73,24 @@ window.judgePanel = {
             el.style.justifyContent = 'space-between';
             el.style.padding = '1rem';
             el.style.marginBottom = '0.75rem';
-            el.style.borderLeft = isEvaluated ? '5px solid var(--success)' : '5px solid var(--warning)';
+
+            if (isEliminated) {
+                el.style.borderLeft = '5px solid var(--danger)';
+                el.style.opacity = '0.65';
+            } else if (hasActiveRoundScores) {
+                el.style.borderLeft = '5px solid var(--success)';
+            } else {
+                el.style.borderLeft = '5px solid var(--warning)';
+            }
+
+            let statusBadge = '';
+            if (isEliminated) {
+                statusBadge = '<span class="role-badge danger">बाहिरिएको (Eliminated)</span>';
+            } else if (hasActiveRoundScores) {
+                statusBadge = `<span class="role-badge success">${roundScore} अंक (यो चरण)</span>`;
+            } else {
+                statusBadge = '<span class="role-badge warning">मूल्यांकन बाँकी</span>';
+            }
 
             el.innerHTML = `
                 <div style="display: flex; gap: 1rem; align-items: center;">
@@ -59,10 +102,8 @@ window.judgePanel = {
                 </div>
                 
                 <div style="display: flex; align-items: center; gap: 1rem;">
-                    ${isEvaluated ? `<span class="role-badge success">${scoreObj.total_score} अंक</span>` : '<span class="role-badge warning">मूल्यांकन बाँकी</span>'}
-                    <button class="btn btn-primary btn-sm" onclick="window.judgePanel.openScoringModal('${p.id}')">
-                        📝 अंक चढाउनुहोस्
-                    </button>
+                    ${statusBadge}
+                    ${isEliminated ? '' : `<button class="btn btn-primary btn-sm" onclick="window.judgePanel.openScoringModal('${p.id}')">📝 अंक चढाउनुहोस्</button>`}
                 </div>
             `;
             container.appendChild(el);
@@ -75,8 +116,12 @@ window.judgePanel = {
 
         const categories = window.db.getScoreCategories();
         const judgeName = window.currentUser.name;
-        // Only load drafts/existing scores for the current judge
-        const existingScores = window.db.getParticipantScores(participantId).filter(s => s.judge_name === judgeName);
+        const activeRound = window.db.getActiveRound();
+        const activeRoundId = activeRound.id;
+        // Only load scores for the current judge AND the active round
+        const existingScores = window.db.getParticipantScores(participantId).filter(
+            s => s.judge_name === judgeName && (s.round_id || 'r1') === activeRoundId
+        );
 
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
@@ -120,14 +165,19 @@ window.judgePanel = {
                     <button class="modal-close" onclick="window.closeActiveModals()">×</button>
                 </div>
                 <div class="modal-body">
-                    <div style="background: var(--bg-main); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; display: flex; justify-content: space-between;">
-                        <div>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">प्रतियोगी:</span>
-                            <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">${p.name_ne}</div>
+                    <div style="background: var(--bg-main); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <div>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">प्रतियोगी:</span>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">${p.name_ne}</div>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">मण्डली:</span>
+                                <div style="font-weight: 700;">${p.church_name}</div>
+                            </div>
                         </div>
-                        <div>
-                            <span style="font-size: 0.8rem; color: var(--text-muted);">मण्डली:</span>
-                            <div style="font-weight: 700;">${p.church_name}</div>
+                        <div style="background: var(--gold); color: #000; padding: 0.4rem 0.75rem; border-radius: var(--radius-sm); font-weight: 800; text-align: center; font-size: 0.95rem;">
+                            🏆 ${activeRound.name}
                         </div>
                     </div>
                     

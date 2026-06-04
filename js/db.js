@@ -123,9 +123,19 @@ const INITIAL_DATA = {
         title_ne: 'बाइबल पद कण्ठस्थ प्रतियोगिता २०८३',
         subtitle_ne: 'इग्नाइटर टिम (Igniter Team)',
         event_date: new Date(Date.now() + 10 * 3600 * 1000 * 24).toISOString(), // 10 days in future
+        event_time: 'बिहान ९:०० बजे (09:00 AM)',
+        event_address: 'बेथेल एसेम्बली चर्च, धरान',
+        event_church_image: 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1200&q=80',
+        event_location_map: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3566.24151591522!2d87.2798835!3d26.8049615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef4175b6e4e3bd%3A0x673a3dfef0b904c0!2sBethel%20Assembly%20Church!5e0!3m2!1sen!2snp!4v1717502283020!5m2!1sen!2snp',
         lock_scores: false,
-        dashboard_visible: true
+        dashboard_visible: true,
+        active_round_id: 'r1'
     },
+    rounds: [
+        { id: 'r1', name: 'पहिलो चरण (First Round)' },
+        { id: 'r2', name: 'सेमी-फाइनल (Semi-Final)' },
+        { id: 'r3', name: 'फाइनल (Final)' }
+    ],
     certificate_settings: {
         title_ne: 'प्रशंसा-पत्र',
         title_en: 'Certificate of Appreciation',
@@ -183,12 +193,26 @@ class LocalDatabase {
                 
                 // Auto-fix spelling mistakes if they are cached in localStorage
                 if (this.state.event_settings) {
+                    if (!this.state.event_settings.event_time) this.state.event_settings.event_time = 'बिहान ९:०० बजे (09:00 AM)';
+                    if (!this.state.event_settings.event_address) this.state.event_settings.event_address = 'बेथेल एसेम्बली चर्च, धरान';
+                    if (!this.state.event_settings.event_church_image) this.state.event_settings.event_church_image = 'https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1200&q=80';
+                    if (!this.state.event_settings.event_location_map) this.state.event_settings.event_location_map = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3566.24151591522!2d87.2798835!3d26.8049615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef4175b6e4e3bd%3A0x673a3dfef0b904c0!2sBethel%20Assembly%20Church!5e0!3m2!1sen!2snp!4v1717502283020!5m2!1sen!2snp';
+                    if (!this.state.event_settings.active_round_id) this.state.event_settings.active_round_id = 'r1';
+                    
                     if (this.state.event_settings.title_ne.includes('पढ')) {
                         this.state.event_settings.title_ne = this.state.event_settings.title_ne.replace(/पढ/g, 'पद');
                     }
                     if (this.state.event_settings.title_ne.includes('कण्ठस्त')) {
                         this.state.event_settings.title_ne = this.state.event_settings.title_ne.replace(/कण्ठस्त/g, 'कण्ठस्थ');
                     }
+                }
+                
+                if (!this.state.rounds) {
+                    this.state.rounds = [
+                        { id: 'r1', name: 'पहिलो चरण (First Round)' },
+                        { id: 'r2', name: 'सेमी-फाइनल (Semi-Final)' },
+                        { id: 'r3', name: 'फाइनल (Final)' }
+                    ];
                 }
                 if (this.state.certificate_settings && this.state.certificate_settings.description_ne) {
                     if (this.state.certificate_settings.description_ne.includes('पढ')) {
@@ -348,6 +372,31 @@ class LocalDatabase {
         return true;
     }
 
+    // --- Elimination Logic ---
+    toggleParticipantEliminated(id) {
+        const p = this.state.participants.find(p => p.id === id);
+        if (p) {
+            p.eliminated = !p.eliminated;
+            this.save();
+        }
+    }
+
+    bulkEliminateBelowScore(scoreLimit) {
+        const ranked = this.getRankedParticipants();
+        let count = 0;
+        ranked.forEach(r => {
+            if (r.total_score < scoreLimit) {
+                const p = this.state.participants.find(p => p.id === r.id);
+                if (p && !p.eliminated) {
+                    p.eliminated = true;
+                    count++;
+                }
+            }
+        });
+        if (count > 0) this.save();
+        return count;
+    }
+
     // --- Scoring Category CRUD ---
     getScoreCategories() {
         return this.state.score_categories;
@@ -384,9 +433,11 @@ class LocalDatabase {
         if (this.state.event_settings.lock_scores) {
             throw new Error('अंक प्रविष्टि लक गरिएको छ। एडमिनसँग सम्पर्क राख्नुहोस्।');
         }
-        // Remove existing scores by this judge for this participant
+        const activeRoundId = this.state.event_settings.active_round_id || 'r1';
+        
+        // Remove existing scores by this judge for this participant IN THIS ROUND
         this.state.scores = this.state.scores.filter(
-            s => !(s.participant_id === participantId && s.judge_name === judgeName)
+            s => !(s.participant_id === participantId && s.judge_name === judgeName && (s.round_id || 'r1') === activeRoundId)
         );
 
         // Add new scores
@@ -397,7 +448,8 @@ class LocalDatabase {
                 category_id: entry.category_id,
                 judge_name: judgeName,
                 marks_obtained: parseFloat(entry.marks_obtained),
-                comments: entry.comments || ''
+                comments: entry.comments || '',
+                round_id: activeRoundId
             });
         });
 
@@ -417,6 +469,46 @@ class LocalDatabase {
         this.save();
     }
 
+    // --- Rounds CRUD ---
+    getRounds() {
+        return this.state.rounds || [];
+    }
+
+    saveRound(round) {
+        if (!this.state.rounds) this.state.rounds = [];
+        if (round.id) {
+            const index = this.state.rounds.findIndex(r => r.id === round.id);
+            if (index !== -1) {
+                this.state.rounds[index] = { ...this.state.rounds[index], ...round };
+            }
+        } else {
+            round.id = 'r_' + Date.now();
+            this.state.rounds.push(round);
+        }
+        this.save();
+        return round;
+    }
+
+    deleteRound(id) {
+        // Don't delete the active round
+        if (this.state.event_settings.active_round_id === id) {
+            throw new Error('सक्रिय चरण मेट्न सकिँदैन। पहिले अर्को चरण सक्रिय बनाउनुहोस्।');
+        }
+        this.state.rounds = this.state.rounds.filter(r => r.id !== id);
+        this.save();
+    }
+
+    getActiveRound() {
+        const rounds = this.getRounds();
+        const activeId = this.state.event_settings.active_round_id || 'r1';
+        return rounds.find(r => r.id === activeId) || rounds[0] || { id: 'r1', name: 'पहिलो चरण (First Round)' };
+    }
+
+    setActiveRound(roundId) {
+        this.state.event_settings.active_round_id = roundId;
+        this.save();
+    }
+
     // --- Dynamic Analytics / Ranks / Leaderboard ---
     getRankedParticipants() {
         const categories = this.getScoreCategories();
@@ -427,27 +519,33 @@ class LocalDatabase {
             const judges = [...new Set(pScores.map(s => s.judge_name))];
             
             let totalScore = 0;
-            let scoreBreakdown = {};
-
-            // Initialize categories in breakdown
-            categories.forEach(c => {
-                scoreBreakdown[c.id] = { marks: 0, count: 0 };
-            });
-
-            pScores.forEach(s => {
-                if (scoreBreakdown[s.category_id]) {
-                    scoreBreakdown[s.category_id].marks += s.marks_obtained;
-                    scoreBreakdown[s.category_id].count += 1;
-                }
-            });
-
-            // Calculate average for each category and sum them up
-            let categoryAverages = {};
-            categories.forEach(c => {
-                const item = scoreBreakdown[c.id];
-                const avg = item.count > 0 ? (item.marks / item.count) : 0;
-                categoryAverages[c.id] = parseFloat(avg.toFixed(2));
-                totalScore += avg;
+            let roundScores = {}; // Map of roundId -> total score for that round
+            let activeRoundId = this.state.event_settings.active_round_id || 'r1';
+            
+            const rounds = this.getRounds();
+            
+            rounds.forEach(r => {
+                let rScores = pScores.filter(s => (s.round_id || 'r1') === r.id);
+                let rBreakdown = {};
+                categories.forEach(c => rBreakdown[c.id] = { marks: 0, count: 0 });
+                
+                rScores.forEach(s => {
+                    if (rBreakdown[s.category_id]) {
+                        rBreakdown[s.category_id].marks += s.marks_obtained;
+                        rBreakdown[s.category_id].count += 1;
+                    }
+                });
+                
+                let rTotal = 0;
+                categories.forEach(c => {
+                    if (rBreakdown[c.id].count > 0) {
+                        rTotal += (rBreakdown[c.id].marks / rBreakdown[c.id].count);
+                    }
+                });
+                
+                let roundedTotal = parseFloat(rTotal.toFixed(2));
+                roundScores[r.id] = roundedTotal;
+                totalScore += roundedTotal;
             });
 
             const illaka = this.getIllakaById(p.illaka_id);
@@ -457,7 +555,7 @@ class LocalDatabase {
                 ...p,
                 illaka_name: illaka ? (activeLang === 'en' && illaka.name_en ? illaka.name_en : illaka.name_ne) : (activeLang === 'en' ? 'Unknown Area' : 'अज्ञात इलाका'),
                 total_score: parseFloat(totalScore.toFixed(2)),
-                category_averages: categoryAverages,
+                round_scores: roundScores,
                 evaluated: judges.length > 0,
                 judge_count: judges.length,
                 eliminated: !!p.eliminated

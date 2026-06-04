@@ -83,7 +83,7 @@
                     <!-- Nav tabs -->
                     <ul class="nav-links">
                         <li><button class="nav-item-btn active" id="nav-org-home">🏠 गृहपृष्ठ (Home)</button></li>
-                        <li><button class="nav-item-btn" id="nav-about">📖 हाम्रो बारेमा (About)</button></li>
+                        <li><button class="nav-item-btn" id="nav-about">📖 हाम्रो बारेमा (About Us)</button></li>
                         <li class="nav-dropdown">
                             <button class="nav-item-btn" id="nav-tournament-group">🏆 प्रतियोगिता (Tournament) ▾</button>
                             <div class="nav-dropdown-content">
@@ -95,7 +95,6 @@
                         </li>
                         <li><button class="nav-item-btn" id="nav-notices">🔔 समाचार (News)</button></li>
                         <li><button class="nav-item-btn" id="nav-gallery">🖼️ ग्यालरी (Gallery)</button></li>
-                        <li><button class="nav-item-btn" id="nav-team">🤝 हाम्रो टिम (Team)</button></li>
                         <li><button class="nav-item-btn" id="nav-contact">📞 सम्पर्क (Contact)</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
@@ -201,6 +200,15 @@
                     <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8;">
                         यस समूहले विशेषगरी बाइबल पद कण्ठस्थ प्रतियोगिता लगायतका विभिन्न कार्यक्रमहरू मार्फत मण्डलीका युवा तथा बालबालिकाहरूलाई आत्मिक रूपमा वृद्धि हुन मद्दत गरिरहेको छ।
                     </p>
+                </div>
+                
+                <h3 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem; margin-top: 2rem;">
+                    हाम्रो टिम (Our Team)
+                </h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">इग्नाइटर टिम - यसका सक्रिय सदस्यहरू जसले यो प्रतियोगिता सफल पार्न रातदिन मेहेनत गरिरहनुभएको छ।</p>
+                
+                <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                    <!-- Dynamic team cards -->
                 </div>
             </section>
 
@@ -340,6 +348,48 @@
                     </div>
                 </div>
 
+                <!-- Event Details Card -->
+                <div style="margin-top: 3.5rem; margin-bottom: 2rem;">
+                    <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                        ⛪ कार्यक्रम विवरण (Event Details)
+                    </h2>
+                    <div id="dashboard-event-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1000px;">
+                        <!-- Left: Church Image -->
+                        <div class="card card-accent" style="overflow: hidden; padding: 0; min-height: 280px;">
+                            <img id="dashboard-church-image" src="" alt="Event Venue" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        </div>
+                        <!-- Right: Details + Map -->
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="card" style="padding: 1.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <span style="font-size: 2rem;">📍</span>
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">ठेगाना (Address)</div>
+                                        <div id="dashboard-event-address" style="font-size: 1.1rem; font-weight: 700; color: var(--primary);"></div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <span style="font-size: 2rem;">🕐</span>
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">समय (Time)</div>
+                                        <div id="dashboard-event-time" style="font-size: 1.1rem; font-weight: 700; color: var(--gold);"></div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span style="font-size: 2rem;">📅</span>
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">मिति (Date)</div>
+                                        <div id="dashboard-event-date-display" style="font-size: 1.1rem; font-weight: 700; color: var(--primary);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="padding: 0; overflow: hidden; flex: 1; min-height: 180px;">
+                                <iframe id="dashboard-event-map" src="" width="100%" height="100%" style="border: 0; min-height: 180px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Gallery Photo Slider -->
                 <div style="margin-top: 3.5rem; margin-bottom: 2rem;">
                     <h2 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
@@ -377,7 +427,7 @@
                                 <th>सहभागीको नाम (Name)</th>
                                 <th>मण्डली (Church)</th>
                                 <th>इलाका (Area)</th>
-                                <th>श्रेणीगत अंक (Score Categories Breakdown)</th>
+                                <th>चरणगत अंक (Round Scores)</th>
                                 <th>कुल प्राप्त अंक (Total)</th>
                                 <th class="no-print">कार्य (Action)</th>
                             </tr>
@@ -434,12 +484,12 @@
                 </div>
             </section>
 
-            <!-- SECTION 5B: OUR TEAM SECTION -->
+            <!-- SECTION 5B: ABOUT US (MERGED WITH TEAM) -->
             <section id="section-team" class="hidden">
                 <h2 style="font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
-                    🤝 हाम्रो टिम (Our Team)
+                    🤝 हाम्रो बारेमा (About Us)
                 </h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">यस कार्यक्रमलाई सफल बनाउन योगदान पुर्‍याउनुहुने सम्पूर्ण टिम सदस्यहरू।</p>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">इग्नाइटर टिम — बाइबल कण्ठस्थ प्रतियोगिता आयोजक। यस कार्यक्रमलाई सफल बनाउन योगदान पुर्‍याउनुहुने सम्पूर्ण टिम सदस्यहरू।</p>
                 
                 <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                     <!-- Dynamic team cards -->
@@ -484,6 +534,9 @@
                     <div>
                         <h2 style="color: var(--primary); font-size: 1.5rem;">निर्णायक अंक प्रविष्टि तालिका (Judges Portal)</h2>
                         <p style="font-size: 0.85rem; color: var(--text-muted);">सहभागी चयन गरी तत्काल श्रेणीगत अंक प्रविष्ट गर्नुहोस्।</p>
+                        <div style="margin-top: 0.5rem;">
+                            <span class="role-badge" id="judge-active-round-badge" style="font-size: 0.9rem; padding: 0.3rem 0.75rem; background: var(--gold); color: #000; font-weight: 800;">🏆 सक्रिय चरण: ...</span>
+                        </div>
                     </div>
                     <div class="flex-center" style="gap: 1rem;">
                         <!-- Offline drafts sync badge indicator -->
@@ -495,6 +548,8 @@
                             <option value="all">सबै सहभागीहरू (All)</option>
                             <option value="pending" selected>मूल्यांकन बाँकी (Pending)</option>
                             <option value="evaluated">मूल्यांकन गरिएका (Evaluated)</option>
+                            <option value="passed">पास भएका (Passed)</option>
+                            <option value="eliminated">फेल/बाहिरिएका (Eliminated)</option>
                         </select>
                     </div>
                 </div>
@@ -537,6 +592,19 @@
                                 <h3 style="color: var(--primary);">सहभागी व्यवस्थापन</h3>
                                 <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openParticipantModal()">➕ नयाँ सहभागी थप्नुहोस्</button>
                             </div>
+                            
+                            <!-- Bulk Elimination Tool -->
+                            <div class="card" style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 250px;">
+                                    <h4 style="color: var(--danger); margin-bottom: 0.25rem;">⚠️ स्वचालित निष्कासन (Bulk Elimination)</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">तोकिएको अंकभन्दा कम ल्याउने सबै सहभागीहरूलाई एकैपटक फेल (Eliminate) गराउनुहोस्।</p>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="number" id="bulk-elimination-score" class="form-control" placeholder="उदा: ५०" style="width: 100px;">
+                                    <button class="btn btn-danger btn-sm" onclick="window.adminPanel.triggerBulkElimination()">निष्कासन लागू गर्नुहोस्</button>
+                                </div>
+                            </div>
+
                             <div class="table-responsive">
                                 <table>
                                     <thead>
@@ -765,6 +833,25 @@
                                     <label class="form-label">कार्यक्रम हुने मिति र समय (Target Event Date):</label>
                                     <input type="datetime-local" id="set-event-date" class="form-control" required>
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label">🕐 कार्यक्रम सुरु हुने समय (Starting Time Text):</label>
+                                    <input type="text" id="set-event-time" class="form-control" placeholder="उदा: बिहान ९:०० बजे (09:00 AM)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">📍 कार्यक्रम हुने ठाउँ / ठेगाना (Event Address):</label>
+                                    <input type="text" id="set-event-address" class="form-control" placeholder="उदा: बेथेल एसेम्बली चर्च, धरान">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">⛪ चर्चको फोटो (Church Image URL or Upload):</label>
+                                    <input type="text" id="set-event-church-image" class="form-control" placeholder="फोटो URL राख्नुहोस् वा तल अपलोड गर्नुहोस्">
+                                    <input type="file" id="set-event-church-image-file" class="form-control" accept="image/*" style="margin-top: 0.5rem;" onchange="window.adminPanel.previewEventChurchImage(this)">
+                                    <img id="event-church-image-preview" style="display: none; max-height: 120px; margin-top: 0.5rem; border-radius: var(--radius-sm); border: 2px solid var(--gold);">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">🗺️ Google Map Embed URL:</label>
+                                    <input type="text" id="set-event-location-map" class="form-control" placeholder="Google Maps Embed URL">
+                                    <small style="color: var(--text-muted);">Google Maps → Share → Embed → Copy iframe URL</small>
+                                </div>
                                 <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
                                     <input type="checkbox" id="set-event-lock" style="width: 18px; height: 18px; cursor: pointer;">
                                     <label for="set-event-lock" style="font-weight: 600; cursor: pointer;">🔐 निर्णायक स्कोर प्रविष्टि लक गर्नुहोस् (Lock score entries)</label>
@@ -773,6 +860,28 @@
                                 <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">💾 सेटिङ सुरक्षित गर्नुहोस्</button>
                             </form>
 
+                            <!-- Tournament Rounds Management -->
+                            <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+                                🔄 प्रतियोगिता चरण व्यवस्थापन (Tournament Rounds)
+                            </h3>
+                            <div style="max-width: 600px; margin-bottom: 2.5rem;">
+                                <div class="card" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 1rem; padding: 1rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                        <span style="font-weight: 700; color: var(--primary);">📌 सक्रिय चरण (Active Round):</span>
+                                        <select id="set-active-round" class="form-control" style="width: auto; font-weight: 700; color: var(--success);" onchange="window.adminPanel.changeActiveRound(this.value)">
+                                            <!-- Dynamic options -->
+                                        </select>
+                                    </div>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">निर्णायकहरूले यो चरणमा मात्र अंक दिन सक्नेछन्। चरण परिवर्तन गर्दा पुरानो अंक सुरक्षित रहन्छ।</p>
+                                </div>
+                                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                                    <input type="text" id="new-round-name" class="form-control" placeholder="नयाँ चरणको नाम (उदा: Quarter-Final)" style="flex: 1;">
+                                    <button class="btn btn-gold btn-sm" onclick="window.adminPanel.addNewRound()">➕ थप्नुहोस्</button>
+                                </div>
+                                <div id="rounds-list-container">
+                                    <!-- Dynamic rounds list -->
+                                </div>
+                            </div>
 
                             <!-- Auth Settings Form -->
                             <h3 style="color: var(--primary); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ne: {
             // Header tabs
             'nav-org-home': '🏠 गृहपृष्ठ',
-            'nav-about': '📖 हाम्रो बारेमा',
+            'nav-about': '📖 हाम्रो बारेमा (About Us)',
             'nav-tournament-group': '🏆 प्रतियोगिता ▾',
             'nav-home': 'ड्यासबोर्ड',
             'nav-live-score': 'लाइभ नतिजा',
@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav-downloads': 'डाउनलोडहरू',
             'nav-notices': '🔔 समाचार',
             'nav-gallery': '🖼️ ग्यालरी',
-            'nav-team': '🤝 हाम्रो टिम',
             'nav-contact': '📞 सम्पर्क',
             'nav-judge': '📝 जज प्यानल',
             'nav-admin': '⚙️ एडमिन प्यानल',
@@ -64,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav-downloads': 'Downloads',
             'nav-notices': '🔔 News',
             'nav-gallery': '🖼️ Gallery',
-            'nav-team': '🤝 Team',
             'nav-contact': '📞 Contact',
             'nav-judge': '📝 Judge Panel',
             'nav-admin': '⚙️ Admin Panel',
@@ -275,14 +273,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = {
         'nav-org-home': 'section-org-home',
         'nav-about': 'section-about',
-        'nav-contact': 'section-contact',
         'nav-gallery': 'section-gallery',
         'nav-home': 'section-home',
         'nav-live-score': 'section-live-score',
         'nav-participants': 'section-participants',
         'nav-downloads': 'section-downloads',
         'nav-notices': 'section-notices',
-        'nav-team': 'section-team',
+        'nav-contact': 'section-contact',
         'nav-login': 'section-login',
         'nav-admin': 'section-admin',
         'nav-judge': 'section-judge'
@@ -340,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicNotices();
         } else if (navId === 'nav-gallery') {
             renderPublicGallerySlider();
-        } else if (navId === 'nav-team') {
+        } else if (navId === 'nav-about') {
             renderPublicTeam();
         } else if (navId === 'nav-admin') {
             if (window.adminPanel) window.adminPanel.init();
@@ -401,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderPublicParticipants();
             } else if (navId === 'nav-notices') {
                 renderPublicNotices();
-            } else if (navId === 'nav-team') {
+            } else if (navId === 'nav-about') {
                 renderPublicTeam();
             } else if (navId === 'nav-admin') {
                 if (window.adminPanel) window.adminPanel.init();
@@ -768,6 +765,31 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('home-event-title').textContent = settings.title_ne;
         document.getElementById('home-event-subtitle').textContent = settings.subtitle_ne;
 
+        // Populate Event Details Card
+        const dateObj = new Date(settings.event_date);
+        document.getElementById('dashboard-event-date-display').textContent = dateObj.toLocaleDateString('ne-NP', { year: 'numeric', month: 'long', day: 'numeric' });
+        
+        document.getElementById('dashboard-event-time').textContent = settings.event_time || 'निर्धारित छैन';
+        document.getElementById('dashboard-event-address').textContent = settings.event_address || 'निर्धारित छैन';
+        
+        const mapEl = document.getElementById('dashboard-event-map');
+        if (settings.event_location_map) {
+            mapEl.src = settings.event_location_map;
+            mapEl.parentElement.style.display = 'block';
+        } else {
+            mapEl.parentElement.style.display = 'none';
+        }
+
+        const imgEl = document.getElementById('dashboard-church-image');
+        if (settings.event_church_image) {
+            window.resolveUrl(settings.event_church_image).then(src => {
+                imgEl.src = src;
+                imgEl.parentElement.style.display = 'block';
+            });
+        } else {
+            imgEl.parentElement.style.display = 'none';
+        }
+
         // Total Participants Widget
         document.getElementById('widget-total-participants').textContent = participants.length;
         
@@ -882,9 +904,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const rankColor = idx < 3 ? 'var(--gold)' : 'var(--text-muted)';
             const rankIcon = idx === 0 ? '👑' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : ''));
             
-            let breakdownHtml = categories.map(c => {
-                const marks = p.category_averages[c.id] || 0;
-                return `<span style="font-size: 0.75rem; background: var(--bg-main); padding: 0.1rem 0.3rem; border-radius: 4px; margin-right: 0.25rem;">${c.name_en.substring(0,3)}: ${marks}</span>`;
+            const rounds = window.db.getRounds();
+            let breakdownHtml = rounds.map(r => {
+                const marks = p.round_scores[r.id] || 0;
+                const shortName = r.name.substring(0, 15);
+                return `<span style="font-size: 0.75rem; background: var(--bg-main); padding: 0.1rem 0.3rem; border-radius: 4px; margin-right: 0.25rem;">${shortName}: ${marks}</span>`;
             }).join('');
 
             const eliminatedBadge = p.eliminated ? '<br><span class="role-badge warning" style="margin-top: 0.25rem;">बाहिरिएको (Eliminated)</span>' : '';
@@ -914,21 +938,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const categories = window.db.getScoreCategories();
+        const rounds = window.db.getRounds();
         
         // Define CSV Headers
         let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Include BOM for Nepali text in Excel
-        csvContent += "Rank (स्थान),Name (सहभागी),Church (मण्डली),Illaka (इलाका),Age Group (समुह),";
-        categories.forEach(c => {
-            csvContent += `${c.name_ne.replace(/,/g, '')},`;
+        csvContent += "Rank (स्थान),Name (सहभागी),Church (मण्डली),Illaka (इलाका),Age Group (समुह),Status (स्थिति),";
+        rounds.forEach(r => {
+            csvContent += `${r.name.replace(/,/g, '')},`;
         });
         csvContent += "Total Score (कुल अंक)\n";
 
         // Append Data Row
         ranked.forEach(p => {
-            let row = `${p.rank},"${p.name_ne}","${p.church_name}","${p.illaka_name}","${p.age_group}",`;
-            categories.forEach(c => {
-                row += `${p.category_averages[c.id] || 0},`;
+            const status = p.eliminated ? 'Eliminated' : 'Active';
+            let row = `${p.rank},"${p.name_ne}","${p.church_name}","${p.illaka_name}","${p.age_group}","${status}",`;
+            rounds.forEach(r => {
+                row += `${p.round_scores[r.id] || 0},`;
             });
             row += `${p.total_score}\n`;
             csvContent += row;
@@ -1289,12 +1314,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!p || !scoreObj) return;
 
-        const categories = window.db.getScoreCategories();
+        const rounds = window.db.getRounds();
         
-        let categoriesHtml = categories.map(c => `
+        let categoriesHtml = rounds.map(r => `
             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 0.5rem 0;">
-                <span style="font-weight: 600;">${c.name_ne}</span>
-                <span style="font-weight: 700; color: var(--primary); font-family: var(--font-heading);">${scoreObj.category_averages[c.id] || 0} / ${c.max_marks}</span>
+                <span style="font-weight: 600;">${r.name}</span>
+                <span style="font-weight: 700; color: var(--primary); font-family: var(--font-heading);">${scoreObj.round_scores[r.id] || 0}</span>
             </div>
         `).join('');
 
