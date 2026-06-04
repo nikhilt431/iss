@@ -1209,7 +1209,13 @@ window.adminPanel = {
                 <div class="modal-body">
                     <form id="admin-gallery-form">
                         <div class="form-group">
-                            <label class="form-label">📷 फोटो अपलोड गर्नुहोस् (Choose Photo):</label>
+                            <label class="form-label">📷 फोटोको लिङ्क (Image URL / Google Drive Link):</label>
+                            <input type="url" id="gallery-image-url" class="form-control" placeholder="उदा: https://drive.google.com/file/d/.../view">
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">(यो लिङ्क राखेमा तलको फाइल छान्नुपर्दैन। यो स्थायी र सुरक्षित तरिका हो।)</p>
+                        </div>
+                        <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-weight: bold;">-- वा (OR) --</div>
+                        <div class="form-group">
+                            <label class="form-label">फोटो अपलोड गर्नुहोस् (Choose File from device):</label>
                             <input type="file" id="gallery-file-input" class="form-control" accept="image/*" style="padding: 0.5rem;">
                         </div>
                         <div style="text-align: center; margin-top: 0.75rem;">
@@ -1253,15 +1259,36 @@ window.adminPanel = {
             }
         });
 
-        // Form submit — stores image in FileStore, not localStorage
+        // Form submit
         document.getElementById('admin-gallery-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            const title = document.getElementById('gallery-title').value.trim();
+            const order = parseInt(document.getElementById('gallery-order').value) || 1;
+            let externalUrl = document.getElementById('gallery-image-url').value.trim();
             const base64 = preview.dataset.base64;
-            if (!base64) {
-                window.showToast('कृपया फोटो छान्नुहोस्!', 'danger');
+            const submitBtn = e.target.querySelector('[type=submit]');
+            
+            if (externalUrl) {
+                // Use external URL directly (convert Google Drive link if applicable)
+                externalUrl = window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(externalUrl) : externalUrl;
+                window.db.saveGalleryPhoto({
+                    id: 'g_' + Date.now(),
+                    title_ne: title,
+                    image_url: externalUrl,
+                    order: order
+                });
+                window.closeActiveModals();
+                window.showToast('फोटो सफलतापूर्वक थपियो!');
+                window.adminPanel.renderGalleryTable();
                 return;
             }
-            const submitBtn = e.target.querySelector('[type=submit]');
+
+            if (!base64) {
+                window.showToast('कृपया लिङ्क राख्नुहोस् वा फोटो छान्नुहोस्!', 'danger');
+                return;
+            }
+            
             if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'अपलोड हुँदैछ...'; }
 
             const photoId = 'g_' + Date.now();
@@ -1270,9 +1297,9 @@ window.adminPanel = {
                 .then(() => {
                     window.db.saveGalleryPhoto({
                         id: photoId,
-                        title_ne: document.getElementById('gallery-title').value.trim(),
+                        title_ne: title,
                         image_url: 'filestore://' + fsKey,
-                        order: parseInt(document.getElementById('gallery-order').value) || 1
+                        order: order
                     });
                     window.closeActiveModals();
                     window.showToast('फोटो सफलतापूर्वक अपलोड भयो!');
@@ -1340,8 +1367,13 @@ window.adminPanel = {
                             <label class="form-label">भूमिका (Role):</label>
                             <input type="text" id="team-role" class="form-control" required>
                         </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">📷 फोटोको लिङ्क (Image URL / Google Drive Link):</label>
+                            <input type="url" id="team-image-url" class="form-control" placeholder="उदा: https://drive.google.com/file/d/.../view">
+                        </div>
+                        <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-weight: bold;">-- वा (OR) --</div>
                         <div class="form-group">
-                            <label class="form-label">📷 फोटो अपलोड गर्नुहोस् (Choose Photo):</label>
+                            <label class="form-label">फोटो अपलोड गर्नुहोस् (Choose File from device):</label>
                             <input type="file" id="team-file-input" class="form-control" accept="image/*" style="padding: 0.5rem;">
                         </div>
                         <div style="text-align: center; margin-top: 0.75rem;">
@@ -1381,10 +1413,11 @@ window.adminPanel = {
             }
         });
 
-        // Form submit — stores photo in FileStore, not localStorage
+        // Form submit
         document.getElementById('admin-team-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const base64 = preview.dataset.base64 || '';
+            let externalUrl = document.getElementById('team-image-url').value.trim();
             const submitBtn = e.target.querySelector('[type=submit]');
 
             const memberData = {
@@ -1400,6 +1433,12 @@ window.adminPanel = {
                 window.showToast('टिम सदस्य सफलतापूर्वक अपलोड भयो!');
                 window.adminPanel.renderTeamTable();
             };
+
+            if (externalUrl) {
+                externalUrl = window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(externalUrl) : externalUrl;
+                doSave(externalUrl);
+                return;
+            }
 
             if (base64) {
                 if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'अपलोड हुँदैछ...'; }
