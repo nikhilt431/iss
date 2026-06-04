@@ -9,19 +9,19 @@ window.convertGoogleDriveUrl = function(url) {
     if (!url || url.trim() === '') return url;
     url = url.trim();
 
-    // Already a direct uc?export link — leave as-is
-    if (url.includes('drive.google.com/uc')) return url;
+    // Helper to extract file ID
+    const extractId = (u) => {
+        const fileMatch = u.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+        if (fileMatch) return fileMatch[1];
+        const idMatch = u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (idMatch) return idMatch[1];
+        return null;
+    };
 
-    // Pattern: /file/d/FILE_ID/view OR /file/d/FILE_ID/preview
-    const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (fileMatch) {
-        return 'https://drive.google.com/uc?export=view&id=' + fileMatch[1];
-    }
-
-    // Pattern: open?id=FILE_ID or id=FILE_ID anywhere
-    const idMatch = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-    if (idMatch) {
-        return 'https://drive.google.com/uc?export=view&id=' + idMatch[1];
+    const id = extractId(url);
+    if (id) {
+        // Use the thumbnail endpoint which reliably bypasses strict CORB/Cookie blocks for public images
+        return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
     }
 
     // Not a Google Drive link — return unchanged
