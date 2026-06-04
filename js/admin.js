@@ -176,7 +176,7 @@ window.adminPanel = {
                 <td>
                     <img class="avatar-ring" ${isFileStore ? `data-fs-key="${fsKey}"` : ''} src="${imgSrc}" alt="${p.name_ne}" onerror="this.src='${placeholderSrc}'">
                 </td>
-                <td style="font-weight: 700; color: var(--primary);">${p.name_ne}</td>
+                <td style="font-weight: 700; color: var(--text-heading);">${p.name_ne}</td>
                 <td>${p.church_name}</td>
                 <td><span style="font-weight: 600; color: var(--gold);">${illaka ? illaka.name_ne : ''}</span></td>
                 <td>${p.age_group}</td>
@@ -376,7 +376,7 @@ window.adminPanel = {
         illakas.forEach(i => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td style="font-weight: 700; color: var(--primary);">${i.id}</td>
+                <td style="font-weight: 700; color: var(--text-heading);">${i.id}</td>
                 <td>${i.name_ne}</td>
                 <td>
                     <button class="btn btn-outline btn-sm" onclick="window.adminPanel.openIllakaModal('${i.id}')">✏️ सम्पादन</button>
@@ -550,7 +550,7 @@ window.adminPanel = {
         notices.forEach(n => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td style="font-weight: 700; color: var(--primary);">${n.title_ne}</td>
+                <td style="font-weight: 700; color: var(--text-heading);">${n.title_ne}</td>
                 <td>${n.content_ne || ''}</td>
                 <td><span class="role-badge ${n.is_ticker ? 'success' : ''}">${n.is_ticker ? 'सक्रिय (Ticker)' : 'सामान्य'}</span></td>
                 <td>
@@ -637,7 +637,7 @@ window.adminPanel = {
             const isExternal = m.file_type === 'Link';
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td style="font-weight: 700; color: var(--primary);">${m.title_ne}</td>
+                <td style="font-weight: 700; color: var(--text-heading);">${m.title_ne}</td>
                 <td><span class="role-badge" style="background: var(--primary); color: white; border: none;">${m.file_type}</span></td>
                 <td>${m.file_size}</td>
                 <td style="display:flex;gap:0.4rem;flex-wrap:wrap;">
@@ -913,7 +913,7 @@ window.adminPanel = {
 
         div.innerHTML = `
             <button type="button" onclick="this.parentElement.remove()" style="position: absolute; top: 0.5rem; right: 0.5rem; background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--danger);">×</button>
-            <h4 style="grid-column: 1/-1; font-size: 0.95rem; color: var(--primary); margin-bottom: 0.25rem;">✍️ हस्ताक्षरकर्ता ${index + 1}</h4>
+            <h4 style="grid-column: 1/-1; font-size: 0.95rem; color: var(--text-heading); margin-bottom: 0.25rem;">✍️ हस्ताक्षरकर्ता ${index + 1}</h4>
             <div class="form-group" style="margin-bottom: 0;">
                 <label class="form-label">नाम (Name):</label>
                 <input type="text" class="form-control sig-name" required value="${sig.name || ''}">

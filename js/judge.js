@@ -134,7 +134,7 @@ window.judgePanel = {
                 <div class="score-input-group" style="background: var(--bg-main); padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                         <div>
-                            <div style="font-weight: 700; color: var(--primary); font-size: 1.05rem;">${c.name_ne}</div>
+                            <div style="font-weight: 700; color: var(--text-heading); font-size: 1.05rem;">${c.name_ne}</div>
                             <div style="font-size: 0.8rem; color: var(--text-muted);">पूर्णांक (Max): ${c.max_marks}</div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -169,7 +169,7 @@ window.judgePanel = {
                         <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
                             <div>
                                 <span style="font-size: 0.8rem; color: var(--text-muted);">प्रतियोगी:</span>
-                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--primary);">${p.name_ne}</div>
+                                <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-heading);">${p.name_ne}</div>
                             </div>
                             <div>
                                 <span style="font-size: 0.8rem; color: var(--text-muted);">मण्डली:</span>
@@ -182,7 +182,7 @@ window.judgePanel = {
                     </div>
                     
                     <form id="scoring-form" onsubmit="window.judgePanel.submitScores(event, '${p.id}')">
-                        <h4 style="margin-bottom: 1rem; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">श्रेणीगत अंक प्रविष्टि:</h4>
+                        <h4 style="margin-bottom: 1rem; color: var(--text-heading); border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">श्रेणीगत अंक प्रविष्टि:</h4>
                         
                         ${inputsHtml}
                         

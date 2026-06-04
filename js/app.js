@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalBody.innerHTML = `
             <div id="reset-step-2">
                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                    गूगल खाता प्रमाणीकरण पूरा भयो! अब <b style="color: var(--primary);">${roleText}</b> का लागि नयाँ सुरक्षित पासवर्ड प्रविष्ट गर्नुहोस्।
+                    गूगल खाता प्रमाणीकरण पूरा भयो! अब <b style="color: var(--text-heading);">${roleText}</b> का लागि नयाँ सुरक्षित पासवर्ड प्रविष्ट गर्नुहोस्।
                 </p>
                 
                 <form id="password-change-form">
@@ -839,7 +839,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.25rem;">${p.name_ne}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">${p.church_name}</p>
                     <p style="font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-top: 0.25rem;">इलाका: ${p.illaka_name}</p>
-                    <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-top: 0.75rem; font-family: var(--font-heading);">
+                    <div style="font-size: 1.8rem; font-weight: 800; color: var(--text-heading); margin-top: 0.75rem; font-family: var(--font-heading);">
                         ${p.total_score} <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">अंक</span>
                     </div>
                 </div>
@@ -868,7 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.marginBottom = '0.75rem';
             el.innerHTML = `
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
-                    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary);">${n.title_ne}</h4>
+                    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-heading);">${n.title_ne}</h4>
                     <span style="font-size: 0.75rem; color: var(--text-muted);">${dateStr}</span>
                 </div>
                 <p style="font-size: 0.85rem; color: var(--text-muted);">${n.content_ne || ''}</p>
@@ -916,14 +916,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td style="font-size: 1.25rem; font-weight: 800; color: ${rankColor};">${rankIcon} ${p.rank}</td>
-                <td style="font-weight: 700; color: var(--primary);">
+                <td style="font-weight: 700; color: var(--text-heading);">
                     ${p.name_ne}
                     ${eliminatedBadge}
                 </td>
                 <td>${p.church_name}</td>
                 <td><span style="font-weight: 600; color: var(--gold);">${p.illaka_name}</span></td>
                 <td><div style="display: flex; flex-wrap: wrap; max-width: 350px;">${breakdownHtml}</div></td>
-                <td style="font-size: 1.25rem; font-weight: 800; color: var(--primary); font-family: var(--font-heading);">${p.total_score}</td>
+                <td style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading); font-family: var(--font-heading);">${p.total_score}</td>
                 <td><button class="btn btn-outline btn-sm no-print" onclick="viewParticipantDetails('${p.id}')">🔍 विवरण</button></td>
             `;
             container.appendChild(tr);
@@ -1028,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="display: flex; gap: 1rem; align-items: center;">
                     <img class="avatar-ring" style="width: 60px; height: 60px;" ${isFS ? `data-fs-key="${fsKey}"` : ''} src="${imgSrc}" alt="${p.name_ne}" onerror="this.src='${placeholder}'">
                     <div style="flex: 1;">
-                        <h3 style="font-size: 1.1rem; color: var(--primary);">${p.name_ne}</h3>
+                        <h3 style="font-size: 1.1rem; color: var(--text-heading);">${p.name_ne}</h3>
                         <p style="font-size: 0.85rem; color: var(--text-muted);">${p.church_name}</p>
                         <p style="font-size: 0.8rem; font-weight: 600; color: var(--gold);">${illaka ? illaka.name_ne : ''}</p>
                     </div>
@@ -1094,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="role-badge" style="background: var(--primary); color: white; border: none;">${m.file_type}</span>
                         <span style="font-size: 0.75rem; color: var(--text-muted);">${m.file_size}</span>
                     </div>
-                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.75rem;">${m.title_ne}</h4>
+                    <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-heading); margin-bottom: 0.75rem;">${m.title_ne}</h4>
                 </div>
                 <button class="btn btn-primary btn-sm" style="margin-top: 1rem;" onclick="triggerDownload('${m.id}')">
                     ⬇️ डाउनलोड गर्नुहोस्
@@ -1166,7 +1166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.marginBottom = '1.25rem';
             card.innerHTML = `
                 <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; align-items: center;">
-                    <h3 style="font-size: 1.15rem; color: var(--primary);">${n.title_ne}</h3>
+                    <h3 style="font-size: 1.15rem; color: var(--text-heading);">${n.title_ne}</h3>
                     <span style="font-size: 0.8rem; background: var(--gold-light); padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600;">${dateStr}</span>
                 </div>
                 <p style="color: var(--text-main); font-size: 0.95rem;">${n.content_ne || 'विवरण उपलब्ध छैन।'}</p>
@@ -1294,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = '<img '
                 + (isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`)
                 + ' style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem auto; display: block; border: 3px solid var(--gold); background: #eee;">'
-                + '<h3 style="font-size: 1.2rem; color: var(--primary); margin-bottom: 0.25rem;">' + t.name + '</h3>'
+                + '<h3 style="font-size: 1.2rem; color: var(--text-heading); margin-bottom: 0.25rem;">' + t.name + '</h3>'
                 + '<p style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem;">' + t.role + '</p>';
             container.appendChild(card);
         });
@@ -1319,7 +1319,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let categoriesHtml = rounds.map(r => `
             <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 0.5rem 0;">
                 <span style="font-weight: 600;">${r.name}</span>
-                <span style="font-weight: 700; color: var(--primary); font-family: var(--font-heading);">${scoreObj.round_scores[r.id] || 0}</span>
+                <span style="font-weight: 700; color: var(--text-heading); font-family: var(--font-heading);">${scoreObj.round_scores[r.id] || 0}</span>
             </div>
         `).join('');
 
@@ -1336,7 +1336,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="modal-body" id="score-print-area">
                     <div style="text-align: center; margin-bottom: 1.5rem;">
                         <img class="avatar-large" src="${p.photo_url || 'https://via.placeholder.com/120'}" alt="${p.name_ne}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230a3064%22/><text x=%2250%22 y=%2255%22 font-family=%22sans-serif%22 font-size=%2235%22 fill=%22white%22 text-anchor=%22middle%22>${p.name_ne[0]}</text></svg>'">
-                        <h2 style="color: var(--primary);">${p.name_ne}</h2>
+                        <h2 style="color: var(--text-heading);">${p.name_ne}</h2>
                         <p style="color: var(--text-muted);">${p.church_name}</p>
                         <p style="color: var(--gold); font-weight: 600; font-size: 0.9rem;">${scoreObj.illaka_name} | श्रेणी: ${scoreObj.rank}</p>
                     </div>
@@ -1367,7 +1367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 2rem;">
                 <div style="width: 100%; max-width: 450px; border: 2px solid var(--gold); border-radius: var(--radius-md); padding: 2rem; background: #fff; box-shadow: var(--shadow-lg);">
                     <div style="text-align: center; margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 1rem;">
-                        <h2 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.25rem;">IGNITER TEAM</h2>
+                        <h2 style="color: var(--text-heading); font-size: 1.5rem; margin-bottom: 0.25rem;">IGNITER TEAM</h2>
                         <p style="font-size: 0.85rem; color: var(--gold); font-weight: bold; text-transform: uppercase;">बाइबल पद कण्ठस्थ प्रतियोगिता - स्कोर कार्ड</p>
                     </div>
                     ${printContent}
@@ -1574,7 +1574,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="modal-body text-center">
                                 <div style="font-size: 3.5rem; margin-bottom: 1rem;">👤</div>
-                                <h2 style="color: var(--primary);">${p.name_ne}</h2>
+                                <h2 style="color: var(--text-heading);">${p.name_ne}</h2>
                                 <p style="color: var(--text-muted); font-size: 0.95rem;">${p.church_name}</p>
                                 <p style="color: var(--gold); font-weight: bold; margin-top: 0.5rem;">${illaka ? illaka.name_ne : ''}</p>
                                 
