@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Igniter Team - Bible Memorization Competition Database Layer
  * Offline-first localStorage adapter simulating Supabase/Firebase interfaces
  */
@@ -794,3 +794,5 @@ document.addEventListener('DOMContentLoaded', () => {
         window.FirebaseSync.init();
     }
 });
+
+

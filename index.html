@@ -80,22 +80,14 @@
                 </button>
 
                 <div class="nav-controls">
-                    <!-- Nav tabs -->
+                    <!-- Nav tabs - Scroll Links for Landing Page -->
                     <ul class="nav-links">
-                        <li><button class="nav-item-btn active" id="nav-org-home">🏠 गृहपृष्ठ (Home)</button></li>
-                        <li><button class="nav-item-btn" id="nav-about">📖 हाम्रो बारेमा (About Us)</button></li>
-                        <li class="nav-dropdown">
-                            <button class="nav-item-btn" id="nav-tournament-group">🏆 प्रतियोगिता (Tournament) ▾</button>
-                            <div class="nav-dropdown-content">
-                                <button id="nav-home">ड्यासबोर्ड (Dashboard)</button>
-                                <button id="nav-live-score">लाइभ नतिजा (Live Score)</button>
-                                <button id="nav-participants">सहभागीहरू (Participants)</button>
-                                <button id="nav-downloads">डाउनलोडहरू (Downloads)</button>
-                            </div>
-                        </li>
-                        <li><button class="nav-item-btn" id="nav-notices">🔔 समाचार (News)</button></li>
-                        <li><button class="nav-item-btn" id="nav-gallery">🖼️ ग्यालरी (Gallery)</button></li>
-                        <li><button class="nav-item-btn" id="nav-contact">📞 सम्पर्क (Contact)</button></li>
+                        <li><a class="nav-item-btn active" href="#section-org-home" data-scroll="true">🏠 गृहपृष्ठ</a></li>
+                        <li><a class="nav-item-btn" href="#section-about" data-scroll="true">📖 हाम्रो बारेमा</a></li>
+                        <li><a class="nav-item-btn" href="#section-gallery" data-scroll="true">🖼️ ग्यालरी</a></li>
+                        <li><a class="nav-item-btn" href="#section-notices" data-scroll="true">🔔 समाचार</a></li>
+                        <li><a class="nav-item-btn" href="#section-contact" data-scroll="true">📞 सम्पर्क</a></li>
+                        <li><button class="nav-item-btn nav-tournament-enter" id="nav-tournament-enter">🏆 प्रतियोगिता ❯</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
                     </ul>
@@ -134,11 +126,27 @@
             </div>
         </div>
 
+        <!-- TOURNAMENT SUB-NAVIGATION BAR (hidden by default) -->
+        <div id="tournament-nav-bar" class="tournament-nav-bar hidden">
+            <div class="tournament-nav-inner">
+                <button class="btn btn-outline btn-sm tournament-back-btn" id="tournament-back-btn">⬅ फिर्ता (Back)</button>
+                <div class="tournament-nav-links">
+                    <button class="tournament-nav-btn active" data-target="section-home">📊 ड्यासबोर्ड</button>
+                    <button class="tournament-nav-btn" data-target="section-live-score">🏅 लाइभ स्कोर</button>
+                    <button class="tournament-nav-btn" data-target="section-participants">👥 सहभागीहरू</button>
+                    <button class="tournament-nav-btn" data-target="section-downloads">📥 डाउनलोडहरू</button>
+                </div>
+            </div>
+        </div>
+
         <!-- MAIN APP CONTENT PANELS -->
         <main>
             
+            <!-- ========== LANDING PAGE (SCROLLABLE SECTIONS) ========== -->
+            <div id="landing-page-container">
+
             <!-- SECTION 0: ORGANIZATION HOME PAGE -->
-            <section id="section-org-home">
+            <section id="section-org-home" class="scroll-section">
                 <div class="about-hero" style="margin-bottom: 2rem;">
                     <h1 id="org-hero-title" style="font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-heading); font-weight: 900;">Igniter Team</h1>
                     <p id="org-hero-subtitle" style="font-size: 1.25rem; font-weight: 500; opacity: 0.9;">Into the Way of Jesus Christ</p>
@@ -185,7 +193,7 @@
             </section>
 
             <!-- SECTION: ABOUT US -->
-            <section id="section-about" class="hidden">
+            <section id="section-about" class="scroll-section">
                 <div class="about-hero">
                     <h2 id="about-title" style="font-size: 2.5rem; margin-bottom: 1rem;">हाम्रो बारेमा (About Us)</h2>
                     <p id="about-subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">इग्नाइटर टिम (Igniter Team) परमेश्वरको वचनलाई युवा पुस्तामा पुर्याउने एउटा सक्रिय समूह हो।</p>
@@ -212,8 +220,36 @@
                 </div>
             </section>
 
+            <!-- SECTION: GLOBAL GALLERY -->
+            <section id="section-gallery" class="scroll-section">
+                <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 1rem;">हाम्रो ग्यालरी (Our Gallery)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमका झलकहरू</p>
+                
+                <!-- We will reuse the slider from the dashboard here for now -->
+                <div class="card card-accent" style="padding: 1rem;">
+                    <div style="position: relative; width: 100%; height: 500px; background: var(--bg-main); border-radius: var(--radius-md); overflow: hidden;">
+                        <div id="dashboard-gallery-slider" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
+                            <!-- JS will inject slider imgs here -->
+                        </div>
+                        <div id="dashboard-gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 48, 100, 0.85); color: white; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: center; display: none;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: NOTICES -->
+            <section id="section-notices" class="scroll-section">
+                <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                    🔔 आधिकारिक सूचना बोर्ड (Notice Board)
+                </h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमसम्बन्धी पछिल्ला निर्णय तथा सूचनाहरू यहाँ प्रकाशन गरिन्छ।</p>
+                
+                <div id="public-notices-container">
+                    <!-- Dynamic notice bulletin cards -->
+                </div>
+            </section>
+
             <!-- SECTION: CONTACT US -->
-            <section id="section-contact" class="hidden">
+            <section id="section-contact" class="scroll-section">
                 <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 2rem; text-align: center;">सम्पर्क गर्नुहोस् (Contact Us)</h2>
                 
                 <div class="contact-grid">
@@ -270,22 +306,9 @@
                 </div>
             </section>
 
-            <!-- SECTION: GLOBAL GALLERY -->
-            <section id="section-gallery" class="hidden">
-                <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 1rem;">हाम्रो ग्यालरी (Our Gallery)</h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमका झलकहरू</p>
-                
-                <!-- We will reuse the slider from the dashboard here for now -->
-                <div class="card card-accent" style="padding: 1rem;">
-                    <div style="position: relative; width: 100%; height: 500px; background: var(--bg-main); border-radius: var(--radius-md); overflow: hidden;">
-                        <div id="dashboard-gallery-slider" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
-                            <!-- JS will inject slider imgs here -->
-                        </div>
-                        <div id="dashboard-gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 48, 100, 0.85); color: white; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: center; display: none;"></div>
-                    </div>
-                </div>
-            </section>
-            
+            </div> <!-- END landing-page-container -->
+
+            <!-- ========== TOURNAMENT SECTIONS (CLICK-TO-VIEW) ========== -->
             <!-- SECTION 1: TOURNAMENT DASHBOARD -->
             <section id="section-home" class="hidden">
                 
@@ -469,30 +492,6 @@
                 
                 <div class="card-grid" id="public-downloads-grid">
                     <!-- Dynamic material cards -->
-                </div>
-            </section>
-
-            <!-- SECTION 5: NOTICES SECTION -->
-            <section id="section-notices" class="hidden">
-                <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
-                    🔔 आधिकारिक सूचना बोर्ड (Notice Board)
-                </h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमसम्बन्धी पछिल्ला निर्णय तथा सूचनाहरू यहाँ प्रकाशन गरिन्छ।</p>
-                
-                <div id="public-notices-container">
-                    <!-- Dynamic notice bulletin cards -->
-                </div>
-            </section>
-
-            <!-- SECTION 5B: ABOUT US (MERGED WITH TEAM) -->
-            <section id="section-team" class="hidden">
-                <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
-                    🤝 हाम्रो बारेमा (About Us)
-                </h2>
-                <p style="color: var(--text-muted); margin-bottom: 2rem;">इग्नाइटर टिम — बाइबल कण्ठस्थ प्रतियोगिता आयोजक। यस कार्यक्रमलाई सफल बनाउन योगदान पुर्‍याउनुहुने सम्पूर्ण टिम सदस्यहरू।</p>
-                
-                <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                    <!-- Dynamic team cards -->
                 </div>
             </section>
 
@@ -1043,3 +1042,5 @@
 
 </body>
 </html>
+
+

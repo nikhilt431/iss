@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Self-contained QR Code Generator (SVG Output)
  * High reliability offline-first matrix encoder (QRCode Version 2, L-error correction)
  */
@@ -127,3 +127,5 @@ window.QRCodeGenerator = {
         return svg;
     }
 };
+
+

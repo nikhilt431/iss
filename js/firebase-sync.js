@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Firebase Firestore Real-Time Sync Layer
  * Igniter Team - Bible Memorization Competition
  *
@@ -156,3 +156,5 @@ window.FirebaseSync = (function () {
     return { init, pushToCloud };
 
 })();
+
+

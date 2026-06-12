@@ -1,4 +1,4 @@
-/* Modern Components for Bible Quiz Web App */
+﻿/* Modern Components for Bible Quiz Web App */
 
 /* 1. Live Ticker Notice */
 .ticker-wrap {
@@ -615,3 +615,5 @@ input:checked + .slider-round:before {
         flex-direction: column;
     }
 }
+
+

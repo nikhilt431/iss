@@ -1,0 +1,22 @@
+{
+  "name": "Igniter Bible Quiz & Memorization",
+  "short_name": "Bible Quiz",
+  "description": "Live Scoring and Management for Bible Memorization Competitions",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a3064",
+  "theme_color": "#0a3064",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192.png?text=Igniter",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512.png?text=Igniter",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

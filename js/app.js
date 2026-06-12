@@ -268,101 +268,228 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. SPA Router Engine
-    const navButtons = document.querySelectorAll('.nav-item-btn, .brand-section, #nav-login, .nav-dropdown-content button');
-    const sections = {
-        'nav-org-home': 'section-org-home',
-        'nav-about': 'section-about',
-        'nav-gallery': 'section-gallery',
-        'nav-home': 'section-home',
-        'nav-live-score': 'section-live-score',
-        'nav-participants': 'section-participants',
-        'nav-downloads': 'section-downloads',
-        'nav-notices': 'section-notices',
-        'nav-contact': 'section-contact',
-        'nav-login': 'section-login',
-        'nav-admin': 'section-admin',
-        'nav-judge': 'section-judge'
-    };
+    // 2. HYBRID NAVIGATION ENGINE
+    // Landing page: scroll-based with scroll-spy
+    // Tournament/Admin/Judge: click-to-view with sub-nav
+    
+    const landingContainer = document.getElementById('landing-page-container');
+    const tournamentNavBar = document.getElementById('tournament-nav-bar');
+    const tournamentSections = ['section-home', 'section-live-score', 'section-participants', 'section-downloads'];
+    const systemSections = ['section-login', 'section-admin', 'section-judge', 'section-participant-dashboard'];
+    const allHiddenSections = [...tournamentSections, ...systemSections, 'section-team'];
+    
+    let currentMode = 'landing'; // 'landing' | 'tournament' | 'system'
 
-    function navigateTo(navId) {
-        if (navId === 'nav-tournament-group') return; // Do nothing for dropdown parent
+    // === SCROLL LINKS (Landing Page) ===
+    document.querySelectorAll('a.nav-item-btn[data-scroll]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentMode !== 'landing') {
+                switchToLandingMode();
+            }
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // Close mobile menu
+            const navControls = document.querySelector('.nav-controls');
+            if (navControls) navControls.classList.remove('show-mobile');
+        });
+    });
 
-        // Toggle Active nav state
-        document.querySelectorAll('.nav-item-btn, .nav-dropdown-content button').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.id === navId) {
-                btn.classList.add('active');
-                // If it's a dropdown child, also highlight the parent
-                if (btn.parentElement.classList.contains('nav-dropdown-content')) {
-                    btn.parentElement.previousElementSibling.classList.add('active');
-                }
+    // === SCROLL-SPY (highlight active nav link based on scroll position) ===
+    function updateScrollSpy() {
+        if (currentMode !== 'landing') return;
+        const scrollSections = document.querySelectorAll('#landing-page-container .scroll-section');
+        const headerHeight = 100;
+        let currentSection = '';
+        
+        scrollSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= headerHeight + 50 && rect.bottom > headerHeight) {
+                currentSection = section.id;
             }
         });
+        
+        if (currentSection) {
+            document.querySelectorAll('a.nav-item-btn[data-scroll]').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    }
+    window.addEventListener('scroll', updateScrollSpy, { passive: true });
 
-        // Hide all sections, show target
-        const targetSectionId = sections[navId] || 'section-org-home';
-        Object.values(sections).forEach(secId => {
-            const el = document.getElementById(secId);
+    // === TOURNAMENT MODE ===
+    function switchToTournamentMode(targetSection) {
+        currentMode = 'tournament';
+        // Hide landing page
+        if (landingContainer) landingContainer.style.display = 'none';
+        // Hide all other sections
+        allHiddenSections.forEach(id => {
+            const el = document.getElementById(id);
             if (el) el.classList.add('hidden');
         });
-        
-        const targetEl = document.getElementById(targetSectionId);
+        // Show tournament nav bar
+        if (tournamentNavBar) tournamentNavBar.classList.remove('hidden');
+        // Show target tournament section
+        const target = targetSection || 'section-home';
+        const targetEl = document.getElementById(target);
         if (targetEl) targetEl.classList.remove('hidden');
+        // Update tournament nav active state
+        document.querySelectorAll('.tournament-nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.target === target) btn.classList.add('active');
+        });
+        // Remove active from main nav scroll links
+        document.querySelectorAll('a.nav-item-btn[data-scroll]').forEach(l => l.classList.remove('active'));
+        // Initialize section data
+        initTournamentSection(target);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-        // Close details modals if any
-        closeActiveModals();
-        
-        // Persist tab
-        sessionStorage.setItem('active_tab', navId);
-
-        // Initialize section-specific scripts
-        if (navId === 'nav-org-home') {
-            // Nothing specific yet
-        } else if (navId === 'nav-contact') {
-            renderPublicContactInfo();
-        } else if (navId === 'nav-home') {
+    function initTournamentSection(sectionId) {
+        if (sectionId === 'section-home') {
             renderDashboardStats();
             renderPublicTop3();
             renderPublicNotices();
             renderPublicPrizes();
             renderLiveScoreBoard();
-        } else if (navId === 'nav-live-score') {
+        } else if (sectionId === 'section-live-score') {
             renderLiveScoreBoard();
-        } else if (navId === 'nav-participants') {
+        } else if (sectionId === 'section-participants') {
             renderPublicParticipants();
-        } else if (navId === 'nav-downloads') {
+        } else if (sectionId === 'section-downloads') {
             renderPublicDownloads();
-        } else if (navId === 'nav-notices') {
-            renderPublicNotices();
-        } else if (navId === 'nav-gallery') {
-            renderPublicGallerySlider();
-        } else if (navId === 'nav-about') {
-            renderPublicTeam();
-        } else if (navId === 'nav-admin') {
-            if (window.adminPanel) window.adminPanel.init();
-        } else if (navId === 'nav-judge') {
-            if (window.judgePanel) window.judgePanel.init();
         }
+    }
 
+    // === LANDING MODE ===
+    function switchToLandingMode() {
+        currentMode = 'landing';
+        // Show landing page
+        if (landingContainer) landingContainer.style.display = '';
+        // Hide tournament nav bar
+        if (tournamentNavBar) tournamentNavBar.classList.add('hidden');
+        // Hide all tournament/system sections
+        allHiddenSections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        });
+        // Re-initialize landing page data
+        renderPublicContactInfo();
+        renderPublicTeam();
+        renderPublicGallerySlider();
+        renderPublicNotices();
+        // Restore scroll-spy
+        updateScrollSpy();
+    }
+
+    // === SYSTEM SECTIONS (Login, Admin, Judge) ===
+    function switchToSystemSection(sectionId) {
+        currentMode = 'system';
+        // Hide landing page
+        if (landingContainer) landingContainer.style.display = 'none';
+        // Hide tournament nav bar
+        if (tournamentNavBar) tournamentNavBar.classList.add('hidden');
+        // Hide all sections
+        allHiddenSections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        });
+        // Show target section
+        const targetEl = document.getElementById(sectionId);
+        if (targetEl) targetEl.classList.remove('hidden');
+        // Remove active from main nav scroll links
+        document.querySelectorAll('a.nav-item-btn[data-scroll]').forEach(l => l.classList.remove('active'));
+        // Initialize section
+        if (sectionId === 'section-admin' && window.adminPanel) window.adminPanel.init();
+        if (sectionId === 'section-judge' && window.judgePanel) window.judgePanel.init();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    navButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            let targetId = btn.id;
-            if (btn.classList.contains('brand-section')) {
-                targetId = 'nav-home';
-            }
-            navigateTo(targetId);
-            
-            // Close mobile menu on nav item click
+    // === EVENT LISTENERS ===
+    
+    // Tournament Enter button
+    const tournamentEnterBtn = document.getElementById('nav-tournament-enter');
+    if (tournamentEnterBtn) {
+        tournamentEnterBtn.addEventListener('click', () => {
+            switchToTournamentMode('section-home');
             const navControls = document.querySelector('.nav-controls');
-            if (navControls) {
-                navControls.classList.remove('show-mobile');
-            }
+            if (navControls) navControls.classList.remove('show-mobile');
+        });
+    }
+
+    // Tournament nav buttons
+    document.querySelectorAll('.tournament-nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.target;
+            // Hide all tournament sections
+            tournamentSections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+            // Show target
+            const targetEl = document.getElementById(target);
+            if (targetEl) targetEl.classList.remove('hidden');
+            // Update active state
+            document.querySelectorAll('.tournament-nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // Init data
+            initTournamentSection(target);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
+
+    // Tournament back button
+    const tournamentBackBtn = document.getElementById('tournament-back-btn');
+    if (tournamentBackBtn) {
+        tournamentBackBtn.addEventListener('click', () => {
+            switchToLandingMode();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Brand section click → go to landing home
+    const brandSection = document.querySelector('.brand-section');
+    if (brandSection) {
+        brandSection.addEventListener('click', () => {
+            if (currentMode !== 'landing') {
+                switchToLandingMode();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Login button
+    const loginNavBtn2 = document.getElementById('nav-login');
+    if (loginNavBtn2) {
+        loginNavBtn2.addEventListener('click', () => {
+            switchToSystemSection('section-login');
+        });
+    }
+
+    // Admin button
+    const adminNavBtn2 = document.getElementById('nav-admin');
+    if (adminNavBtn2) {
+        adminNavBtn2.addEventListener('click', () => {
+            switchToSystemSection('section-admin');
+            const navControls = document.querySelector('.nav-controls');
+            if (navControls) navControls.classList.remove('show-mobile');
+        });
+    }
+
+    // Judge button
+    const judgeNavBtn2 = document.getElementById('nav-judge');
+    if (judgeNavBtn2) {
+        judgeNavBtn2.addEventListener('click', () => {
+            switchToSystemSection('section-judge');
+            const navControls = document.querySelector('.nav-controls');
+            if (navControls) navControls.classList.remove('show-mobile');
+        });
+    }
 
     // 2.5 Mobile Navigation Toggle
     const mobileToggle = document.getElementById('mobile-menu-toggle');
@@ -374,37 +501,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Make router available globally
-    window.spaRouter = { navigateTo };
+    window.spaRouter = {
+        navigateTo: function(navId) {
+            if (navId === 'nav-home' || navId === 'nav-live-score' || navId === 'nav-participants' || navId === 'nav-downloads') {
+                const sectionMap = {
+                    'nav-home': 'section-home',
+                    'nav-live-score': 'section-live-score',
+                    'nav-participants': 'section-participants',
+                    'nav-downloads': 'section-downloads'
+                };
+                switchToTournamentMode(sectionMap[navId]);
+            } else if (navId === 'nav-admin') {
+                switchToSystemSection('section-admin');
+            } else if (navId === 'nav-judge') {
+                switchToSystemSection('section-judge');
+            } else if (navId === 'nav-login') {
+                switchToSystemSection('section-login');
+            } else {
+                switchToLandingMode();
+            }
+        }
+    };
 
     // ── Auto-refresh when Firebase pushes a live update ──────────────────
-    // This fires on every device/browser that has the page open.
     window.addEventListener('db_updated', () => {
-        const activeBtn = document.querySelector('.nav-item-btn.active');
-        if (activeBtn) {
-            const navId = activeBtn.id;
-            // Re-render data for the current section only (no full page reload)
-            if (navId === 'nav-home') {
-                renderDashboardStats();
-                renderPublicTop3();
-                renderPublicPrizes();
-                renderLiveScoreBoard();
-            } else if (navId === 'nav-org-home') {
-                // Countdown updates dynamically via startCountdown setInterval
-            } else if (navId === 'nav-gallery') {
-                renderPublicGallerySlider();
-            } else if (navId === 'nav-live-score') {
-                renderLiveScoreBoard();
-            } else if (navId === 'nav-participants') {
-                renderPublicParticipants();
-            } else if (navId === 'nav-notices') {
-                renderPublicNotices();
-            } else if (navId === 'nav-about') {
-                renderPublicTeam();
-            } else if (navId === 'nav-admin') {
-                if (window.adminPanel) window.adminPanel.init();
-            } else if (navId === 'nav-judge') {
-                if (window.judgePanel) window.judgePanel.init();
-            }
+        if (currentMode === 'tournament') {
+            const activeBtn = document.querySelector('.tournament-nav-btn.active');
+            if (activeBtn) initTournamentSection(activeBtn.dataset.target);
+        } else if (currentMode === 'system') {
+            // Re-init admin/judge if active
+            const adminEl = document.getElementById('section-admin');
+            if (adminEl && !adminEl.classList.contains('hidden') && window.adminPanel) window.adminPanel.init();
+            const judgeEl = document.getElementById('section-judge');
+            if (judgeEl && !judgeEl.classList.contains('hidden') && window.judgePanel) window.judgePanel.init();
+        } else {
+            // Landing mode - refresh visible content
+            renderPublicNotices();
+            renderPublicGallerySlider();
+            renderPublicTeam();
         }
         // Always refresh ticker
         renderTicker();
@@ -1540,12 +1674,18 @@ document.addEventListener('DOMContentLoaded', () => {
     startCountdown();
     renderTicker();
 
-    // Default Load State
+    // Default Load State - Initialize all landing page content
     const savedTab = sessionStorage.getItem('active_tab');
-    if (savedTab && sections[savedTab]) {
-        navigateTo(savedTab);
+    if (savedTab && (savedTab === 'nav-admin' || savedTab === 'nav-judge')) {
+        window.spaRouter.navigateTo(savedTab);
+    } else if (savedTab && (savedTab === 'nav-home' || savedTab === 'nav-live-score' || savedTab === 'nav-participants' || savedTab === 'nav-downloads')) {
+        window.spaRouter.navigateTo(savedTab);
     } else {
-        navigateTo('nav-org-home');
+        // Landing mode - initialize all visible sections
+        renderPublicContactInfo();
+        renderPublicTeam();
+        renderPublicGallerySlider();
+        renderPublicNotices();
     }
 
     // Parse URL parameter to show participant detailed marks on QR scan
@@ -1627,3 +1767,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     }
 });
+
+

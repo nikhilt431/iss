@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Igniter Team - Bible Memorization Competition Judge Panel
  * Dedicated score evaluation system for judges with offline capabilities
  */
@@ -354,3 +354,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+

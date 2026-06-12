@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Igniter Team - FileStore
  * Uses IndexedDB to store binary data (images, PDFs) separately from localStorage.
  * This bypasses the 5MB localStorage limit for file uploads.
@@ -82,3 +82,5 @@ const FileStore = (() => {
 })();
 
 window.FileStore = FileStore;
+
+

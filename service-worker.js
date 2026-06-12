@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PWA Service Worker for Offline Capability
  * Caches core app assets for instant load and offline execution
  */
@@ -77,3 +77,5 @@ self.addEventListener('fetch', (event) => {
             })
     );
 });
+
+

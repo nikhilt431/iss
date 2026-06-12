@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Igniter Team - Bible Memorization Competition Admin Panel
  * Manages Illaka CRUD, Participant CRUD, Notices, Downloads, System settings and Backups
  */
@@ -1605,3 +1605,5 @@ window.adminPanel = {
         }
     }
 };
+
+

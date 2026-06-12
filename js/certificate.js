@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Igniter Team - Bible Memorization Competition Certificate Generator
  * Draws high-resolution printable certificates dynamically customized from Admin settings
  */
@@ -325,3 +325,5 @@ window.CertificateGenerator = {
         }
     }
 };
+
+
