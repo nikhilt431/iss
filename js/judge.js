@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Igniter Team - Bible Memorization Competition Judge Panel
  * Dedicated score evaluation system for judges with offline capabilities
  */
@@ -66,6 +66,18 @@ window.judgePanel = {
             const photoUrl = p.photo_url || 'https://via.placeholder.com/60?text=सहभागी';
             const illaka = window.db.getIllakaById(p.illaka_id);
 
+            const rounds = window.db.getRounds();
+            const activeIndex = rounds.findIndex(r => r.id === activeRoundId);
+            let prevRoundsHtml = '';
+            if (activeIndex > 0) {
+                const prevRounds = rounds.slice(0, activeIndex);
+                const prevScoresText = prevRounds.map(r => {
+                    const score = scoreObj && scoreObj.round_scores ? (scoreObj.round_scores[r.id] || 0) : 0;
+                    return `<b>${r.name_ne || r.name}</b>: ${score}`;
+                }).join(' | ');
+                prevRoundsHtml = `<div style="font-size: 0.8rem; color: var(--gold); margin-top: 0.25rem;">अघिल्लो चरणहरू - ${prevScoresText}</div>`;
+            }
+
             const el = document.createElement('div');
             el.className = 'card';
             el.style.display = 'flex';
@@ -98,6 +110,7 @@ window.judgePanel = {
                     <div>
                         <h4 style="font-size: 1.05rem; margin-bottom: 0.15rem;">${p.name_ne}</h4>
                         <p style="font-size: 0.8rem; color: var(--text-muted);">${p.church_name} | <b>${illaka ? illaka.name_ne : ''}</b></p>
+                        ${prevRoundsHtml}
                     </div>
                 </div>
                 
@@ -158,6 +171,24 @@ window.judgePanel = {
 
         const comment = existingScores.length > 0 ? (existingScores[0].comments || '') : '';
 
+        const ranked = window.db.getRankedParticipants();
+        const scoreObj = ranked.find(r => r.id === p.id);
+        const rounds = window.db.getRounds();
+        const activeIndex = rounds.findIndex(r => r.id === activeRoundId);
+        let prevRoundsHtml = '';
+        if (activeIndex > 0) {
+            const prevRounds = rounds.slice(0, activeIndex);
+            const prevScoresText = prevRounds.map(r => {
+                const score = scoreObj && scoreObj.round_scores ? (scoreObj.round_scores[r.id] || 0) : 0;
+                return `<b>${r.name_ne || r.name}</b>: <span style="color: var(--gold);">${score}</span>`;
+            }).join('  |  ');
+            prevRoundsHtml = `
+                <div style="margin-top: 0.75rem; border-top: 1px dashed var(--border); padding-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+                    अघिल्लो चरणहरूको प्राप्ताङ्क (Previous Round Scores): &nbsp;&nbsp; ${prevScoresText}
+                </div>
+            `;
+        }
+
         modal.innerHTML = `
             <div class="modal-content modal-content-lg" style="max-width: 700px;">
                 <div class="modal-header">
@@ -179,6 +210,7 @@ window.judgePanel = {
                         <div style="background: var(--gold); color: #000; padding: 0.4rem 0.75rem; border-radius: var(--radius-sm); font-weight: 800; text-align: center; font-size: 0.95rem;">
                             🏆 ${activeRound.name}
                         </div>
+                        ${prevRoundsHtml}
                     </div>
                     
                     <form id="scoring-form" onsubmit="window.judgePanel.submitScores(event, '${p.id}')">

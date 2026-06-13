@@ -854,6 +854,8 @@ window.adminPanel = {
 
         document.getElementById('set-event-lock').checked = settings.lock_scores;
         document.getElementById('set-show-event-homepage').checked = settings.show_event_homepage || false;
+        document.getElementById('set-show-countdown').checked = settings.show_countdown !== false;
+        document.getElementById('set-show-tournament-portal').checked = settings.show_tournament_portal !== false;
         
         this.renderRoundsManagement();
 
@@ -1108,6 +1110,8 @@ window.adminPanel = {
             event_church_image: preview.dataset.base64 || document.getElementById('set-event-church-image').value.trim(),
             lock_scores: document.getElementById('set-event-lock').checked,
             show_event_homepage: document.getElementById('set-show-event-homepage').checked,
+            show_countdown: document.getElementById('set-show-countdown').checked,
+            show_tournament_portal: document.getElementById('set-show-tournament-portal').checked,
             active_round_id: window.db.state.event_settings.active_round_id
         };
 

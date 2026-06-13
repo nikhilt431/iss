@@ -508,9 +508,9 @@ tr:hover td {
 
 .theme-switch {
     display: inline-block;
-    height: 24px;
+    height: 18px;
     position: relative;
-    width: 48px;
+    width: 36px;
 }
 
 .theme-switch input {
@@ -533,11 +533,11 @@ tr:hover td {
     background-color: white;
     bottom: 3px;
     content: "";
-    height: 18px;
+    height: 12px;
     left: 3px;
     position: absolute;
     transition: .4s;
-    width: 18px;
+    width: 12px;
     border-radius: 50%;
 }
 
@@ -546,7 +546,7 @@ input:checked + .slider-round {
 }
 
 input:checked + .slider-round:before {
-    transform: translateX(24px);
+    transform: translateX(18px);
     background-color: var(--primary);
 }
 

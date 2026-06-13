@@ -349,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initTournamentSection(target);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    window.switchToTournamentMode = switchToTournamentMode;
 
     function initTournamentSection(sectionId) {
         if (sectionId === 'section-home') {
@@ -542,8 +543,9 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicTeam();
             renderHomeEventDetails();
         }
-        // Always refresh ticker
+        // Always refresh ticker and portal
         renderTicker();
+        renderTournamentPortal();
     });
 
 
@@ -564,7 +566,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                     window.currentUser.role === 'judge' ? 'निर्णायक (Judge)' : 'दर्शक (Viewer)';
         }
 
-        // Show/hide administrative tabs based on auth roles
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const showMenuToggle = window.currentUser.role === 'superadmin' || window.currentUser.role === 'judge';
+
         if (window.currentUser.role === 'superadmin') {
             adminNavBtn.classList.remove('hidden');
             judgeNavBtn.classList.remove('hidden');
@@ -580,6 +584,14 @@ document.addEventListener('DOMContentLoaded', () => {
             judgeNavBtn.classList.add('hidden');
             logoutBtn.classList.add('hidden');
             if (loginNavBtn) loginNavBtn.classList.remove('hidden');
+        }
+
+        if (mobileMenuToggle) {
+            if (showMenuToggle) {
+                mobileMenuToggle.classList.remove('hidden');
+            } else {
+                mobileMenuToggle.classList.add('hidden');
+            }
         }
     }
 
@@ -889,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateTimer = () => {
             const settings = window.db.getSettings();
             const wrapper = document.getElementById('org-countdown-wrapper');
-            if (!settings.event_date || settings.event_date.trim() === '') {
+            if (settings.show_countdown === false || !settings.event_date || settings.event_date.trim() === '') {
                 if (wrapper) wrapper.classList.add('hidden');
                 if (timerInterval) clearInterval(timerInterval);
                 return;
@@ -997,6 +1009,18 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 imgEl.parentElement.style.display = 'none';
             }
+        }
+    }
+
+    // 5.6 Render Tournament Portal Button (controlled by admin toggle)
+    function renderTournamentPortal() {
+        const settings = window.db.getSettings();
+        const wrapper = document.getElementById('org-participant-portal-wrapper');
+        if (!wrapper) return;
+        if (settings.show_tournament_portal !== false) {
+            wrapper.classList.remove('hidden');
+        } else {
+            wrapper.classList.add('hidden');
         }
     }
 
@@ -1811,6 +1835,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start global widgets
     startCountdown();
     renderTicker();
+    renderTournamentPortal();
 
     // Default Load State - Initialize all landing page content
     const savedTab = sessionStorage.getItem('active_tab');
