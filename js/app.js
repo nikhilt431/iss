@@ -383,6 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPublicTeam();
         renderPublicGallerySlider();
         renderPublicNotices();
+        renderHomeEventDetails();
         // Restore scroll-spy
         updateScrollSpy();
     }
@@ -539,6 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicNotices();
             renderPublicGallerySlider();
             renderPublicTeam();
+            renderHomeEventDetails();
         }
         // Always refresh ticker
         renderTicker();
@@ -815,6 +817,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Live Notice Ticker Runner
+    // Helper: Build Google Maps directions URL from embed URL or address
+    function buildMapDirectionsUrl(embedUrl, address) {
+        // Try to extract coordinates from Google Maps embed URL
+        let lat = null, lng = null;
+
+        if (embedUrl) {
+            // Pattern 1: !2d<lng>!3d<lat> (most common in embeds)
+            const coordMatch = embedUrl.match(/!2d(-?[\d.]+)!3d(-?[\d.]+)/);
+            if (coordMatch) {
+                lng = coordMatch[1];
+                lat = coordMatch[2];
+            }
+            
+            // Pattern 2: @<lat>,<lng>
+            if (!lat) {
+                const atMatch = embedUrl.match(/@(-?[\d.]+),(-?[\d.]+)/);
+                if (atMatch) {
+                    lat = atMatch[1];
+                    lng = atMatch[2];
+                }
+            }
+
+            // Pattern 3: q=<lat>,<lng> or q=<place>
+            if (!lat) {
+                const qMatch = embedUrl.match(/[?&]q=(-?[\d.]+),(-?[\d.]+)/);
+                if (qMatch) {
+                    lat = qMatch[1];
+                    lng = qMatch[2];
+                }
+            }
+
+            // Pattern 4: pb= with lat/lng
+            if (!lat) {
+                const pbMatch = embedUrl.match(/!1d(-?[\d.]+)!2d(-?[\d.]+)/);
+                if (pbMatch) {
+                    lat = pbMatch[2];
+                    lng = pbMatch[1];
+                }
+            }
+        }
+
+        // Build directions URL
+        if (lat && lng) {
+            return 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng;
+        } else if (address) {
+            return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(address);
+        }
+        return 'https://www.google.com/maps';
+    }
+
     function renderTicker() {
         const ticker = document.getElementById('ticker-marquee');
         if (!ticker) return;
@@ -888,6 +940,66 @@ document.addEventListener('DOMContentLoaded', () => {
         timerInterval = setInterval(updateTimer, 1000);
     }
 
+    // 5.5 Render Event Details on Homepage (controlled by admin toggle)
+    function renderHomeEventDetails() {
+        const settings = window.db.getSettings();
+        const wrapper = document.getElementById('home-event-details-wrapper');
+        if (!wrapper) return;
+
+        // Check if admin enabled it
+        if (!settings.show_event_homepage) {
+            wrapper.classList.add('hidden');
+            return;
+        }
+
+        // Check if there's any event data to show
+        if (!settings.event_address && !settings.event_time && !settings.event_date) {
+            wrapper.classList.add('hidden');
+            return;
+        }
+
+        wrapper.classList.remove('hidden');
+
+        // Populate fields
+        const dateObj = new Date(settings.event_date);
+        const dateEl = document.getElementById('home-event-date');
+        if (dateEl && !isNaN(dateObj.getTime())) {
+            dateEl.textContent = dateObj.toLocaleDateString('ne-NP', { year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        const timeEl = document.getElementById('home-event-time');
+        if (timeEl) timeEl.textContent = settings.event_time || 'निर्धारित छैन';
+
+        const addressEl = document.getElementById('home-event-address');
+        if (addressEl) addressEl.textContent = settings.event_address || 'निर्धारित छैन';
+
+        // Map
+        const mapEl = document.getElementById('home-event-map');
+        const mapDirLink = document.getElementById('home-map-directions-link');
+        if (mapEl) {
+            if (settings.event_location_map) {
+                mapEl.src = settings.event_location_map;
+                mapEl.parentElement.style.display = 'block';
+                if (mapDirLink) mapDirLink.href = buildMapDirectionsUrl(settings.event_location_map, settings.event_address);
+            } else {
+                mapEl.parentElement.style.display = 'none';
+            }
+        }
+
+        // Church Image
+        const imgEl = document.getElementById('home-church-image');
+        if (imgEl) {
+            if (settings.event_church_image) {
+                window.resolveUrl(settings.event_church_image).then(src => {
+                    imgEl.src = src;
+                    imgEl.parentElement.style.display = 'block';
+                });
+            } else {
+                imgEl.parentElement.style.display = 'none';
+            }
+        }
+    }
+
     // 6. Render Dashboard Widgets & Home View
     function renderDashboardStats() {
         const participants = window.db.getParticipants();
@@ -907,9 +1019,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dashboard-event-address').textContent = settings.event_address || 'निर्धारित छैन';
         
         const mapEl = document.getElementById('dashboard-event-map');
+        const dashMapDirLink = document.getElementById('dashboard-map-directions-link');
         if (settings.event_location_map) {
             mapEl.src = settings.event_location_map;
             mapEl.parentElement.style.display = 'block';
+            if (dashMapDirLink) dashMapDirLink.href = buildMapDirectionsUrl(settings.event_location_map, settings.event_address);
         } else {
             mapEl.parentElement.style.display = 'none';
         }
@@ -1686,6 +1800,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPublicTeam();
         renderPublicGallerySlider();
         renderPublicNotices();
+        renderHomeEventDetails();
     }
 
     // Parse URL parameter to show participant detailed marks on QR scan

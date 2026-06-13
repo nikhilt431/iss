@@ -186,6 +186,51 @@
                         <p style="color: var(--text-main); line-height: 1.6;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३ का लागि तयारी सुरु भइसकेको छ। कृपया "प्रतियोगिता" मेनुबाट थप जानकारी लिनुहोस्।</p>
                     </div>
                 </div>
+
+                <!-- Event Details on Homepage (controlled by admin toggle) -->
+                <div id="home-event-details-wrapper" class="hidden" style="margin-top: 2.5rem;">
+                    <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                        ⛪ कार्यक्रम विवरण (Event Details)
+                    </h2>
+                    <div id="home-event-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1000px;">
+                        <!-- Left: Church Image -->
+                        <div class="card card-accent" style="overflow: hidden; padding: 0; min-height: 250px;">
+                            <img id="home-church-image" src="" alt="Event Venue" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        </div>
+                        <!-- Right: Details + Map -->
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="card" style="padding: 1.5rem;">
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <span style="font-size: 2rem;">📍</span>
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">ठेगाना (Address)</div>
+                                        <div id="home-event-address" style="font-size: 1.1rem; font-weight: 700; color: var(--text-heading);"></div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                                    <span style="font-size: 2rem;">🕐</span>
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">समय (Time)</div>
+                                        <div id="home-event-time" style="font-size: 1.1rem; font-weight: 700; color: var(--gold);"></div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <span style="font-size: 2rem;">📅</span>
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">मिति (Date)</div>
+                                        <div id="home-event-date" style="font-size: 1.1rem; font-weight: 700; color: var(--text-heading);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card map-clickable-wrapper" style="padding: 0; overflow: hidden; flex: 1; min-height: 160px; position: relative;">
+                                <iframe id="home-event-map" src="" width="100%" height="100%" style="border: 0; min-height: 160px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <a id="home-map-directions-link" href="#" target="_blank" rel="noopener" class="map-directions-overlay" title="Google Maps मा खोल्नुहोस्">
+                                    <span>📍 Google Maps मा दिशानिर्देश हेर्नुहोस् (Get Directions)</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- SECTION: ABOUT US -->
@@ -402,8 +447,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card" style="padding: 0; overflow: hidden; flex: 1; min-height: 180px;">
+                            <div class="card map-clickable-wrapper" style="padding: 0; overflow: hidden; flex: 1; min-height: 180px; position: relative;">
                                 <iframe id="dashboard-event-map" src="" width="100%" height="100%" style="border: 0; min-height: 180px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <a id="dashboard-map-directions-link" href="#" target="_blank" rel="noopener" class="map-directions-overlay" title="Google Maps मा खोल्नुहोस्">
+                                    <span>📍 Google Maps मा दिशानिर्देश हेर्नुहोस् (Get Directions)</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -563,9 +611,9 @@
                 </div>
 
                 <!-- Sidebar navigation and Content row -->
-                <div style="display: grid; grid-template-columns: 240px 1fr; gap: 2rem; margin-top: 1.5rem;">
+                <div class="admin-panel-grid">
                     <!-- Sidebar list -->
-                    <aside class="no-print" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <aside class="admin-sidebar no-print">
                         <button class="btn btn-outline admin-subnav-btn active" data-tab="participants" style="justify-content: flex-start;">👥 सहभागी व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="illakas" style="justify-content: flex-start;">📍 इलाका व्यवस्थापन</button>
                         <button class="btn btn-outline admin-subnav-btn" data-tab="notices" style="justify-content: flex-start;">📢 सूचना व्यवस्थापन</button>
@@ -579,7 +627,7 @@
                     </aside>
 
                     <!-- Main CRUD bodies -->
-                    <div style="min-width: 0;">
+                    <div class="admin-content-area">
                         
                         <!-- Admin Subtab 1: Participants CRUD -->
                         <div class="admin-tab-content" id="admin-tab-participants">
@@ -815,7 +863,7 @@
                                 🛠️ प्रतियोगिता कन्फिगरेसन सेटिङ
                             </h3>
                             
-                            <form id="admin-settings-form" onsubmit="window.adminPanel.saveSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+                            <form id="admin-settings-form" onsubmit="window.adminPanel.saveSettingsForm(event)" class="admin-settings-form">
                                 <div class="form-group">
                                     <label class="form-label">प्रतियोगिताको नाम (Event Name):</label>
                                     <input type="text" id="set-event-title" class="form-control" required>
@@ -851,6 +899,10 @@
                                     <input type="checkbox" id="set-event-lock" style="width: 18px; height: 18px; cursor: pointer;">
                                     <label for="set-event-lock" style="font-weight: 600; cursor: pointer;">🔐 निर्णायक स्कोर प्रविष्टि लक गर्नुहोस् (Lock score entries)</label>
                                 </div>
+                                <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem;">
+                                    <input type="checkbox" id="set-show-event-homepage" style="width: 18px; height: 18px; cursor: pointer;">
+                                    <label for="set-show-event-homepage" style="font-weight: 600; cursor: pointer;">🏠 गृहपृष्ठमा कार्यक्रम विवरण देखाउनुहोस् (Show Event Details on Homepage)</label>
+                                </div>
                                 
                                 <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">💾 सेटिङ सुरक्षित गर्नुहोस्</button>
                             </form>
@@ -859,7 +911,7 @@
                             <h3 style="color: var(--text-heading); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
                                 🔄 प्रतियोगिता चरण व्यवस्थापन (Tournament Rounds)
                             </h3>
-                            <div style="max-width: 600px; margin-bottom: 2.5rem;">
+                            <div class="admin-settings-form">
                                 <div class="card" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 1rem; padding: 1rem;">
                                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
                                         <span style="font-weight: 700; color: var(--text-heading);">📌 सक्रिय चरण (Active Round):</span>
@@ -882,7 +934,7 @@
                             <h3 style="color: var(--text-heading); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
                                 🔐 सुरक्षा र पासवर्ड सेटिङ (Security & Passwords)
                             </h3>
-                            <form id="admin-auth-settings-form" onsubmit="window.adminPanel.saveAuthSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+                            <form id="admin-auth-settings-form" onsubmit="window.adminPanel.saveAuthSettingsForm(event)" class="admin-settings-form">
                                 <div class="form-group">
                                     <label class="form-label">नयाँ एडमिन पासवर्ड (Admin Password):</label>
                                     <input type="password" id="set-admin-pass" class="form-control" required>
@@ -906,7 +958,7 @@
                             <h3 style="color: var(--text-heading); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
                                 🎓 प्रशंसा-पत्र अनुकूलन सेटिङ (Customize Event Certificate)
                             </h3>
-                            <form id="admin-certificate-form" onsubmit="window.adminPanel.saveCertificateSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+                            <form id="admin-certificate-form" onsubmit="window.adminPanel.saveCertificateSettingsForm(event)" class="admin-settings-form">
                                 <div class="form-group">
                                     <label class="form-label">प्रमाणपत्र बोर्डर र थिम रङ (Theme Border Color):</label>
                                     <div style="display: flex; gap: 0.5rem; align-items: center;">

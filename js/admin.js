@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Igniter Team - Bible Memorization Competition Admin Panel
  * Manages Illaka CRUD, Participant CRUD, Notices, Downloads, System settings and Backups
  */
@@ -853,6 +853,7 @@ window.adminPanel = {
         }
 
         document.getElementById('set-event-lock').checked = settings.lock_scores;
+        document.getElementById('set-show-event-homepage').checked = settings.show_event_homepage || false;
         
         this.renderRoundsManagement();
 
@@ -1106,6 +1107,7 @@ window.adminPanel = {
             event_location_map: document.getElementById('set-event-location-map').value.trim(),
             event_church_image: preview.dataset.base64 || document.getElementById('set-event-church-image').value.trim(),
             lock_scores: document.getElementById('set-event-lock').checked,
+            show_event_homepage: document.getElementById('set-show-event-homepage').checked,
             active_round_id: window.db.state.event_settings.active_round_id
         };
 
