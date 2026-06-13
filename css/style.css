@@ -1097,6 +1097,25 @@ footer {
         gap: 1rem;
     }
 
+    #public-team-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.5rem !important;
+    }
+    #public-team-grid .card {
+        padding: 0.75rem 0.5rem !important;
+    }
+    #public-team-grid .card img {
+        width: 80px !important;
+        height: 80px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    #public-team-grid .card h3 {
+        font-size: 0.95rem !important;
+    }
+    #public-team-grid .card p {
+        font-size: 0.8rem !important;
+    }
+
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
@@ -1231,6 +1250,25 @@ footer {
     /* Hide divider on small screens */
     .brand-section .no-print[style*="width: 2px"] {
         display: none !important;
+    }
+
+    #public-team-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.25rem !important;
+    }
+    #public-team-grid .card {
+        padding: 0.5rem 0.25rem !important;
+    }
+    #public-team-grid .card img {
+        width: 60px !important;
+        height: 60px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    #public-team-grid .card h3 {
+        font-size: 0.85rem !important;
+    }
+    #public-team-grid .card p {
+        font-size: 0.7rem !important;
     }
 
     .about-hero {

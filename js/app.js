@@ -1531,7 +1531,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        team.sort(function(a,b) { return (a.order || 0) - (b.order || 0); }).forEach(function(t) {
+        const topMembers = team.filter(t => t.group === 'top').sort((a, b) => (a.order || 0) - (b.order || 0));
+        const downMembers = team.filter(t => t.group !== 'top').sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        function createCard(t) {
             const isFS = t.photo_url && t.photo_url.startsWith('filestore://');
             const fsKey = isFS ? t.photo_url.slice('filestore://'.length) : '';
             const imgSrc = isFS ? '' : (t.photo_url && t.photo_url.trim() !== '' ? t.photo_url : 'https://via.placeholder.com/150?text=%F0%9F%91%A4');
@@ -1544,8 +1547,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 + ' style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem auto; display: block; border: 3px solid var(--gold); background: #eee;">'
                 + '<h3 style="font-size: 1.2rem; color: var(--text-heading); margin-bottom: 0.25rem;">' + t.name + '</h3>'
                 + '<p style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem;">' + t.role + '</p>';
-            container.appendChild(card);
+            return card;
+        }
+
+        topMembers.forEach(t => {
+            container.appendChild(createCard(t));
         });
+
+        if (topMembers.length > 0 && downMembers.length > 0) {
+            const divider = document.createElement('div');
+            divider.style.gridColumn = '1 / -1';
+            divider.style.display = 'flex';
+            divider.style.alignItems = 'center';
+            divider.style.justifyContent = 'center';
+            divider.style.margin = '2.5rem 0 1.5rem 0';
+            divider.style.width = '100%';
+            divider.innerHTML = '<div style="flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.7;"></div>';
+            container.appendChild(divider);
+        }
+
+        downMembers.forEach(t => {
+            container.appendChild(createCard(t));
+        });
+
         if (window.hydrateImages) window.hydrateImages(container);
     }
 

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Igniter Team - Bible Memorization Competition Database Layer
  * Offline-first localStorage adapter simulating Supabase/Firebase interfaces
  */
@@ -166,8 +166,8 @@ const INITIAL_DATA = {
         { id: 'g2', title_ne: 'Bible Quiz Event 2025', image_url: 'https://images.unsplash.com/photo-1511649475669-e288648b2339?auto=format&fit=crop&w=800&q=80', order: 2 }
     ],
     team_members: [
-        { id: 't1', name: 'Nikhil Sharma', role: 'Coordinator & Lead Developer', photo_url: '', order: 1 },
-        { id: 't2', name: 'Pst. Prakash Limbu', role: 'Chief Advisor', photo_url: '', order: 2 }
+        { id: 't1', name: 'Nikhil Sharma', role: 'Coordinator & Lead Developer', photo_url: '', order: 1, group: 'top' },
+        { id: 't2', name: 'Pst. Prakash Limbu', role: 'Chief Advisor', photo_url: '', order: 2, group: 'top' }
     ],
     contact_settings: {
         address: 'Kathmandu, Nepal',

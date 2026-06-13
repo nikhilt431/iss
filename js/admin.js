@@ -1408,7 +1408,7 @@ window.adminPanel = {
         tbody.innerHTML = '';
         const team = window.db.getTeamMembers();
         if (team.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="4" class="text-center" style="padding: 2rem; color: var(--text-muted);">कुनै सदस्य थपिएको छैन।</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center" style="padding: 2rem; color: var(--text-muted);">कुनै सदस्य थपिएको छैन।</td></tr>`;
             return;
         }
         team.sort((a,b) => (a.order || 0) - (b.order || 0)).forEach(t => {
@@ -1416,40 +1416,53 @@ window.adminPanel = {
             const fsKey = isFS ? t.photo_url.slice('filestore://'.length) : '';
             const imgSrc = isFS ? '' : (t.photo_url || 'https://via.placeholder.com/50?text=👤');
             const tr = document.createElement('tr');
+            const groupText = t.group === 'top' ? 'वरिष्ठ/मूल नेतृत्व (Top)' : 'सामान्य सदस्य (Down)';
+            const groupStyle = t.group === 'top' ? 'color: var(--gold); font-weight: bold;' : 'color: var(--text-muted);';
             tr.innerHTML = `
                 <td><img ${isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`} style="width:50px;height:50px;border-radius:50%;object-fit:cover;background:#eee;"></td>
                 <td style="font-weight: 700;">${t.name}</td>
                 <td>${t.role}</td>
-                <td><button class="btn btn-danger btn-sm" onclick="window.adminPanel.deleteTeam('${t.id}')">🗑️ मेट्नुहោस्</button></td>
+                <td style="${groupStyle}">${groupText}</td>
+                <td>
+                    <button class="btn btn-outline btn-sm" style="display:inline-block; margin-right:0.25rem;" onclick="window.adminPanel.openTeamModal('${t.id}')">✏️ सम्पादन</button>
+                    <button class="btn btn-danger btn-sm" style="display:inline-block;" onclick="window.adminPanel.deleteTeam('${t.id}')">🗑️ मेट्नुहोस्</button>
+                </td>
             `;
             tbody.appendChild(tr);
         });
         window.hydrateImages(tbody);
     },
 
-    openTeamModal: function() {
+    openTeamModal: function(id = '') {
+        const isEdit = id !== '';
+        const t = isEdit ? window.db.getTeamMembers().find(m => m.id === id) : { name: '', role: '', photo_url: '', order: 1, group: 'down' };
+
+        const isFS = t.photo_url && t.photo_url.startsWith('filestore://');
+        const fsKey = isFS ? t.photo_url.slice('filestore://'.length) : '';
+        const imgSrc = isFS ? '' : (t.photo_url && !t.photo_url.startsWith('filestore://') ? t.photo_url : '');
+
         const modal = document.createElement('div');
         modal.className = 'modal-overlay';
         modal.onclick = (e) => { if (e.target === modal) window.closeActiveModals(); };
         modal.innerHTML = `
             <div class="modal-content" style="max-width: 450px;">
                 <div class="modal-header">
-                    <h3 class="modal-title">नयाँ सदस्य थप्नुहोस् (Our Team)</h3>
+                    <h3 class="modal-title">${isEdit ? 'टिम सदस्य सम्पादन गर्नुहोस्' : 'नयाँ सदस्य थप्नुहोस् (Our Team)'}</h3>
                     <button class="modal-close" onclick="window.closeActiveModals()">×</button>
                 </div>
                 <div class="modal-body">
                     <form id="admin-team-form">
                         <div class="form-group">
                             <label class="form-label">सदस्यको नाम (Name):</label>
-                            <input type="text" id="team-name" class="form-control" required>
+                            <input type="text" id="team-name" class="form-control" required value="${t.name}">
                         </div>
                         <div class="form-group">
                             <label class="form-label">भूमिका (Role):</label>
-                            <input type="text" id="team-role" class="form-control" required>
+                            <input type="text" id="team-role" class="form-control" required value="${t.role}">
                         </div>
                         <div class="form-group" style="margin-top: 1rem;">
                             <label class="form-label">📷 फोटोको लिङ्क (Image URL / Google Drive Link):</label>
-                            <input type="url" id="team-image-url" class="form-control" placeholder="उदा: https://drive.google.com/file/d/.../view">
+                            <input type="url" id="team-image-url" class="form-control" placeholder="उदा: https://drive.google.com/file/d/.../view" value="${isFS ? '' : t.photo_url}">
                         </div>
                         <div style="text-align: center; margin: 1rem 0; color: var(--text-muted); font-weight: bold;">-- वा (OR) --</div>
                         <div class="form-group">
@@ -1457,11 +1470,18 @@ window.adminPanel = {
                             <input type="file" id="team-file-input" class="form-control" accept="image/*" style="padding: 0.5rem;">
                         </div>
                         <div style="text-align: center; margin-top: 0.75rem;">
-                            <img id="team-photo-preview" src="" style="display: none; width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold);">
+                            <img id="team-photo-preview" ${isFS ? `data-fs-key="${fsKey}"` : `src="${imgSrc}"`} style="${t.photo_url ? 'display: block;' : 'display: none;'} width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold);">
                         </div>
                         <div class="form-group" style="margin-top: 1rem;">
                             <label class="form-label">देखाउने क्रम (Display Order):</label>
-                            <input type="number" id="team-order" class="form-control" value="1" required>
+                            <input type="number" id="team-order" class="form-control" value="${t.order}" required>
+                        </div>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">टिम समूह (Team Group):</label>
+                            <select id="team-group" class="form-control" required>
+                                <option value="top" ${t.group === 'top' ? 'selected' : ''}>माथिल्लो समूह (Top - Founders, Presidents, Advisors, Counselors)</option>
+                                <option value="down" ${t.group !== 'top' ? 'selected' : ''}>तल्लो समूह (Down - General Members)</option>
+                            </select>
                         </div>
                         <div class="modal-footer" style="padding: 1.5rem 0 0 0; background: transparent; border-top: none;">
                             <button type="button" class="btn btn-outline" onclick="window.closeActiveModals()">रद्द गर्नुहोस्</button>
@@ -1472,6 +1492,9 @@ window.adminPanel = {
             </div>
         `;
         document.body.appendChild(modal);
+        if (isFS && window.hydrateImages) {
+            window.hydrateImages(modal);
+        }
 
         // File input preview using FileReader
         const fileInput = document.getElementById('team-file-input');
@@ -1503,26 +1526,24 @@ window.adminPanel = {
             const memberData = {
                 name: document.getElementById('team-name').value.trim(),
                 role: document.getElementById('team-role').value.trim(),
+                group: document.getElementById('team-group').value,
                 order: parseInt(document.getElementById('team-order').value) || 1
             };
+            if (isEdit) {
+                memberData.id = id;
+            }
 
             const doSave = (photoUrl) => {
                 memberData.photo_url = photoUrl;
                 window.db.saveTeamMember(memberData);
                 window.closeActiveModals();
-                window.showToast('टिम सदस्य सफलतापूर्वक अपलोड भयो!');
+                window.showToast(isEdit ? 'टिम सदस्य सफलतापूर्वक सम्पादन भयो!' : 'टिम सदस्य सफलतापूर्वक अपलोड भयो!');
                 window.adminPanel.renderTeamTable();
             };
 
-            if (externalUrl) {
-                externalUrl = window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(externalUrl) : externalUrl;
-                doSave(externalUrl);
-                return;
-            }
-
             if (base64) {
                 if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'अपलोड हुँदैछ...'; }
-                const memberId = 't_' + Date.now();
+                const memberId = id || ('t_' + Date.now());
                 const fsKey = 'team_' + memberId;
                 memberData.id = memberId;
                 window.FileStore.put(fsKey, base64)
@@ -1532,8 +1553,13 @@ window.adminPanel = {
                         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '📁 सुरक्षित गर्नुहोस्'; }
                         window.showToast('फोटो सुरक्षित गर्न समस्या भयो!', 'danger');
                     });
+            } else if (externalUrl) {
+                externalUrl = window.convertGoogleDriveUrl ? window.convertGoogleDriveUrl(externalUrl) : externalUrl;
+                doSave(externalUrl);
             } else {
-                doSave('');
+                const oldPhoto = t.photo_url || '';
+                const isExternalCleared = isEdit && !isFS && !externalUrl && t.photo_url;
+                doSave(isExternalCleared ? '' : oldPhoto);
             }
         });
     },
