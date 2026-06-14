@@ -1,0 +1,266 @@
+﻿Created At: 2026-06-12T13:16:09Z
+Completed At: 2026-06-12T13:16:10Z
+File Path: `file:///C:/Users/Nikhi/.gemini/antigravity/brain/eb22ca64-6a48-4a5c-8857-39633a5764f7/.system_generated/steps/3089/content.md`
+Total Lines: 1056
+Total Bytes: 81651
+Showing lines 800 to 1056
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+800:                         </div>
+801: 
+802:                         <!-- Admin Subtab 9: Inbox Messages -->
+803:                         <div class="admin-tab-content hidden" id="admin-tab-inbox">
+804:                             <div class="action-row">
+805:                                 <h3 style="color: var(--text-heading);">ðŸ“¬ à¤¸à¤¨à¥à¤¦à¥‡à¤¶ à¤‡à¤¨à¤¬à¤•à¥à¤¸ (Inbox)</h3>
+806:                             </div>
+807:                             <div class="table-responsive card card-accent">
+808:                                 <table class="data-table" id="messages-table">
+809:                                     <thead>
+810:                                         <tr>
+811:                                             <th>à¤®à¤¿à¤¤à¤¿ (Date)</th>
+812:                                             <th>à¤¨à¤¾à¤® (Name)</th>
+813:                                             <th>à¤¸à¤®à¥à¤ªà¤°à¥à¤• (Contact)</th>
+814:                                             <th>à¤¸à¤¨à¥à¤¦à¥‡à¤¶ (Message)</th>
+815:                                             <th>à¤•à¤¾à¤°à¥à¤¯ (Action)</th>
+816:                                         </tr>
+817:                                     </thead>
+818:                                     <tbody id="admin-messages-table-body">
+819:                                         <!-- Populated by admin.js -->
+820:                                     </tbody>
+821:                                 </table>
+822:                             </div>
+823:                         </div>
+824: 
+825:                         <!-- Admin Subtab 5: Event Settings & Backup manager -->
+826:                         <div class="admin-tab-content hidden" id="admin-tab-settings">
+827:                             <h3 style="color: var(--text-heading); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+828:                                 ðŸ› ï¸ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤•à¤¨à¥à¤«à¤¿à¤—à¤°à¥‡à¤¸à¤¨ à¤¸à¥‡à¤Ÿà¤¿à¤™
+829:                             </h3>
+830:                             
+831:                             <form id="admin-settings-form" onsubmit="window.adminPanel.saveSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+832:                                 <div class="form-group">
+833:                                     <label class="form-label">à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾à¤•à¥‹ à¤¨à¤¾à¤® (Event Name):</label>
+834:                                     <input type="text" id="set-event-title" class="form-control" required>
+835:                                 </div>
+836:                                 <div class="form-group">
+837:                                     <label class="form-label">à¤¸à¤¹à¤¾à¤¯à¤• à¤¶à¥€à¤°à¥à¤·à¤• (Subtitle / Organiser):</label>
+838:                                     <input type="text" id="set-event-subtitle" class="form-control" required>
+839:                                 </div>
+840:                                 <div class="form-group">
+841:                                     <label class="form-label">à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤¹à¥à¤¨à¥‡ à¤®à¤¿à¤¤à¤¿ à¤° à¤¸à¤®à¤¯ (Target Event Date):</label>
+842:                                     <input type="datetime-local" id="set-event-date" class="form-control" required>
+843:                                 </div>
+844:                                 <div class="form-group">
+845:                                     <label class="form-label">ðŸ• à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤¸à¥à¤°à¥ à¤¹à¥à¤¨à¥‡ à¤¸à¤®à¤¯ (Starting Time Text):</label>
+846:                                     <input type="text" id="set-event-time" class="form-control" placeholder="à¤‰à¤¦à¤¾: à¤¬à¤¿à¤¹à¤¾à¤¨ à¥¯:à¥¦à¥¦ à¤¬à¤œà¥‡ (09:00 AM)">
+847:                                 </div>
+848:                                 <div class="form-group">
+849:                                     <label class="form-label">ðŸ“ à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤¹à¥à¤¨à¥‡ à¤ à¤¾à¤‰à¤ / à¤ à¥‡à¤—à¤¾à¤¨à¤¾ (Event Address):</label>
+850:                                     <input type="text" id="set-event-address" class="form-control" placeholder="à¤‰à¤¦à¤¾: à¤¬à¥‡à¤¥à¥‡à¤² à¤à¤¸à¥‡à¤®à¥à¤¬à¤²à¥€ à¤šà¤°à¥à¤š, à¤§à¤°à¤¾à¤¨">
+851:                                 </div>
+852:                                 <div class="form-group">
+853:                                     <label class="form-label">â›ª à¤šà¤°à¥à¤šà¤•à¥‹ à¤«à¥‹à¤Ÿà¥‹ (Church Image URL or Upload):</label>
+854:                                     <input type="text" id="set-event-church-image" class="form-control" placeholder="à¤«à¥‹à¤Ÿà¥‹ URL à¤°à¤¾à¤–à¥à¤¨à¥à¤¹à¥‹à¤¸à¥ à¤µà¤¾ à¤¤à¤² à¤…à¤ªà¤²à¥‹à¤¡ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥">
+855:                                     <input type="file" id="set-event-church-image-file" class="form-control" accept="image/*" style="margin-top: 0.5rem;" onchange="window.adminPanel.previewEventChurchImage(this)">
+856:                                     <img id="event-church-image-preview" style="display: none; max-height: 120px; margin-top: 0.5rem; border-radius: var(--radius-sm); border: 2px solid var(--gold);">
+857:                                 </div>
+858:                                 <div class="form-group">
+859:                                     <label class="form-label">ðŸ—ºï¸ Google Map Embed URL:</label>
+860:                                     <input type="text" id="set-event-location-map" class="form-control" placeholder="Google Maps Embed URL">
+861:                                     <small style="color: var(--text-muted);">Google Maps â†’ Share â†’ Embed â†’ Copy iframe URL</small>
+862:                                 </div>
+863:                                 <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+864:                                     <input type="checkbox" id="set-event-lock" style="width: 18px; height: 18px; cursor: pointer;">
+865:                                     <label for="set-event-lock" style="font-weight: 600; cursor: pointer;">ðŸ” à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤• à¤¸à¥à¤•à¥‹à¤° à¤ªà¥à¤°à¤µà¤¿à¤·à¥à¤Ÿà¤¿ à¤²à¤• à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥ (Lock score entries)</label>
+866:                                 </div>
+867:                                 
+868:                                 <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">ðŸ’¾ à¤¸à¥‡à¤Ÿà¤¿à¤™ à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+869:                             </form>
+870: 
+871:                             <!-- Tournament Rounds Management -->
+872:                             <h3 style="color: var(--text-heading); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+873:                                 ðŸ”„ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤šà¤°à¤£ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨ (Tournament Rounds)
+874:                             </h3>
+875:                             <div style="max-width: 600px; margin-bottom: 2.5rem;">
+876:                                 <div class="card" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 1rem; padding: 1rem;">
+877:                                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+878:                                         <span style="font-weight: 700; color: var(--text-heading);">ðŸ“Œ à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤šà¤°à¤£ (Active Round):</span>
+879:                                         <select id="set-active-round" class="form-control" style="width: auto; font-weight: 700; color: var(--success);" onchange="window.adminPanel.changeActiveRound(this.value)">
+880:                                             <!-- Dynamic options -->
+881:                                         </select>
+882:                                     </div>
+883:                                     <p style="font-size: 0.8rem; color: var(--text-muted);">à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤•à¤¹à¤°à¥‚à¤²à¥‡ à¤¯à¥‹ à¤šà¤°à¤£à¤®à¤¾ à¤®à¤¾à¤¤à¥à¤° à¤…à¤‚à¤• à¤¦à¤¿à¤¨ à¤¸à¤•à¥à¤¨à¥‡à¤›à¤¨à¥à¥¤ à¤šà¤°à¤£ à¤ªà¤°à¤¿à¤µà¤°à¥à¤¤à¤¨ à¤—à¤°à¥à¤¦à¤¾ à¤ªà¥à¤°à¤¾à¤¨à¥‹ à¤…à¤‚à¤• à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¤¹à¤¨à¥à¤›à¥¤</p>
+884:                                 </div>
+885:                                 <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+886:                                     <input type="text" id="new-round-name" class="form-control" placeholder="à¤¨à¤¯à¤¾à¤ à¤šà¤°à¤£à¤•à¥‹ à¤¨à¤¾à¤® (à¤‰à¤¦à¤¾: Quarter-Final)" style="flex: 1;">
+887:                                     <button class="btn btn-gold btn-sm" onclick="window.adminPanel.addNewRound()">âž• à¤¥à¤ªà¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+888:                                 </div>
+889:                                 <div id="rounds-list-container">
+890:                                     <!-- Dynamic rounds list -->
+891:                                 </div>
+892:                             </div>
+893: 
+894:                             <!-- Auth Settings Form -->
+895:                             <h3 style="color: var(--text-heading); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+896:                                 ðŸ” à¤¸à¥à¤°à¤•à¥à¤·à¤¾ à¤° à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ à¤¸à¥‡à¤Ÿà¤¿à¤™ (Security & Passwords)
+897:                             </h3>
+898:                             <form id="admin-auth-settings-form" onsubmit="window.adminPanel.saveAuthSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+899:                                 <div class="form-group">
+900:                                     <label class="form-label">à¤¨à¤¯à¤¾à¤ à¤à¤¡à¤®à¤¿à¤¨ à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ (Admin Password):</label>
+901:                                     <input type="password" id="set-admin-pass" class="form-control" required>
+902:                                 </div>
+903:                                 <div class="form-group">
+904:                                     <label class="form-label">à¤à¤¡à¤®à¤¿à¤¨ à¤°à¤¿à¤•à¤­à¤°à¥€ à¤ˆà¤®à¥‡à¤² (Admin Google Recovery Email):</label>
+905:                                     <input type="email" id="set-admin-email" class="form-control" placeholder="admin@gmail.com">
+906:                                 </div>
+907:                                 <div class="form-group">
+908:                                     <label class="form-label">à¤¨à¤¯à¤¾à¤ à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤• à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ (Judge Password):</label>
+909:                                     <input type="password" id="set-judge-pass" class="form-control" required>
+910:                                 </div>
+911:                                 <div class="form-group">
+912:                                     <label class="form-label">à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤• à¤°à¤¿à¤•à¤­à¤°à¥€ à¤ˆà¤®à¥‡à¤² (Judge Google Recovery Email):</label>
+913:                                     <input type="email" id="set-judge-email" class="form-control" placeholder="judge@gmail.com">
+914:                                 </div>
+915:                                 <button type="submit" class="btn btn-gold" style="margin-top: 1rem;">ðŸ”‘ à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+916:                             </form>
+917: 
+918:                             <!-- Customizable Certificates Form -->
+919:                             <h3 style="color: var(--text-heading); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+920:                                 ðŸŽ“ à¤ªà¥à¤°à¤¶à¤‚à¤¸à¤¾-à¤ªà¤¤à¥à¤° à¤…à¤¨à¥à¤•à¥‚à¤²à¤¨ à¤¸à¥‡à¤Ÿà¤¿à¤™ (Customize Event Certificate)
+921:                             </h3>
+922:                             <form id="admin-certificate-form" onsubmit="window.adminPanel.saveCertificateSettingsForm(event)" style="max-width: 600px; margin-bottom: 2.5rem;">
+923:                                 <div class="form-group">
+924:                                     <label class="form-label">à¤ªà¥à¤°à¤®à¤¾à¤£à¤ªà¤¤à¥à¤° à¤¬à¥‹à¤°à¥à¤¡à¤° à¤° à¤¥à¤¿à¤® à¤°à¤™ (Theme Border Color):</label>
+925:                                     <div style="display: flex; gap: 0.5rem; align-items: center;">
+926:                                         <input type="color" id="cert-theme-color" class="form-control" style="width: 60px; height: 42px; padding: 0.2rem; cursor: pointer;" required>
+927:                                         <span style="font-size: 0.85rem; color: var(--text-muted);">à¤¬à¥‹à¤°à¥à¤¡à¤° à¤° à¤®à¥à¤–à¥à¤¯ à¤¬à¥à¤°à¤¾à¤¨à¥à¤¡à¤•à¥‹ à¤°à¤™ à¤›à¤¨à¥‹à¤Ÿ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</span>
+928:                                     </div>
+929:                                 </div>
+930:                                 <div class="form-group">
+931:                                     <label class="form-label">à¤¸à¤‚à¤¸à¥à¤¥à¤¾à¤•à¥‹ à¤²à¥‹à¤—à¥‹ (Custom Logo Image):</label>
+932:                                     <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
+933:                                         <input type="file" id="cert-logo-file" class="form-control" accept="image/*" onchange="window.adminPanel.previewCertImage(this, 'cert-logo-preview')">
+934:                                         <button type="button" class="btn btn-danger btn-sm" onclick="window.adminPanel.removeCertImage('cert-logo-file', 'cert-logo-preview')" title="Remove">ðŸ—‘ï¸</button>
+935:                                     </div>
+936:                                     <img id="cert-logo-preview" style="display: none; max-height: 60px; margin-top: 0.5rem;" />
+937:                                 </div>
+938:                                 <div class="form-group">
+939:                                     <label class="form-label">à¤µà¤¾à¤Ÿà¤°à¤®à¤¾à¤°à¥à¤• (Background Watermark Image):</label>
+940:                                     <div style="display: flex; gap: 0.5rem; align-items: flex-start;">
+941:                                         <input type="file" id="cert-watermark-file" class="form-control" accept="image/*" onchange="window.adminPanel.previewCertImage(this, 'cert-watermark-preview')">
+942:                                         <button type="button" class="btn btn-danger btn-sm" onclick="window.adminPanel.removeCertImage('cert-watermark-file', 'cert-watermark-preview')" title="Remove">ðŸ—‘ï¸</button>
+943:                                     </div>
+944:                                     <img id="cert-watermark-preview" style="display: none; max-height: 100px; margin-top: 0.5rem;" />
+945:                                 </div>
+946:                                 <div class="form-group">
+947:                                     <label class="form-label">à¤ªà¥à¤°à¤®à¤¾à¤£à¤ªà¤¤à¥à¤° à¤¶à¥€à¤°à¥à¤·à¤• - à¤¨à¥‡à¤ªà¤¾à¤²à¥€ (Certificate Title - NE):</label>
+948:                                     <input type="text" id="cert-title-ne" class="form-control" required>
+949:                                 </div>
+950:                                 <div class="form-group">
+951:                                     <label class="form-label">Certificate Title - English (EN):</label>
+952:                                     <input type="text" id="cert-title-en" class="form-control" required>
+953:                                 </div>
+954:                                 <div class="form-group">
+955:                                     <label class="form-label">à¤ªà¥à¤°à¤®à¤¾à¤£à¤ªà¤¤à¥à¤° à¤µà¤¿à¤µà¤°à¤£ - à¤¨à¥‡à¤ªà¤¾à¤²à¥€ (NE):</label>
+956:                                     <textarea id="cert-desc-ne" class="form-control" rows="3" required></textarea>
+957:                                     <span style="font-size: 0.75rem; color: var(--text-muted);">* à¤•à¥à¤² à¤…à¤‚à¤• à¤¦à¥‡à¤–à¤¾à¤‰à¤¨ <b>{score}</b> à¤° à¤¸à¥à¤¥à¤¾à¤¨ à¤¦à¥‡à¤–à¤¾à¤‰à¤¨ <b>{rank}</b> à¤Ÿà¥à¤¯à¤¾à¤— à¤°à¤¾à¤–à¥à¤¨à¥à¤¹à¥‹à¤¸à¥à¥¤</span>
+958:                                 </div>
+959:                                 <div class="form-group">
+960:                                     <label class="form-label">Certificate Description - English (EN):</label>
+961:                                     <textarea id="cert-desc-en" class="form-control" rows="3" required></textarea>
+962:                                     <span style="font-size: 0.75rem; color: var(--text-muted);">* Use <b>{score}</b> for marks obtained and <b>{rank}</b> for achieved position.</span>
+963:                                 </div>
+964:                                 <div class="form-group">
+965:                                     <label class="form-label">à¤¬à¤¾à¤‡à¤¬à¤² à¤–à¤£à¥à¤¡ à¤µà¤¾à¤Ÿà¤°à¤®à¤¾à¤°à¥à¤• - à¤¨à¥‡à¤ªà¤¾à¤²à¥€ (Scripture - NE):</label>
+966:                                     <input type="text" id="cert-verse-ne" class="form-control" required>
+967:                                 </div>
+968:                                 <div class="form-group">
+969:                                     <label class="form-label">Scripture Watermark - English (EN):</label>
+970:                                     <input type="text" id="cert-verse-en" class="form-control" required>
+971:                                 </div>
+972:                                 
+973:                                 <div id="admin-signatories-container">
+974:                                     <!-- Dynamic signatories -->
+975:                                 </div>
+976:                                 <button type="button" class="btn btn-outline btn-sm" onclick="window.adminPanel.addSignatoryField()" style="margin-bottom: 1.5rem;">âž• à¤¥à¤ª à¤¹à¤¸à¥à¤¤à¤¾à¤•à¥à¤·à¤°à¤•à¤°à¥à¤¤à¤¾ (Add Signatory)</button>
+977: 
+978:                                 <div>
+979:                                     <button type="submit" class="btn btn-gold" style="margin-top: 0.5rem;">ðŸŽ“ à¤ªà¥à¤°à¤®à¤¾à¤£à¤ªà¤¤à¥à¤° à¤¥à¤¿à¤® à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+980:                                 </div>
+981:                             </form>
+982: 
+983:                             <!-- Backup and Restore Data -->
+984:                             <h3 style="color: var(--danger); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.25rem;">
+985:                                 ðŸ’¾ à¤¡à¤¾à¤Ÿà¤¾ à¤¬à¥à¤¯à¤¾à¤•à¤…à¤ª à¤° à¤ªà¥à¤¨à¤°à¥à¤¸à¥à¤¥à¤¾à¤ªà¤¨à¤¾ (System Backup & Restore)
+986:                             </h3>
+987:                             <div class="card" style="border-color: rgba(239, 68, 68, 0.2);">
+988:                                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+989:                                     à¤¯à¤¸ à¤–à¤£à¥à¤¡à¤¬à¤¾à¤Ÿ à¤¤à¤ªà¤¾à¤ˆà¤‚ à¤ªà¥‚à¤°à¥ˆ à¤ªà¥à¤°à¤£à¤¾à¤²à¥€à¤•à¥‹ à¤¡à¤¾à¤Ÿà¤¾à¤¬à¥à¤¯à¤¾à¤•à¤…à¤ª à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡ à¤—à¤°à¥à¤¨ à¤¸à¤•à¥à¤¨à¥à¤¹à¥à¤¨à¥à¤› à¤° à¤†à¤µà¤¶à¥à¤¯à¤• à¤ªà¤°à¥‡à¤®à¤¾ à¤•à¥à¤¨à¥ˆ à¤ªà¤¨à¤¿ à¤¬à¥à¤¯à¤¾à¤•à¤…à¤ª à¤«à¤¾à¤‡à¤² à¤²à¥‹à¤¡ à¤—à¤°à¥€ à¤ªà¥à¤¨à¤°à¥à¤¸à¥à¤¥à¤¾à¤ªà¤¨à¤¾ (Restore) à¤—à¤°à¥à¤¨ à¤¸à¤•à¥à¤¨à¥à¤¹à¥à¤¨à¥à¤›à¥¤
+990:                                 </p>
+991:                                 <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+992:                                     <button class="btn btn-primary" onclick="window.adminPanel.triggerBackupDownload()">ðŸ“¥ à¤¬à¥à¤¯à¤¾à¤•à¤…à¤ª JSON à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+993:                                     
+994:                                     <div style="position: relative;">
+995:                                         <button class="btn btn-gold">ðŸ“¤ JSON à¤¬à¥à¤¯à¤¾à¤•à¤…à¤ª à¤²à¥‹à¤¡ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+996:                                         <input type="file" accept=".json" onchange="window.adminPanel.triggerRestore(this)" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+997:                                     </div>
+998:                                     
+999:                                     <button class="btn btn-danger" onclick="window.adminPanel.triggerResetDb()">âš ï¸ à¤ªà¥‚à¤°à¥à¤£ à¤«à¥à¤¯à¤¾à¤•à¥à¤Ÿà¥à¤°à¥€ à¤°à¤¿à¤¸à¥‡à¤Ÿ</button>
+1000:                                 </div>
+1001:                             </div>
+1002:                         </div>
+1003: 
+1004:                     </div>
+1005:                 </div>
+1006:             </section>
+1007: 
+1008:         </main>
+1009: 
+1010:         <!-- FOOTER branding Section -->
+1011:         <footer>
+1012:             <div class="footer-content">
+1013:                 <div class="footer-logo-text">
+1014:                     â›ª <span>Bible à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾</span>
+1015:                 </div>
+1016:                 <p>à¤ªà¥à¤°à¤µà¤¿à¤§à¤¿ à¤µà¤¿à¤•à¤¾à¤¸ à¤° à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨: à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤® (Igniter Team) | Â© à¥¨à¥¦à¥¨à¥¬à¥¤ à¤¸à¤¬à¥ˆ à¤…à¤§à¤¿à¤•à¤¾à¤° à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤à¥¤</p>
+1017:                 <p style="font-size: 0.75rem; color: var(--text-muted);">"à¤¤à¥‡à¤°à¥‹ à¤µà¤šà¤¨ à¤®à¥‡à¤°à¥‹ à¤ªà¤¾à¤‡à¤²à¤¾à¤•à¤¾ à¤¨à¤¿à¤®à¥à¤¤à¤¿ à¤¬à¤¤à¥à¤¤à¥€, à¤®à¥‡à¤°à¥‹ à¤¬à¤¾à¤Ÿà¥‹à¤•à¤¾ à¤¨à¤¿à¤®à¥à¤¤à¤¿ à¤‰à¤œà¥à¤¯à¤¾à¤²à¥‹ à¤¹à¥‹à¥¤" - à¤­à¤œà¤¨à¤¸à¤‚à¤—à¥à¤°à¤¹ à¥§à¥§à¥¯:à¥§à¥¦à¥«</p>
+1018:             </div>
+1019:         </footer>
+1020: 
+1021:     </div>
+1022: 
+1023:     <!-- PWA Service Worker Registration -->
+1024:     <script>
+1025:         if ('serviceWorker' in navigator) {
+1026:             window.addEventListener('load', () => {
+1027:                 navigator.serviceWorker.register('service-worker.js')
+1028:                     .then((reg) => console.log('PWA Service Worker registered successfully', reg.scope))
+1029:                     .catch((err) => console.error('PWA Service Worker registration failed', err));
+1030:             });
+1031:         }
+1032:     </script>
+1033: 
+1034:     <!-- Firebase v9 Compat SDK (enables real-time sync for all viewers) -->
+1035:     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+1036:     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+1037: 
+1038:     <!-- Firebase Sync Layer (must load BEFORE db.js) -->
+1039:     <script src="js/firebase-sync.js"></script>
+1040: 
+1041:     <!-- IndexedDB File Store (must load BEFORE db.js and admin.js) -->
+1042:     <script src="js/filestore.js"></script>
+1043: 
+1044:     <!-- Project Execution JS Module Assets -->
+1045:     <script src="js/db.js"></script>
+1046:     <script src="js/qrcode.js"></script>
+1047:     <script src="js/certificate.js"></script>
+1048:     <script src="js/app.js"></script>
+1049:     <script src="js/judge.js"></script>
+1050:     <script src="js/admin.js"></script>
+1051: 
+1052: </body>
+1053: </html>
+1054: 
+1055: 
+1056: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+

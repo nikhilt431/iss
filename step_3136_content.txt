@@ -1,0 +1,63 @@
+﻿Created At: 2026-06-12T13:24:05Z
+Completed At: 2026-06-12T13:24:09Z
+File Path: `file:///C:/Users/Nikhi/.gemini/antigravity/scratch/bible-quiz-app/index.html`
+Total Lines: 1048
+Total Bytes: 81559
+Showing lines 82 to 135
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+82:                 <div class="nav-controls">
+83:                     <!-- Nav tabs -->
+84:                     <ul class="nav-links">
+85:                         <li><button class="nav-item-btn active" id="nav-org-home">ðŸ  à¤—à¥ƒà¤¹à¤ªà¥ƒà¤·à¥à¤  (Home)</button></li>
+86:                         <li><button class="nav-item-btn" id="nav-about">ðŸ“– à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤¬à¤¾à¤°à¥‡à¤®à¤¾ (About Us)</button></li>
+87:                         <li class="nav-dropdown">
+88:                             <button class="nav-item-btn" id="nav-tournament-group">ðŸ† à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ (Tournament) â–¾</button>
+89:                             <div class="nav-dropdown-content">
+90:                                 <button id="nav-home">à¤¡à¥à¤¯à¤¾à¤¸à¤¬à¥‹à¤°à¥à¤¡ (Dashboard)</button>
+91:                                 <button id="nav-live-score">à¤²à¤¾à¤‡à¤­ à¤¨à¤¤à¤¿à¤œà¤¾ (Live Score)</button>
+92:                                 <button id="nav-participants">à¤¸à¤¹à¤­à¤¾à¤—à¥€à¤¹à¤°à¥‚ (Participants)</button>
+93:                                 <button id="nav-downloads">à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡à¤¹à¤°à¥‚ (Downloads)</button>
+94:                             </div>
+95:                         </li>
+96:                         <li><button class="nav-item-btn" id="nav-notices">ðŸ”” à¤¸à¤®à¤¾à¤šà¤¾à¤° (News)</button></li>
+97:                         <li><button class="nav-item-btn" id="nav-gallery">ðŸ–¼ï¸ à¤—à¥à¤¯à¤¾à¤²à¤°à¥€ (Gallery)</button></li>
+98:                         <li><button class="nav-item-btn" id="nav-contact">ðŸ“ž à¤¸à¤®à¥à¤ªà¤°à¥à¤• (Contact)</button></li>
+99:                         <li><button class="nav-item-btn hidden" id="nav-judge">ðŸ“ à¤œà¤œ à¤ªà¥à¤¯à¤¾à¤¨à¤²</button></li>
+100:                         <li><button class="nav-item-btn hidden" id="nav-admin">âš™ï¸ à¤à¤¡à¤®à¤¿à¤¨ à¤ªà¥à¤¯à¤¾à¤¨à¤²</button></li>
+101:                     </ul>
+102: 
+103:                     <!-- Bilingual Language Selector Dropdown -->
+104:                     <div class="lang-switch-wrapper" style="margin-left: 0.75rem; margin-right: 0.5rem;">
+105:                         <select id="lang-select" style="padding: 0.3rem 0.6rem; font-size: 0.85rem; font-family: var(--font-heading); font-weight: 700; width: auto; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1.5px solid var(--gold); border-radius: var(--radius-sm); cursor: pointer; outline: none; transition: var(--transition);">
+106:                             <option value="ne" style="color: #000;" selected>ðŸ‡³ðŸ‡µ à¤¨à¥‡à¤ªà¤¾à¤²à¥€</option>
+107:                             <option value="en" style="color: #000;">ðŸ‡ºðŸ‡¸ English</option>
+108:                         </select>
+109:                     </div>
+110: 
+111:                     <!-- Theme Selector -->
+112:                     <div class="theme-switch-wrapper">
+113:                         <label class="theme-switch" for="theme-toggle">
+114:                             <input type="checkbox" id="theme-toggle" />
+115:                             <div class="slider-round"></div>
+116:                         </label>
+117:                     </div>
+118: 
+119:                     <!-- Role Badge / Auth Button -->
+120:                     <span class="role-badge" id="user-role-badge">à¤¦à¤°à¥à¤¶à¤• (Viewer)</span>
+121:                     <button class="btn btn-gold btn-sm" id="nav-login">ðŸ”‘ à¤²à¤—à¤‡à¤¨</button>
+122:                     <button class="btn btn-danger btn-sm hidden" id="logout-btn">ðŸšª à¤¬à¤¾à¤¹à¤¿à¤°à¤¿à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+123:                 </div>
+124:             </div>
+125:         </header>
+126: 
+127:         <!-- Live Announcement Ticker -->
+128:         <div class="ticker-wrap">
+129:             <div class="ticker-title">à¤²à¤¾à¤‡à¤­ à¤…à¤ªà¤¡à¥‡à¤Ÿ</div>
+130:             <div class="ticker">
+131:                 <div id="ticker-marquee" style="display: flex;">
+132:                     <!-- notices loaded dynamically -->
+133:                 </div>
+134:             </div>
+135:         </div>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
+

@@ -1,0 +1,616 @@
+﻿Created At: 2026-06-12T13:15:55Z
+Completed At: 2026-06-12T13:15:55Z
+File Path: `file:///C:/Users/Nikhi/.gemini/antigravity/brain/eb22ca64-6a48-4a5c-8857-39633a5764f7/.system_generated/steps/3089/content.md`
+Total Lines: 1056
+Total Bytes: 81651
+Showing lines 1 to 800
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: Title: Live Content
+2: 
+3: Description: Fetched live
+4: 
+5: Source: https://iss-tawny.vercel.app/
+6: 
+7: ---
+8: 
+9: <!DOCTYPE html>
+10: <html lang="ne">
+11: <head>
+12:     <meta charset="UTF-8">
+13:     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+14:     <title>à¤¬à¤¾à¤‡à¤¬à¤² à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ - à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤®</title>
+15:     <meta name="description" content="à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤®à¤¦à¥à¤µà¤¾à¤°à¤¾ à¤†à¤¯à¥‹à¤œà¤¿à¤¤ à¤¬à¤¾à¤‡à¤¬à¤² à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾à¤•à¥‹ à¤†à¤§à¤¿à¤•à¤¾à¤°à¤¿à¤• à¤²à¤¾à¤‡à¤­ à¤¡à¥à¤¯à¤¾à¤¸à¤¬à¥‹à¤°à¥à¤¡à¥¤">
+16:     
+17:     <!-- Design Stylesheets -->
+18:     <link rel="stylesheet" href="css/style.css">
+19:     <link rel="stylesheet" href="css/components.css">
+20:     <!-- Google Identity Services client script for real integration drop-in -->
+21:     <script src="https://accounts.google.com/gsi/client" async defer></script>
+22: </head>
+23: <body>
+24: 
+25:     <div class="app-container">
+26:         
+27:         <!-- HEADER brand section -->
+28:         <header>
+29:             <div class="nav-wrapper">
+30:                 <div class="brand-section">
+31:                     <!-- Unified High-Fidelity Vector Logo for Igniter Team (Menorah + Serif IGNITER + Sub-banner) -->
+32:                     <svg class="brand-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 310" fill="none" style="height: 60px; width: auto;">
+33:                         <!-- Menorah Branches -->
+34:                         <g stroke="currentColor" stroke-width="6" stroke-linecap="round">
+35:                             <!-- Center shaft -->
+36:                             <path d="M250,150 L250,60" />
+37:                             <!-- Inner branch pair -->
+38:                             <path d="M250,115 C210,115 190,95 190,60" />
+39:                             <path d="M250,115 C290,115 310,95 310,60" />
+40:                             <!-- Middle branch pair -->
+41:                             <path d="M250,130 C170,130 140,100 140,60" />
+42:                             <path d="M250,130 C330,130 360,100 360,60" />
+43:                             <!-- Outer branch pair -->
+44:                             <path d="M250,145 C130,145 90,105 90,60" />
+45:                             <path d="M250,145 C370,145 410,105 410,60" />
+46:                             
+47:                             <!-- Pedestal stand base -->
+48:                             <path d="M220,170 H280 M250,145 V170" stroke-width="8" />
+49:                             <path d="M205,178 H295" stroke="var(--gold)" stroke-width="6" />
+50:                         </g>
+51:                         <!-- Droplet flames (Gold) -->
+52:                         <g fill="var(--gold)">
+53:                             <path d="M250,48 C253,42 250,32 250,32 C250,32 247,42 250,48 Z" />
+54:                             <path d="M190,48 C193,42 190,32 190,32 C190,32 187,42 190,48 Z" />
+55:                             <path d="M310,48 C313,42 310,32 310,32 C310,32 307,42 310,48 Z" />
+56:                             <path d="M140,48 C143,42 140,32 140,32 C140,32 137,42 140,48 Z" />
+57:                             <path d="M360,48 C363,42 360,32 360,32 C360,32 357,42 360,48 Z" />
+58:                             <path d="M90,48 C93,42 90,32 90,32 C90,32 87,42 90,48 Z" />
+59:                             <path d="M410,48 C413,42 410,32 410,32 C410,32 407,42 410,48 Z" />
+60:                         </g>
+61:                         <!-- Bold Serif "IGNITER" Text -->
+62:                         <text x="250" y="235" font-family="'Cinzel', 'Georgia', 'Times New Roman', serif" font-size="76" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="4">IGNITER</text>
+63:                         
+64:                         <!-- Bottom banner block background -->
+65:                         <rect x="10" y="258" width="480" height="46" fill="currentColor" rx="4" />
+66:                         
+67:                         <!-- Dashed line on left -->
+68:                         <line x1="25" y1="281" x2="235" y2="281" stroke="var(--gold)" stroke-width="4" stroke-dasharray="8 6" />
+69:                         
+70:                         <!-- White script text inside banner -->
+71:                         <text x="365" y="287" font-family="'Outfit', 'Comfortaa', 'Inter', sans-serif" font-size="14.5" font-weight="800" fill="var(--bg-card)" text-anchor="middle">into the way of Jesus Christ</text>
+72:                     </svg>
+73:                     
+74:                     <!-- Vertical Divider Line -->
+75:                     <div style="width: 2px; height: 48px; background: rgba(255, 255, 255, 0.2); margin: 0 0.5rem 0 0.25rem;" class="no-print"></div>
+76: 
+77:                     <div class="brand-title-group">
+78:                         <h1 style="font-size: 1.15rem; font-weight: 700;">à¤¬à¤¾à¤‡à¤¬à¤² à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾</h1>
+79:                         <p style="font-size: 0.7rem; color: var(--gold); font-weight: bold; text-transform: uppercase;">à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤¨à¤¿à¤¯à¤¨à¥à¤¤à¥à¤°à¤£ à¤ªà¥à¤°à¤£à¤¾à¤²à¥€</p>
+80:                     </div>
+81:                 </div>
+82: 
+83:                 <!-- Mobile Menu Toggle -->
+84:                 <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation">
+85:                     <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+86:                         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+87:                     </svg>
+88:                 </button>
+89: 
+90:                 <div class="nav-controls">
+91:                     <!-- Nav tabs -->
+92:                     <ul class="nav-links">
+93:                         <li><button class="nav-item-btn active" id="nav-org-home">ðŸ  à¤—à¥ƒà¤¹à¤ªà¥ƒà¤·à¥à¤  (Home)</button></li>
+94:                         <li><button class="nav-item-btn" id="nav-about">ðŸ“– à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤¬à¤¾à¤°à¥‡à¤®à¤¾ (About Us)</button></li>
+95:                         <li class="nav-dropdown">
+96:                             <button class="nav-item-btn" id="nav-tournament-group">ðŸ† à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ (Tournament) â–¾</button>
+97:                             <div class="nav-dropdown-content">
+98:                                 <button id="nav-home">à¤¡à¥à¤¯à¤¾à¤¸à¤¬à¥‹à¤°à¥à¤¡ (Dashboard)</button>
+99:                                 <button id="nav-live-score">à¤²à¤¾à¤‡à¤­ à¤¨à¤¤à¤¿à¤œà¤¾ (Live Score)</button>
+100:                                 <button id="nav-participants">à¤¸à¤¹à¤­à¤¾à¤—à¥€à¤¹à¤°à¥‚ (Participants)</button>
+101:                                 <button id="nav-downloads">à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡à¤¹à¤°à¥‚ (Downloads)</button>
+102:                             </div>
+103:                         </li>
+104:                         <li><button class="nav-item-btn" id="nav-notices">ðŸ”” à¤¸à¤®à¤¾à¤šà¤¾à¤° (News)</button></li>
+105:                         <li><button class="nav-item-btn" id="nav-gallery">ðŸ–¼ï¸ à¤—à¥à¤¯à¤¾à¤²à¤°à¥€ (Gallery)</button></li>
+106:                         <li><button class="nav-item-btn" id="nav-contact">ðŸ“ž à¤¸à¤®à¥à¤ªà¤°à¥à¤• (Contact)</button></li>
+107:                         <li><button class="nav-item-btn hidden" id="nav-judge">ðŸ“ à¤œà¤œ à¤ªà¥à¤¯à¤¾à¤¨à¤²</button></li>
+108:                         <li><button class="nav-item-btn hidden" id="nav-admin">âš™ï¸ à¤à¤¡à¤®à¤¿à¤¨ à¤ªà¥à¤¯à¤¾à¤¨à¤²</button></li>
+109:                     </ul>
+110: 
+111:                     <!-- Bilingual Language Selector Dropdown -->
+112:                     <div class="lang-switch-wrapper" style="margin-left: 0.75rem; margin-right: 0.5rem;">
+113:                         <select id="lang-select" style="padding: 0.3rem 0.6rem; font-size: 0.85rem; font-family: var(--font-heading); font-weight: 700; width: auto; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1.5px solid var(--gold); border-radius: var(--radius-sm); cursor: pointer; outline: none; transition: var(--transition);">
+114:                             <option value="ne" style="color: #000;" selected>ðŸ‡³ðŸ‡µ à¤¨à¥‡à¤ªà¤¾à¤²à¥€</option>
+115:                             <option value="en" style="color: #000;">ðŸ‡ºðŸ‡¸ English</option>
+116:                         </select>
+117:                     </div>
+118: 
+119:                     <!-- Theme Selector -->
+120:                     <div class="theme-switch-wrapper">
+121:                         <label class="theme-switch" for="theme-toggle">
+122:                             <input type="checkbox" id="theme-toggle" />
+123:                             <div class="slider-round"></div>
+124:                         </label>
+125:                     </div>
+126: 
+127:                     <!-- Role Badge / Auth Button -->
+128:                     <span class="role-badge" id="user-role-badge">à¤¦à¤°à¥à¤¶à¤• (Viewer)</span>
+129:                     <button class="btn btn-gold btn-sm" id="nav-login">ðŸ”‘ à¤²à¤—à¤‡à¤¨</button>
+130:                     <button class="btn btn-danger btn-sm hidden" id="logout-btn">ðŸšª à¤¬à¤¾à¤¹à¤¿à¤°à¤¿à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+131:                 </div>
+132:             </div>
+133:         </header>
+134: 
+135:         <!-- Live Announcement Ticker -->
+136:         <div class="ticker-wrap">
+137:             <div class="ticker-title">à¤²à¤¾à¤‡à¤­ à¤…à¤ªà¤¡à¥‡à¤Ÿ</div>
+138:             <div class="ticker">
+139:                 <div id="ticker-marquee" style="display: flex;">
+140:                     <!-- notices loaded dynamically -->
+141:                 </div>
+142:             </div>
+143:         </div>
+144: 
+145:         <!-- MAIN APP CONTENT PANELS -->
+146:         <main>
+147:             
+148:             <!-- SECTION 0: ORGANIZATION HOME PAGE -->
+149:             <section id="section-org-home">
+150:                 <div class="about-hero" style="margin-bottom: 2rem;">
+151:                     <h1 id="org-hero-title" style="font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-heading); font-weight: 900;">Igniter Team</h1>
+152:                     <p id="org-hero-subtitle" style="font-size: 1.25rem; font-weight: 500; opacity: 0.9;">Into the Way of Jesus Christ</p>
+153:                 </div>
+154:                 
+155:                 <!-- Event Countdown Widget (Only shows if active) -->
+156:                 <div id="org-countdown-wrapper" class="card card-accent text-center hidden" style="margin-bottom: 2rem;">
+157:                     <h2 id="home-event-title" style="font-size: 1.8rem; color: var(--text-heading); margin-bottom: 0.5rem;">à¤¬à¤¾à¤‡à¤¬à¤² à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¥¨à¥¦à¥®à¥©</h2>
+158:                     <p id="home-event-subtitle" style="font-size: 1rem; color: var(--gold); font-weight: 600; text-transform: uppercase;">à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤® (Igniter Team)</p>
+159:                     
+160:                     <div style="margin-top: 1.5rem;">
+161:                         <h4 id="countdown-title" style="font-size: 0.95rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤¸à¥à¤°à¥ à¤¹à¥à¤¨ à¤¬à¤¾à¤à¤•à¥€ à¤¸à¤®à¤¯</h4>
+162:                         <div class="countdown-container">
+163:                             <div class="countdown-box">
+164:                                 <div class="countdown-value" id="cd-days">à¥¦à¥¦</div>
+165:                                 <div class="countdown-label">à¤¦à¤¿à¤¨</div>
+166:                             </div>
+167:                             <div class="countdown-box">
+168:                                 <div class="countdown-value" id="cd-hours">à¥¦à¥¦</div>
+169:                                 <div class="countdown-label">à¤˜à¤£à¥à¤Ÿà¤¾</div>
+170:                             </div>
+171:                             <div class="countdown-box">
+172:                                 <div class="countdown-value" id="cd-minutes">à¥¦à¥¦</div>
+173:                                 <div class="countdown-label">à¤®à¤¿à¤¨à¥‡à¤Ÿ</div>
+174:                             </div>
+175:                             <div class="countdown-box">
+176:                                 <div class="countdown-value" id="cd-seconds">à¥¦à¥¦</div>
+177:                                 <div class="countdown-label">à¤¸à¥‡à¤•à¥‡à¤¨à¥à¤¡</div>
+178:                             </div>
+179:                         </div>
+180:                     </div>
+181:                 </div>
+182: 
+183:                 <div class="card-grid">
+184:                     <div class="card">
+185:                         <h3 style="color: var(--text-heading); margin-bottom: 1rem;">à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤‰à¤¦à¥à¤¦à¥‡à¤¶à¥à¤¯ (Our Purpose)</h3>
+186:                         <p style="color: var(--text-main); line-height: 1.6;">à¤–à¥à¤°à¥€à¤·à¥à¤Ÿà¤¿à¤¯à¤¨ à¤¯à¥à¤µà¤¾ à¤¤à¤¥à¤¾ à¤¬à¤¾à¤²à¤¬à¤¾à¤²à¤¿à¤•à¤¾à¤¹à¤°à¥‚à¤²à¤¾à¤ˆ à¤ªà¤°à¤®à¥‡à¤¶à¥à¤µà¤°à¤•à¥‹ à¤µà¤šà¤¨ (à¤¬à¤¾à¤‡à¤¬à¤²) à¤…à¤§à¥à¤¯à¤¯à¤¨ à¤° à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤—à¤°à¥à¤¨ à¤ªà¥à¤°à¥‹à¤¤à¥à¤¸à¤¾à¤¹à¤¿à¤¤ à¤—à¤°à¥à¤¨à¥ à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤®à¥à¤–à¥à¤¯ à¤‰à¤¦à¥à¤¦à¥‡à¤¶à¥à¤¯ à¤¹à¥‹à¥¤</p>
+187:                     </div>
+188:                     <div class="card">
+189:                         <h3 style="color: var(--text-heading); margin-bottom: 1rem;">à¤†à¤—à¤¾à¤®à¥€ à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® (Upcoming Events)</h3>
+190:                         <p style="color: var(--text-main); line-height: 1.6;">à¤¬à¤¾à¤‡à¤¬à¤² à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¥¨à¥¦à¥®à¥© à¤•à¤¾ à¤²à¤¾à¤—à¤¿ à¤¤à¤¯à¤¾à¤°à¥€ à¤¸à¥à¤°à¥ à¤­à¤‡à¤¸à¤•à¥‡à¤•à¥‹ à¤›à¥¤ à¤•à¥ƒà¤ªà¤¯à¤¾ "à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾" à¤®à¥‡à¤¨à¥à¤¬à¤¾à¤Ÿ à¤¥à¤ª à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤²à¤¿à¤¨à¥à¤¹à¥‹à¤¸à¥à¥¤</p>
+191:                     </div>
+192:                 </div>
+193:             </section>
+194: 
+195:             <!-- SECTION: ABOUT US -->
+196:             <section id="section-about" class="hidden">
+197:                 <div class="about-hero">
+198:                     <h2 id="about-title" style="font-size: 2.5rem; margin-bottom: 1rem;">à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤¬à¤¾à¤°à¥‡à¤®à¤¾ (About Us)</h2>
+199:                     <p id="about-subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤® (Igniter Team) à¤ªà¤°à¤®à¥‡à¤¶à¥à¤µà¤°à¤•à¥‹ à¤µà¤šà¤¨à¤²à¤¾à¤ˆ à¤¯à¥à¤µà¤¾ à¤ªà¥à¤¸à¥à¤¤à¤¾à¤®à¤¾ à¤ªà¥à¤°à¥à¤¯à¤¾à¤‰à¤¨à¥‡ à¤à¤‰à¤Ÿà¤¾ à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤¸à¤®à¥‚à¤¹ à¤¹à¥‹à¥¤</p>
+200:                 </div>
+201:                 
+202:                 <div style="background: var(--bg-card); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+203:                     <h3 style="color: var(--text-heading); margin-bottom: 1.5rem; font-size: 1.5rem;">à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤•à¤¥à¤¾ (Our Story)</h3>
+204:                     <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+205:                         Igniter Team started with a simple vision: to ignite the passion for Jesus Christ among the youth. 
+206:                         We organize events, study sessions, and competitions that challenge individuals to dive deeper into the Holy Scriptures.
+207:                     </p>
+208:                     <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8;">
+209:                         à¤¯à¤¸ à¤¸à¤®à¥‚à¤¹à¤²à¥‡ à¤µà¤¿à¤¶à¥‡à¤·à¤—à¤°à¥€ à¤¬à¤¾à¤‡à¤¬à¤² à¤ªà¤¦ à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤²à¤—à¤¾à¤¯à¤¤à¤•à¤¾ à¤µà¤¿à¤­à¤¿à¤¨à¥à¤¨ à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤®à¤¹à¤°à¥‚ à¤®à¤¾à¤°à¥à¤«à¤¤ à¤®à¤£à¥à¤¡à¤²à¥€à¤•à¤¾ à¤¯à¥à¤µà¤¾ à¤¤à¤¥à¤¾ à¤¬à¤¾à¤²à¤¬à¤¾à¤²à¤¿à¤•à¤¾à¤¹à¤°à¥‚à¤²à¤¾à¤ˆ à¤†à¤¤à¥à¤®à¤¿à¤• à¤°à¥‚à¤ªà¤®à¤¾ à¤µà¥ƒà¤¦à¥à¤§à¤¿ à¤¹à¥à¤¨ à¤®à¤¦à¥à¤¦à¤¤ à¤—à¤°à¤¿à¤°à¤¹à¥‡à¤•à¥‹ à¤›à¥¤
+210:                     </p>
+211:                 </div>
+212:                 
+213:                 <h3 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem; margin-top: 2rem;">
+214:                     à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤Ÿà¤¿à¤® (Our Team)
+215:                 </h3>
+216:                 <p style="color: var(--text-muted); margin-bottom: 2rem;">à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤® - à¤¯à¤¸à¤•à¤¾ à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤¸à¤¦à¤¸à¥à¤¯à¤¹à¤°à¥‚ à¤œà¤¸à¤²à¥‡ à¤¯à¥‹ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤¸à¤«à¤² à¤ªà¤¾à¤°à¥à¤¨ à¤°à¤¾à¤¤à¤¦à¤¿à¤¨ à¤®à¥‡à¤¹à¥‡à¤¨à¤¤ à¤—à¤°à¤¿à¤°à¤¹à¤¨à¥à¤­à¤à¤•à¥‹ à¤›à¥¤</p>
+217:                 
+218:                 <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+219:                     <!-- Dynamic team cards -->
+220:                 </div>
+221:             </section>
+222: 
+223:             <!-- SECTION: CONTACT US -->
+224:             <section id="section-contact" class="hidden">
+225:                 <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 2rem; text-align: center;">à¤¸à¤®à¥à¤ªà¤°à¥à¤• à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥ (Contact Us)</h2>
+226:                 
+227:                 <div class="contact-grid">
+228:                     <div class="contact-info">
+229:                         <div class="contact-info-card">
+230:                             <h3 style="color: var(--text-heading); margin-bottom: 2rem;">à¤¸à¤®à¥à¤ªà¤°à¥à¤• à¤µà¤¿à¤µà¤°à¤£</h3>
+231:                             
+232:                             <div class="contact-icon-row">
+233:                                 <div class="icon">ðŸ“</div>
+234:                                 <div>
+235:                                     <h4 style="margin-bottom: 0.25rem;">à¤ à¥‡à¤—à¤¾à¤¨à¤¾ (Address)</h4>
+236:                                     <p style="color: var(--text-muted);">Kathmandu, Nepal</p>
+237:                                 </div>
+238:                             </div>
+239:                             
+240:                             <div class="contact-icon-row">
+241:                                 <div class="icon">ðŸ“ž</div>
+242:                                 <div>
+243:                                     <h4 style="margin-bottom: 0.25rem;">à¤«à¥‹à¤¨ (Phone)</h4>
+244:                                     <p style="color: var(--text-muted);">+977 9800000000</p>
+245:                                 </div>
+246:                             </div>
+247:                             
+248:                             <div class="contact-icon-row">
+249:                                 <div class="icon">âœ‰ï¸</div>
+250:                                 <div>
+251:                                     <h4 style="margin-bottom: 0.25rem;">à¤ˆà¤®à¥‡à¤² (Email)</h4>
+252:                                     <p style="color: var(--text-muted);">info@igniterteam.org</p>
+253:                                 </div>
+254:                             </div>
+255:                         </div>
+256:                     </div>
+257:                     
+258:                     <div class="contact-form-wrapper">
+259:                         <div class="card">
+260:                             <h3 style="color: var(--text-heading); margin-bottom: 1.5rem;">à¤¹à¤¾à¤®à¥€à¤²à¤¾à¤ˆ à¤¸à¤¨à¥à¤¦à¥‡à¤¶ à¤ªà¤ à¤¾à¤‰à¤¨à¥à¤¹à¥‹à¤¸à¥</h3>
+261:                             <form id="public-contact-form" onsubmit="event.preventDefault(); showToast('à¤¸à¤¨à¥à¤¦à¥‡à¤¶ à¤¸à¤«à¤²à¤¤à¤¾à¤ªà¥‚à¤°à¥à¤µà¤• à¤ªà¤ à¤¾à¤‡à¤¯à¥‹! à¤¹à¤¾à¤®à¥€ à¤›à¤¿à¤Ÿà¥à¤Ÿà¥ˆ à¤¸à¤®à¥à¤ªà¤°à¥à¤• à¤—à¤°à¥à¤¨à¥‡à¤›à¥Œà¤‚à¥¤', 'success'); this.reset();">
+262:                                 <div class="form-group">
+263:                                     <label class="form-label">à¤ªà¥‚à¤°à¤¾ à¤¨à¤¾à¤® (Full Name)</label>
+264:                                     <input type="text" class="form-control" required placeholder="à¤¤à¤ªà¤¾à¤ˆà¤‚à¤•à¥‹ à¤¨à¤¾à¤®">
+265:                                 </div>
+266:                                 <div class="form-group">
+267:                                     <label class="form-label">à¤ˆà¤®à¥‡à¤² à¤µà¤¾ à¤«à¥‹à¤¨ (Email / Phone)</label>
+268:                                     <input type="text" class="form-control" required placeholder="à¤¸à¤®à¥à¤ªà¤°à¥à¤• à¤µà¤¿à¤µà¤°à¤£">
+269:                                 </div>
+270:                                 <div class="form-group">
+271:                                     <label class="form-label">à¤¸à¤¨à¥à¤¦à¥‡à¤¶ (Message)</label>
+272:                                     <textarea class="form-control" rows="5" required placeholder="à¤¤à¤ªà¤¾à¤ˆà¤‚à¤•à¥‹ à¤¸à¤¨à¥à¤¦à¥‡à¤¶ à¤¯à¤¹à¤¾à¤ à¤²à¥‡à¤–à¥à¤¨à¥à¤¹à¥‹à¤¸à¥..."></textarea>
+273:                                 </div>
+274:                                 <button type="submit" class="btn btn-primary" style="width: 100%;">à¤¸à¤¨à¥à¤¦à¥‡à¤¶ à¤ªà¤ à¤¾à¤‰à¤¨à¥à¤¹à¥‹à¤¸à¥ (Send Message)</button>
+275:                             </form>
+276:                         </div>
+277:                     </div>
+278:                 </div>
+279:             </section>
+280: 
+281:             <!-- SECTION: GLOBAL GALLERY -->
+282:             <section id="section-gallery" class="hidden">
+283:                 <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 1rem;">à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤—à¥à¤¯à¤¾à¤²à¤°à¥€ (Our Gallery)</h2>
+284:                 <p style="color: var(--text-muted); margin-bottom: 2rem;">à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤®à¤•à¤¾ à¤à¤²à¤•à¤¹à¤°à¥‚</p>
+285:                 
+286:                 <!-- We will reuse the slider from the dashboard here for now -->
+287:                 <div class="card card-accent" style="padding: 1rem;">
+288:                     <div style="position: relative; width: 100%; height: 500px; background: var(--bg-main); border-radius: var(--radius-md); overflow: hidden;">
+289:                         <div id="dashboard-gallery-slider" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
+290:                             <!-- JS will inject slider imgs here -->
+291:                         </div>
+292:                         <div id="dashboard-gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 48, 100, 0.85); color: white; padding: 1rem; font-size: 1.1rem; font-weight: 600; text-align: center; display: none;"></div>
+293:                     </div>
+294:                 </div>
+295:             </section>
+296:             
+297:             <!-- SECTION 1: TOURNAMENT DASHBOARD -->
+298:             <section id="section-home" class="hidden">
+299:                 
+300:                 <!-- Main Header Title Cards -->
+301:                 <div class="card card-accent" style="margin-bottom: 2rem; text-align: center; background: radial-gradient(circle, rgba(10,48,100,0.05) 0%, transparent 80%), var(--bg-card);">
+302:                     <h2 style="font-size: 2.2rem; color: var(--text-heading); margin-bottom: 0.5rem;">à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤¡à¥à¤¯à¤¾à¤¸à¤¬à¥‹à¤°à¥à¤¡</h2>
+303:                     <p style="font-size: 1.1rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">Tournament Dashboard</p>
+304:                 </div>
+305: 
+306:                 <!-- Stats Widgets Grid -->
+307:                 <div class="card-grid">
+308:                     <!-- Widget 1: Total Participants -->
+309:                     <div class="card card-accent">
+310:                         <div class="widget-title">à¤•à¥à¤² à¤¸à¤¹à¤­à¤¾à¤—à¥€à¤¹à¤°à¥‚ (Total Participants)</div>
+311:                         <div class="widget-value" id="widget-total-participants">à¥¦</div>
+312:                         <div class="widget-desc">à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾à¤®à¤¾ à¤¦à¤°à¥à¤¤à¤¾ à¤­à¤à¤•à¤¾ à¤œà¤®à¥à¤®à¤¾ à¤ªà¥à¤°à¤¤à¤¿à¤¸à¥à¤ªà¤°à¥à¤§à¥€</div>
+313:                     </div>
+314: 
+315:                     <!-- Widget 2: Total Illakas -->
+316:                     <div class="card card-accent">
+317:                         <div class="widget-title">à¤¸à¤®à¥à¤¬à¤¦à¥à¤§ à¤‡à¤²à¤¾à¤•à¤¾à¤¹à¤°à¥‚ (Total Regions)</div>
+318:                         <div class="widget-value" id="widget-total-illakas">à¥¦</div>
+319:                         <div class="widget-desc">à¥ª à¤‡à¤²à¤¾à¤•à¤¾à¤¹à¤°à¥‚ à¤° à¤¥à¤ª à¤¨à¤¯à¤¾à¤ à¤•à¥à¤·à¥‡à¤¤à¥à¤°à¤¹à¤°à¥‚</div>
+320:                     </div>
+321: 
+322:                     <!-- Widget 3: Top Scorer -->
+323:                     <div class="card card-accent card-champion">
+324:                         <div class="champion-ribbon">ðŸ‘‘</div>
+325:                         <div class="widget-title">à¤¸à¤°à¥à¤µà¥‹à¤¤à¥à¤•à¥ƒà¤·à¥à¤Ÿ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¥€ (Top Scorer)</div>
+326:                         <div class="widget-value" id="widget-top-scorer">N/A</div>
+327:                         <div class="widget-desc" id="widget-top-scorer-desc">à¤…à¤à¥ˆ à¤®à¥‚à¤²à¥à¤¯à¤¾à¤™à¥à¤•à¤¨ à¤­à¤à¤•à¥‹ à¤›à¥ˆà¤¨</div>
+328:                     </div>
+329:                 </div>
+330: 
+331:                 <!-- Leaderboard Top 3 Section -->
+332:                 <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+333:                     ðŸ† à¤¶à¥€à¤°à¥à¤· à¥© à¤µà¤¿à¤œà¥‡à¤¤à¤¾à¤¹à¤°à¥‚ (Top 3 Leaderboard)
+334:                 </h2>
+335:                 <div class="card-grid" id="top-3-leaderboard">
+336:                     <!-- Dynamic rendering -->
+337:                 </div>
+338: 
+339:                 <!-- Prizes Showcase Section -->
+340:                 <div style="margin-top: 2rem;">
+341:                     <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+342:                         ðŸŽ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾à¤•à¤¾ à¤ªà¥à¤°à¤¸à¥à¤•à¤¾à¤°à¤¹à¤°à¥‚ (Prizes)
+343:                     </h2>
+344:                     <div class="card-grid" id="public-prizes-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+345:                         <!-- Dynamic rendering -->
+346:                     </div>
+347:                 </div>
+348: 
+349:                 <!-- Recent announcements box -->
+350:                 <div style="margin-top: 2.5rem;">
+351:                     <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+352:                         ðŸ“¢ à¤­à¤°à¥à¤–à¤°à¥ˆà¤•à¤¾ à¤¸à¥‚à¤šà¤¨à¤¾à¤¹à¤°à¥‚ (Recent Updates)
+353:                     </h2>
+354:                     <div id="recent-notices-container">
+355:                         <!-- Dynamic notices -->
+356:                     </div>
+357:                 </div>
+358: 
+359:                 <!-- Event Details Card -->
+360:                 <div style="margin-top: 3.5rem; margin-bottom: 2rem;">
+361:                     <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+362:                         â›ª à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤µà¤¿à¤µà¤°à¤£ (Event Details)
+363:                     </h2>
+364:                     <div id="dashboard-event-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1000px;">
+365:                         <!-- Left: Church Image -->
+366:                         <div class="card card-accent" style="overflow: hidden; padding: 0; min-height: 280px;">
+367:                             <img id="dashboard-church-image" src="" alt="Event Venue" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+368:                         </div>
+369:                         <!-- Right: Details + Map -->
+370:                         <div style="display: flex; flex-direction: column; gap: 1rem;">
+371:                             <div class="card" style="padding: 1.5rem;">
+372:                                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+373:                                     <span style="font-size: 2rem;">ðŸ“</span>
+374:                                     <div>
+375:                                         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">à¤ à¥‡à¤—à¤¾à¤¨à¤¾ (Address)</div>
+376:                                         <div id="dashboard-event-address" style="font-size: 1.1rem; font-weight: 700; color: var(--text-heading);"></div>
+377:                                     </div>
+378:                                 </div>
+379:                                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+380:                                     <span style="font-size: 2rem;">ðŸ•</span>
+381:                                     <div>
+382:                                         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">à¤¸à¤®à¤¯ (Time)</div>
+383:                                         <div id="dashboard-event-time" style="font-size: 1.1rem; font-weight: 700; color: var(--gold);"></div>
+384:                                     </div>
+385:                                 </div>
+386:                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
+387:                                     <span style="font-size: 2rem;">ðŸ“…</span>
+388:                                     <div>
+389:                                         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">à¤®à¤¿à¤¤à¤¿ (Date)</div>
+390:                                         <div id="dashboard-event-date-display" style="font-size: 1.1rem; font-weight: 700; color: var(--text-heading);"></div>
+391:                                     </div>
+392:                                 </div>
+393:                             </div>
+394:                             <div class="card" style="padding: 0; overflow: hidden; flex: 1; min-height: 180px;">
+395:                                 <iframe id="dashboard-event-map" src="" width="100%" height="100%" style="border: 0; min-height: 180px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+396:                             </div>
+397:                         </div>
+398:                     </div>
+399:                 </div>
+400: 
+401:                 <!-- Gallery Photo Slider -->
+402:                 <div style="margin-top: 3.5rem; margin-bottom: 2rem;">
+403:                     <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+404:                         ðŸ“¸ à¤¹à¤¾à¤®à¥à¤°à¤¾ à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤®à¤¹à¤°à¥‚ (Photo Gallery)
+405:                     </h2>
+406:                     <div class="gallery-slider-wrapper" style="overflow: hidden; border-radius: var(--radius-md); box-shadow: var(--shadow-md); position: relative; max-width: 800px; margin: 0 auto; height: 400px; background: var(--bg-card);">
+407:                         <div class="gallery-slider" id="dashboard-gallery-slider" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
+408:                             <!-- Dynamic images here -->
+409:                         </div>
+410:                         <div class="gallery-caption" id="dashboard-gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10, 48, 100, 0.8); color: white; padding: 1rem; text-align: center; font-weight: bold;"></div>
+411:                     </div>
+412:                 </div>
+413: 
+414:             </section>
+415: 
+416:             <!-- SECTION 2: LIVE SCORE & RANKINGS BOARD -->
+417:             <section id="section-live-score" class="hidden">
+418:                 <div class="action-row">
+419:                     <div>
+420:                         <h2 style="color: var(--text-heading); font-size: 1.5rem;">à¤²à¤¾à¤‡à¤­ à¤¸à¥à¤•à¥‹à¤°à¤¬à¥‹à¤°à¥à¤¡ à¤° à¤¶à¥à¤°à¥‡à¤£à¥€à¤•à¤°à¤£ (Live Rankings)</h2>
+421:                         <span id="score-lock-indicator" class="role-badge success" style="margin-top: 0.25rem; display: inline-block;">ðŸŸ¢ à¤²à¤¾à¤‡à¤­ à¤…à¤‚à¤• à¤ªà¥à¤°à¤µà¤¿à¤·à¥à¤Ÿà¤¿ à¤–à¥à¤²à¤¾ à¤›</span>
+422:                     </div>
+423:                     <div class="flex-center" style="gap: 0.75rem;">
+424:                         <button class="btn btn-outline" onclick="exportLiveScoresToExcel()">ðŸ“Š Excel/CSV à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡</button>
+425:                         <button class="btn btn-primary" onclick="printResults()">ðŸ–¨ï¸ à¤¨à¤¤à¤¿à¤œà¤¾ à¤ªà¥à¤°à¤¿à¤¨à¥à¤Ÿ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+426:                     </div>
+427:                 </div>
+428: 
+429:                 <!-- Score Board Table -->
+430:                 <div class="table-responsive">
+431:                     <table>
+432:                         <thead>
+433:                             <tr>
+434:                                 <th>à¤¸à¥à¤¥à¤¾à¤¨ (Rank)</th>
+435:                                 <th>à¤¸à¤¹à¤­à¤¾à¤—à¥€à¤•à¥‹ à¤¨à¤¾à¤® (Name)</th>
+436:                                 <th>à¤®à¤£à¥à¤¡à¤²à¥€ (Church)</th>
+437:                                 <th>à¤‡à¤²à¤¾à¤•à¤¾ (Area)</th>
+438:                                 <th>à¤šà¤°à¤£à¤—à¤¤ à¤…à¤‚à¤• (Round Scores)</th>
+439:                                 <th>à¤•à¥à¤² à¤ªà¥à¤°à¤¾à¤ªà¥à¤¤ à¤…à¤‚à¤• (Total)</th>
+440:                                 <th class="no-print">à¤•à¤¾à¤°à¥à¤¯ (Action)</th>
+441:                             </tr>
+442:                         </thead>
+443:                         <tbody id="live-score-table-body">
+444:                             <!-- Dynamically loaded score rows -->
+445:                         </tbody>
+446:                     </table>
+447:                 </div>
+448:             </section>
+449: 
+450:             <!-- SECTION 3: PARTICIPANTS GALLERY DIRECTORY -->
+451:             <section id="section-participants" class="hidden">
+452:                 <div class="action-row">
+453:                     <h2 style="color: var(--text-heading); font-size: 1.5rem;">à¤ªà¥à¤°à¤¤à¤¿à¤¸à¥à¤ªà¤°à¥à¤§à¥€ à¤¸à¥‚à¤šà¥€ (Participants Directory)</h2>
+454:                     <div class="filter-group">
+455:                         <div class="search-input-wrapper">
+456:                             <input type="text" id="p-search-input" class="form-control" placeholder="ðŸ” à¤¸à¤¹à¤­à¤¾à¤—à¥€à¤•à¥‹ à¤¨à¤¾à¤® à¤µà¤¾ à¤®à¤£à¥à¤¡à¤²à¥€à¤¬à¤¾à¤Ÿ à¤–à¥‹à¤œà¥à¤¨à¥à¤¹à¥‹à¤¸à¥...">
+457:                         </div>
+458:                         <select id="p-filter-illaka" class="form-control" style="width: auto;">
+459:                             <option value="">à¤¸à¤¬à¥ˆ à¤‡à¤²à¤¾à¤•à¤¾à¤¹à¤°à¥‚ (All Areas)</option>
+460:                             <!-- Dynamically preseeded options -->
+461:                         </select>
+462:                     </div>
+463:                 </div>
+464: 
+465:                 <!-- Grid of competitors cards -->
+466:                 <div class="card-grid" id="public-participants-grid">
+467:                     <!-- Dynamic cards -->
+468:                 </div>
+469:             </section>
+470: 
+471:             <!-- SECTION 4: DOWNLOADS SECTION -->
+472:             <section id="section-downloads" class="hidden">
+473:                 <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+474:                     ðŸ“¥ à¤¨à¤¿à¤°à¥à¤¦à¥‡à¤¶à¤¿à¤•à¤¾ à¤° à¤¸à¤¾à¤®à¤—à¥à¤°à¥€ à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡ (Downloads Section)
+475:                 </h2>
+476:                 <p style="color: var(--text-muted); margin-bottom: 1.5rem;">à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾à¤¸à¤®à¥à¤¬à¤¨à¥à¤§à¥€ à¤¨à¤¿à¤¯à¤®à¤¹à¤°à¥‚, à¤¬à¤¾à¤‡à¤¬à¤² à¤–à¤£à¥à¤¡à¤¹à¤°à¥‚ à¤° à¤•à¤¾à¤°à¥à¤¯à¤¤à¤¾à¤²à¤¿à¤•à¤¾à¤¹à¤°à¥‚ à¤¯à¤¹à¤¾à¤à¤¬à¤¾à¤Ÿ à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡ à¤—à¤°à¥à¤¨ à¤¸à¤•à¥à¤¨à¥à¤¹à¥à¤¨à¥à¤›à¥¤</p>
+477:                 
+478:                 <div class="card-grid" id="public-downloads-grid">
+479:                     <!-- Dynamic material cards -->
+480:                 </div>
+481:             </section>
+482: 
+483:             <!-- SECTION 5: NOTICES SECTION -->
+484:             <section id="section-notices" class="hidden">
+485:                 <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+486:                     ðŸ”” à¤†à¤§à¤¿à¤•à¤¾à¤°à¤¿à¤• à¤¸à¥‚à¤šà¤¨à¤¾ à¤¬à¥‹à¤°à¥à¤¡ (Notice Board)
+487:                 </h2>
+488:                 <p style="color: var(--text-muted); margin-bottom: 2rem;">à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤®à¤¸à¤®à¥à¤¬à¤¨à¥à¤§à¥€ à¤ªà¤›à¤¿à¤²à¥à¤²à¤¾ à¤¨à¤¿à¤°à¥à¤£à¤¯ à¤¤à¤¥à¤¾ à¤¸à¥‚à¤šà¤¨à¤¾à¤¹à¤°à¥‚ à¤¯à¤¹à¤¾à¤ à¤ªà¥à¤°à¤•à¤¾à¤¶à¤¨ à¤—à¤°à¤¿à¤¨à¥à¤›à¥¤</p>
+489:                 
+490:                 <div id="public-notices-container">
+491:                     <!-- Dynamic notice bulletin cards -->
+492:                 </div>
+493:             </section>
+494: 
+495:             <!-- SECTION 5B: ABOUT US (MERGED WITH TEAM) -->
+496:             <section id="section-team" class="hidden">
+497:                 <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+498:                     ðŸ¤ à¤¹à¤¾à¤®à¥à¤°à¥‹ à¤¬à¤¾à¤°à¥‡à¤®à¤¾ (About Us)
+499:                 </h2>
+500:                 <p style="color: var(--text-muted); margin-bottom: 2rem;">à¤‡à¤—à¥à¤¨à¤¾à¤‡à¤Ÿà¤° à¤Ÿà¤¿à¤® â€” à¤¬à¤¾à¤‡à¤¬à¤² à¤•à¤£à¥à¤ à¤¸à¥à¤¥ à¤ªà¥à¤°à¤¤à¤¿à¤¯à¥‹à¤—à¤¿à¤¤à¤¾ à¤†à¤¯à¥‹à¤œà¤•à¥¤ à¤¯à¤¸ à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤®à¤²à¤¾à¤ˆ à¤¸à¤«à¤² à¤¬à¤¨à¤¾à¤‰à¤¨ à¤¯à¥‹à¤—à¤¦à¤¾à¤¨ à¤ªà¥à¤°à¥â€à¤¯à¤¾à¤‰à¤¨à¥à¤¹à¥à¤¨à¥‡ à¤¸à¤®à¥à¤ªà¥‚à¤°à¥à¤£ à¤Ÿà¤¿à¤® à¤¸à¤¦à¤¸à¥à¤¯à¤¹à¤°à¥‚à¥¤</p>
+501:                 
+502:                 <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+503:                     <!-- Dynamic team cards -->
+504:                 </div>
+505:             </section>
+506: 
+507:             <!-- SECTION 6: SECURE AUTH LOGIN PAGE -->
+508:             <section id="section-login" class="hidden">
+509:                 <div style="max-width: 400px; margin: 3rem auto;" class="card card-accent">
+510:                     <div style="text-align: center; margin-bottom: 1.5rem;">
+511:                         <h2 style="color: var(--text-heading); font-size: 1.6rem;">à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤ªà¥à¤°à¤£à¤¾à¤²à¥€ à¤²à¤—à¤‡à¤¨</h2>
+512:                         <p style="font-size: 0.85rem; color: var(--text-muted);">à¤à¤¡à¤®à¤¿à¤¨ à¤µà¤¾ à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤• (Judge) à¤µà¤¿à¤µà¤°à¤£ à¤ªà¥à¤°à¤µà¤¿à¤·à¥à¤Ÿ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</p>
+513:                     </div>
+514:                     <form id="login-form">
+515:                         <div class="form-group">
+516:                             <label class="form-label" for="login-username">à¤¯à¥à¤œà¤°à¤¨à¥‡à¤® (Username):</label>
+517:                             <input type="text" class="form-control" id="login-username" required placeholder="admin à¤µà¤¾ judge">
+518:                         </div>
+519:                         <div class="form-group">
+520:                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+521:                                 <label class="form-label" for="login-password" style="margin-bottom: 0;">à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ (Password):</label>
+522:                                 <a href="#" id="forgot-password-btn" style="font-size: 0.8rem; color: var(--gold); text-decoration: none; font-weight: bold; transition: var(--transition);">à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡ à¤¬à¤¿à¤°à¥à¤¸à¤¨à¥à¤­à¤¯à¥‹?</a>
+523:                             </div>
+524:                             <input type="password" class="form-control" id="login-password" required placeholder="à¤ªà¤¾à¤¸à¤µà¤°à¥à¤¡">
+525:                         </div>
+526:                         <div style="margin-top: 1.5rem;">
+527:                             <button type="submit" class="btn btn-primary" style="width: 100%;">ðŸšª à¤ªà¥à¤°à¤£à¤¾à¤²à¥€à¤®à¤¾ à¤ªà¥à¤°à¤µà¥‡à¤¶ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+528:                         </div>
+529:                     </form>
+530:                     
+531:                     <div style="margin-top: 1.5rem; background: var(--bg-main); border: 1px solid var(--border); padding: 0.75rem; border-radius: var(--radius-sm); font-size: 0.8rem;">
+532:                         <p style="font-weight: bold; margin-bottom: 0.25rem;">ðŸ”‘ à¤ªà¤°à¥€à¤•à¥à¤·à¤£à¤•à¤¾ à¤²à¤¾à¤—à¤¿ à¤¸à¤¾à¤– à¤µà¤¿à¤µà¤°à¤£ (Credentials):</p>
+533:                         <p>â€¢ <b>à¤à¤¡à¤®à¤¿à¤¨:</b> admin / admin123</p>
+534:                         <p>â€¢ <b>à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤•:</b> judge / judge123</p>
+535:                     </div>
+536:                 </div>
+537:             </section>
+538: 
+539:             <!-- SECTION 7: JUDGE SCORE EVALUATION PORTAL -->
+540:             <section id="section-judge" class="hidden">
+541:                 <div class="action-row">
+542:                     <div>
+543:                         <h2 style="color: var(--text-heading); font-size: 1.5rem;">à¤¨à¤¿à¤°à¥à¤£à¤¾à¤¯à¤• à¤…à¤‚à¤• à¤ªà¥à¤°à¤µà¤¿à¤·à¥à¤Ÿà¤¿ à¤¤à¤¾à¤²à¤¿à¤•à¤¾ (Judges Portal)</h2>
+544:                         <p style="font-size: 0.85rem; color: var(--text-muted);">à¤¸à¤¹à¤­à¤¾à¤—à¥€ à¤šà¤¯à¤¨ à¤—à¤°à¥€ à¤¤à¤¤à¥à¤•à¤¾à¤² à¤¶à¥à¤°à¥‡à¤£à¥€à¤—à¤¤ à¤…à¤‚à¤• à¤ªà¥à¤°à¤µà¤¿à¤·à¥à¤Ÿ à¤—à¤°à¥à¤¨à¥à¤¹à¥‹à¤¸à¥à¥¤</p>
+545:                         <div style="margin-top: 0.5rem;">
+546:                             <span class="role-badge" id="judge-active-round-badge" style="font-size: 0.9rem; padding: 0.3rem 0.75rem; background: var(--gold); color: #000; font-weight: 800;">ðŸ† à¤¸à¤•à¥à¤°à¤¿à¤¯ à¤šà¤°à¤£: ...</span>
+547:                         </div>
+548:                     </div>
+549:                     <div class="flex-center" style="gap: 1rem;">
+550:                         <!-- Offline drafts sync badge indicator -->
+551:                         <button class="btn btn-gold btn-sm hidden" id="offline-drafts-badge" onclick="window.judgePanel.syncOfflineDrafts()">
+552:                             0 Drafts to sync
+553:                         </button>
+554:                         
+555:                         <select id="judge-status-filter" class="form-control" style="width: auto;">
+556:                             <option value="all">à¤¸à¤¬à¥ˆ à¤¸à¤¹à¤­à¤¾à¤—à¥€à¤¹à¤°à¥‚ (All)</option>
+557:                             <option value="pending" selected>à¤®à¥‚à¤²à¥à¤¯à¤¾à¤‚à¤•à¤¨ à¤¬à¤¾à¤à¤•à¥€ (Pending)</option>
+558:                             <option value="evaluated">à¤®à¥‚à¤²à¥à¤¯à¤¾à¤‚à¤•à¤¨ à¤—à¤°à¤¿à¤à¤•à¤¾ (Evaluated)</option>
+559:                             <option value="passed">à¤ªà¤¾à¤¸ à¤­à¤à¤•à¤¾ (Passed)</option>
+560:                             <option value="eliminated">à¤«à¥‡à¤²/à¤¬à¤¾à¤¹à¤¿à¤°à¤¿à¤à¤•à¤¾ (Eliminated)</option>
+561:                         </select>
+562:                     </div>
+563:                 </div>
+564: 
+565:                 <!-- Competitor evaluation rows -->
+566:                 <div id="judge-participants-list">
+567:                     <!-- Dynamic evaluation cards -->
+568:                 </div>
+569:             </section>
+570: 
+571:             <!-- SECTION 8: ADMINISTRATIVE CRUD CONTROL PANEL -->
+572:             <section id="section-admin" class="hidden">
+573:                 <div class="action-row" style="background-color: var(--text-heading); border: none;">
+574:                     <h2 style="color: #fff; font-size: 1.5rem;">âš™ï¸ à¤¨à¤¿à¤¯à¤¨à¥à¤¤à¥à¤°à¤£ à¤•à¤•à¥à¤· (Admin Panel)</h2>
+575:                     <span class="role-badge" style="background: rgba(255,255,255,0.2); color: white; border-color: white;">à¤¸à¥à¤ªà¤° à¤à¤¡à¤®à¤¿à¤¨</span>
+576:                 </div>
+577: 
+578:                 <!-- Sidebar navigation and Content row -->
+579:                 <div style="display: grid; grid-template-columns: 240px 1fr; gap: 2rem; margin-top: 1.5rem;">
+580:                     <!-- Sidebar list -->
+581:                     <aside class="no-print" style="display: flex; flex-direction: column; gap: 0.5rem;">
+582:                         <button class="btn btn-outline admin-subnav-btn active" data-tab="participants" style="justify-content: flex-start;">ðŸ‘¥ à¤¸à¤¹à¤­à¤¾à¤—à¥€ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+583:                         <button class="btn btn-outline admin-subnav-btn" data-tab="illakas" style="justify-content: flex-start;">ðŸ“ à¤‡à¤²à¤¾à¤•à¤¾ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+584:                         <button class="btn btn-outline admin-subnav-btn" data-tab="notices" style="justify-content: flex-start;">ðŸ“¢ à¤¸à¥‚à¤šà¤¨à¤¾ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+585:                         <button class="btn btn-outline admin-subnav-btn" data-tab="materials" style="justify-content: flex-start;">ðŸ“ à¤«à¤¾à¤‡à¤² à¤¡à¤¾à¤‰à¤¨à¤²à¥‹à¤¡ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+586:                         <button class="btn btn-outline admin-subnav-btn" data-tab="prizes" style="justify-content: flex-start;">ðŸ† à¤ªà¥à¤°à¤¸à¥à¤•à¤¾à¤° à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+587:                         <button class="btn btn-outline admin-subnav-btn" data-tab="gallery" style="justify-content: flex-start;">ðŸ“¸ à¤—à¥à¤¯à¤¾à¤²à¤°à¥€ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+588:                         <button class="btn btn-outline admin-subnav-btn" data-tab="team" style="justify-content: flex-start;">ðŸ¤ à¤Ÿà¤¿à¤® à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</button>
+589:                         <button class="btn btn-outline admin-subnav-btn" data-tab="contact_settings" style="justify-content: flex-start;">ðŸ“ž à¤¸à¤®à¥à¤ªà¤°à¥à¤• à¤¸à¥‡à¤Ÿà¤¿à¤™</button>
+590:                         <button class="btn btn-outline admin-subnav-btn" data-tab="inbox" style="justify-content: flex-start;">ðŸ“¬ à¤¸à¤¨à¥à¤¦à¥‡à¤¶ à¤‡à¤¨à¤¬à¤•à¥à¤¸</button>
+591:                         <button class="btn btn-outline admin-subnav-btn" data-tab="settings" style="justify-content: flex-start;">ðŸ› ï¸ à¤ªà¥à¤°à¤£à¤¾à¤²à¥€ à¤¸à¥‡à¤Ÿà¤¿à¤™ à¤° à¤¬à¥à¤¯à¤¾à¤•à¤…à¤ª</button>
+592:                     </aside>
+593: 
+594:                     <!-- Main CRUD bodies -->
+595:                     <div style="min-width: 0;">
+596:                         
+597:                         <!-- Admin Subtab 1: Participants CRUD -->
+598:                         <div class="admin-tab-content" id="admin-tab-participants">
+599:                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+600:                                 <h3 style="color: var(--text-heading);">à¤¸à¤¹à¤­à¤¾à¤—à¥€ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨</h3>
+601:                                 <button class="btn btn-gold btn-sm" onclick="window.adminPanel.openParticipantModal()">âž• à¤¨à¤¯à¤¾à¤ à¤¸à¤¹à¤­à¤¾à¤—à¥€ à¤¥à¤ªà¥à¤¨à¥à¤¹à¥‹à¤¸à¥</button>
+602:                             </div>
+603:                             
+604:                             <!-- Bulk Elimination Tool -->
+605:                             <div class="card" style="background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+606:                       
+<truncated 15092 bytes>
+
+NOTE: The output was truncated because it was too long. Use a more targeted query or a smaller range to get the information you need.

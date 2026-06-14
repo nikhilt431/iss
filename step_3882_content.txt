@@ -1,0 +1,557 @@
+﻿Created At: 2026-06-13T13:08:40Z
+Completed At: 2026-06-13T13:08:40Z
+The following changes were made by the replace_file_content tool to: C:\Users\Nikhi\.gemini\antigravity\scratch\bible-quiz-app\js\app.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -1764,68 +1764,487 @@
+         document.body.appendChild(toast);
+ 
+         setTimeout(() => {
+-            toast.style.opacity = '0';
+-            toast.style.transform = 'translateY(20px)';
+-            toast.style.transition = 'all 0.5s ease';
+-            setTimeout(() => toast.remove(), 500);
+-        }, 3500);
+-    };
+-
+-    // Global listener for database changes (syncs live display)
+-    window.addEventListener('db_updated', () => {
+-        const activeNavBtn = document.querySelector('.nav-item-btn.active');
+-        if (activeNavBtn) {
+-            navigateTo(activeNavBtn.id);
+-        }
+-    });
+-
+-    // 13. Public Contact Render
+-    function renderPublicContactInfo() {
+-        const contactSettings = window.db.getContactSettings ? window.db.getContactSettings() : null;
+-        if (!contactSettings) return;
+-
+-        const pTags = document.querySelectorAll('#section-contact .contact-icon-row p');
+-        if (pTags.length >= 3) {
+-            pTags[0].textContent = contactSettings.address || '';
+-            pTags[1].textContent = contactSettings.phone || '';
+-            pTags[2].textContent = contactSettings.email || '';
+-        }
+-
+-        let mapWrapper = document.getElementById('public-map-wrapper');
+-        if (!mapWrapper) {
+-            mapWrapper = document.createElement('div');
+-            mapWrapper.id = 'public-map-wrapper';
+-            mapWrapper.className = 'card';
+-            mapWrapper.style.marginTop = '2rem';
+-            mapWrapper.style.padding = '0';
+-            mapWrapper.style.overflow = 'hidden';
+-            
+-            // Insert it at the end of section-contact
+-            const sectionContact = document.getElementById('section-contact');
+-            if (sectionContact) sectionContact.appendChild(mapWrapper);
+-        }
+-
+-        if (contactSettings.google_map_url) {
+-            mapWrapper.innerHTML = `<iframe src="${contactSettings.google_map_url}" width="100%" height="450" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+-        } else {
+-            mapWrapper.innerHTML = '';
+-        }
+-    }
+-
+-    // Contact Form Submit Handler
+-    const contactForm = document.getElementById('public-contact-form');
+-    if (contactForm) {
+-        // Remove the inline onsubmit handler in HTML from earlier and bind it properly here
+-        contactForm.onsubmit = (e) => {
+-            e.preventDefault();
+-            const inputs = contactForm.querySelectorAll('input, textarea');
+-            if (inputs.length >= 3 && window.db.addMessage) {
+-                window.db.addMessage({
+-                    name: inputs[0].value,
+-                    contact: inputs[1].value,
+-                    message: inputs[2].value
+-                });
+-                showToast('सन्देश सफलतापूर्वक पठाइयो! हामी छिट्टै सम्पर्क गर्नेछौं।', 'success');
++            toast.style.o                // Show a premium helpful error modal if the participant doesn't exist in this browser's database (common deployment sync issue)
++                const modal = document.createElement('div');
++                modal.className = 'modal-overlay';
++                modal.onclick = (e) => { if (e.target === modal) closeActiveModals(); };
++                modal.innerHTML = `
++                    <div class="modal-content" style="max-width: 410px; border-top: 4px solid var(--danger);">
++                        <div class="modal-header" style="background: var(--danger); border-bottom: none;">
++                            <h3 class="modal-title">⚠️ सहभागी फेला परेन (Not Found)</h3>
++                            <button class="modal-close" onclick="closeActiveModals()">×</button>
++                        </div>
++                        <div class="modal-body text-center" style="padding: 2rem 1.5rem;">
++                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍❌</div>
++                            <h3 style="color: var(--danger); margin-bottom: 0.75rem;">सहभागीको विवरण फेला परेन!</h3>
++                            <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;">
++                                स्क्यान गरिएको QR कोडको सहभागी ID (<b>${qParticipantId}</b>) यस मोबाइल/उपकरणको स्थानीय डाटाबेसमा फेला परेन।
++                            </p>
++                            
++                            <div style="text-align: left; background: var(--bg-main); border: 1px solid var(--border); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; line-height: 1.45;">
++                                💡 <b>किन यसो भयो? (Why did this happen):</b><br>
++                                यो प्रतियोगिता <b>अफलाइन-फर्स्ट</b> (Offline-first) भएकोले डाटा सुरक्षित रूपमा तपाइँको ब्राउजरको <code>localStorage</code> मा मात्र भण्डारण हुन्छ।<br><br>
++                                🔄 <b>यसलाई कसरी मिलाउने (How to Sync):</b><br>
++                                १. जुन कम्प्युटरमा सहभागी दर्ता गर्नुभएको थियो, त्यसको <b>एडमिन प्यानल</b>मा जानुहोस्।<br>
++                                २. <b>🛠️ प्रणाली सेटिङ र ब्याकअप</b> मा गरि <b>ब्याकअप JSON डाउनलोड गर्नुहोस्</b>।<br>
++                                ३. त्यसपछि यो फोनको एडमिन प्यानलमा आई उक्त ब्याकअप फाइल <b>पुनर्स्थापना (Restore)</b> गर्नुहोस्।
++                            </div>
++                        </div>
++                        <div class="modal-footer">
++                            <button class="btn btn-danger" style="width: 100%;" onclick="closeActiveModals()">बन्द गर्नुहोस् (Close)</button>
++                        </div>
++                    </div>
++                `;
++                document.body.appendChild(modal);
++            }
++        }, 150);
++    }
++
++    // ==========================================================
++    // 📖 PARTICIPANT SELF-PRACTICE & SPEECH RECITATION ENGINE
++    // ==========================================================
++    let activePracticeMode = 'flashcard'; // 'flashcard' | 'fill' | 'prompt'
++    let selectedPracticeVerse = null;
++    let recognitionInstance = null;
++    let isRecordingRecitation = false;
++
++    function initPracticePortal() {
++        const verses = window.db.getPracticeVerses();
++        const selectEl = document.getElementById('practice-verse-select');
++        if (!selectEl) return;
++
++        // Populate verses dropdown
++        selectEl.innerHTML = '';
++        verses.forEach((v, index) => {
++            const opt = document.createElement('option');
++            opt.value = v.id;
++            const lang = localStorage.getItem('lang') || 'ne';
++            opt.textContent = lang === 'en' ? `${v.ref_en} (${v.text_en.substring(0, 20)}...)` : `${v.ref_ne} (${v.text_ne.substring(0, 15)}...)`;
++            if (index === 0) opt.selected = true;
++            selectEl.appendChild(opt);
++        });
++
++        // Dropdown listener
++        selectEl.addEventListener('change', (e) => {
++            loadSelectedVerse(e.target.value);
++        });
++
++        // Mode switch listeners
++        document.querySelectorAll('.practice-mode-btn').forEach(btn => {
++            btn.addEventListener('click', (e) => {
++                document.querySelectorAll('.practice-mode-btn').forEach(b => b.classList.remove('active'));
++                btn.classList.add('active');
++                activePracticeMode = btn.dataset.mode;
++                renderActivePracticeMode();
++            });
++        });
++
++        // Load initial verse
++        if (verses.length > 0) {
++            loadSelectedVerse(verses[0].id);
++        }
++
++        // Initialize Speech recognition elements
++        initSpeechRecitation();
++
++        // Initialize notification simulation triggers
++        initAlertSimulators();
++    }
++
++    function loadSelectedVerse(id) {
++        const verses = window.db.getPracticeVerses();
++        selectedPracticeVerse = verses.find(v => v.id === id) || verses[0];
++
++        const refDisplay = document.getElementById('practice-ref-display');
++        const textDisplay = document.getElementById('practice-original-text');
++        
++        if (refDisplay && textDisplay && selectedPracticeVerse) {
++            const lang = localStorage.getItem('lang') || 'ne';
++            refDisplay.textContent = lang === 'en' ? selectedPracticeVerse.ref_en : selectedPracticeVerse.ref_ne;
++            textDisplay.textContent = lang === 'en' ? selectedPracticeVerse.text_en : selectedPracticeVerse.text_ne;
++        }
++
++        // Clear speech boxes
++        const transp = document.getElementById('practice-transcription');
++        const evalBox = document.getElementById('practice-evaluation');
++        if (transp) transp.textContent = '';
++        if (evalBox) evalBox.textContent = '';
++
++        renderActivePracticeMode();
++    }
++
++    function renderActivePracticeMode() {
++        const boardContent = document.getElementById('practice-board-content');
++        const boardFooter = document.getElementById('practice-board-footer');
++        const boardModeBadge = document.getElementById('practice-board-mode');
++        
++        if (!boardContent || !boardFooter || !selectedPracticeVerse) return;
++
++        const lang = localStorage.getItem('lang') || 'ne';
++        const verseText = lang === 'en' ? selectedPracticeVerse.text_en : selectedPracticeVerse.text_ne;
++        const verseRef = lang === 'en' ? selectedPracticeVerse.ref_en : selectedPracticeVerse.ref_ne;
++
++        // Reset workspace
++        boardContent.innerHTML = '';
++        boardFooter.innerHTML = '';
++
++        if (activePracticeMode === 'flashcard') {
++            boardModeBadge.textContent = lang === 'en' ? 'Flashcard' : 'फ्ल्यासकार्ड';
++            
++            const card = document.createElement('div');
++            card.className = 'flashcard-box';
++            card.innerHTML = `
++                <div class="flashcard-content">
++                    <div style="font-size: 0.9rem; color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;">
++                        ${lang === 'en' ? 'Click to Flip' : 'क्लिक गरी पल्टाउनुहोस्'}
++                    </div>
++                    <div style="font-size: 1.3rem;">❓</div>
++                </div>
++            `;
++
++            let isFlipped = false;
++            card.addEventListener('click', () => {
++                isFlipped = !isFlipped;
++                card.classList.toggle('flipped', isFlipped);
++                if (isFlipped) {
++                    card.innerHTML = `
++                        <div class="flashcard-content" style="transform: rotateY(180deg);">
++                            <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.75rem;">"${verseText}"</p>
++                            <span style="font-size: 0.85rem; color: var(--gold); font-weight: bold;">- ${verseRef}</span>
++                        </div>
++                    `;
++                } else {
++                    card.innerHTML = `
++                        <div class="flashcard-content">
++                            <div style="font-size: 0.9rem; color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;">
++                                ${lang === 'en' ? 'Click to Flip' : 'क्लिक गरी पल्टाउनुहोस्'}
++                            </div>
++                            <div style="font-size: 1.3rem;">❓</div>
++                        </div>
++                    `;
++                }
++            });
++            boardContent.appendChild(card);
++
++        } else if (activePracticeMode === 'fill') {
++            boardModeBadge.textContent = lang === 'en' ? 'Fill In Blanks' : 'खाली ठाउँ भर्नुहोस्';
++
++            // Clean & Split verse words
++            const words = verseText.split(/\s+/);
++            const container = document.createElement('div');
++            container.style.fontSize = '1.05rem';
++            container.style.lineHeight = '2';
++            container.style.textAlign = 'left';
++            container.style.width = '100%';
++
++            const blankIndexes = [];
++            words.forEach((w, index) => {
++                // Hide roughly 30% of the words (every 3rd word, excluding tiny punctuations)
++                if (index > 0 && index % 3 === 0 && w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").length > 1) {
++                    blankIndexes.push(index);
++                    
++                    const input = document.createElement('input');
++                    input.type = 'text';
++                    input.className = 'practice-blank-input';
++                    input.dataset.correct = w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
++                    input.style.width = `${Math.max(w.length * 15, 60)}px`;
++                    input.style.border = 'none';
++                    input.style.borderBottom = '1.5px solid var(--gold)';
++                    input.style.background = 'rgba(255,255,255,0.08)';
++                    input.style.color = 'var(--text-main)';
++                    input.style.padding = '0 0.25rem';
++                    input.style.margin = '0 0.25rem';
++                    input.style.textAlign = 'center';
++                    input.style.outline = 'none';
++                    input.style.borderRadius = '2px';
++                    
++                    container.appendChild(input);
++                    // Add back punctuation if word had any
++                    const punctuation = w.match(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g);
++                    if (punctuation) {
++                        const span = document.createElement('span');
++                        span.textContent = punctuation.join('') + ' ';
++                        container.appendChild(span);
++                    } else {
++                        container.appendChild(document.createTextNode(' '));
++                    }
++                } else {
++                    const span = document.createElement('span');
++                    span.textContent = w + ' ';
++                    container.appendChild(span);
++                }
++            });
++
++            boardContent.appendChild(container);
++
++            // Add "Check Answers" controls in footer
++            boardFooter.innerHTML = `
++                <button class="btn btn-gold btn-sm" id="btn-check-fill" style="width: auto;">✔️ जाँच्नुहोस् (Check Blanks)</button>
++                <div id="fill-result-msg" style="margin-top: 0.5rem; font-weight: bold; font-size: 0.85rem;"></div>
++            `;
++
++            document.getElementById('btn-check-fill').addEventListener('click', () => {
++                const inputs = container.querySelectorAll('.practice-blank-input');
++                let correctCount = 0;
++                inputs.forEach(inp => {
++                    const userVal = inp.value.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
++                    const correctVal = inp.dataset.correct.toLowerCase();
++                    if (userVal === correctVal) {
++                        inp.style.borderBottom = '2px solid #10b981';
++                        inp.style.background = 'rgba(16, 185, 129, 0.1)';
++                        correctCount++;
++                    } else {
++                        inp.style.borderBottom = '2px solid #ef4444';
++                        inp.style.background = 'rgba(239, 68, 68, 0.1)';
++                        inp.title = `Correct: ${inp.dataset.correct}`;
++                    }
++                });
++
++                const msg = document.getElementById('fill-result-msg');
++                if (correctCount === inputs.length) {
++                    msg.textContent = lang === 'en' ? '🎉 Perfect! All blanks are correct.' : '🎉 उत्कृष्ट! सबै खाली ठाउँहरू सही छन्।';
++                    msg.style.color = '#10b981';
++                } else {
++                    msg.textContent = lang === 'en' ? `⚠️ Correct: ${correctCount}/${inputs.length}. Hover red blanks to see hints.` : `⚠️ सही परिणाम: ${correctCount}/${inputs.length}। गलत ठाउँमा संकेत हेर्न माउस लैजानुहोस्।`;
++                    msg.style.color = '#f59e0b';
++                }
++            });
++
++        } else if (activePracticeMode === 'prompt') {
++            boardModeBadge.textContent = lang === 'en' ? 'First Letter' : 'पहिलो अक्षर सङ्केत';
++
++            const words = verseText.split(/\s+/);
++            const container = document.createElement('div');
++            container.style.fontSize = '1.05rem';
++            container.style.lineHeight = '2';
++            container.style.textAlign = 'left';
++            container.style.width = '100%';
++
++            words.forEach(w => {
++                const cleanWord = w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
++                if (cleanWord.length > 0) {
++                    const firstChar = cleanWord.charAt(0);
++                    const restLength = cleanWord.length - 1;
++                    const underscores = '_'.repeat(restLength);
++                    
++                    // Replace in string
++                    const promptWord = w.replace(cleanWord, `${firstChar}${underscores}`);
++                    
++                    const span = document.createElement('span');
++                    span.textContent = promptWord + ' ';
++                    container.appendChild(span);
++                } else {
++                    const span = document.createElement('span');
++                    span.textContent = w + ' ';
++                    container.appendChild(span);
++                }
++            });
++
++            boardContent.appendChild(container);
++            boardFooter.innerHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">💡 प्रत्येक शब्दको पहिलो अक्षर देखाइएको छ, यसले कण्ठस्थता बलियो पार्छ।</span>`;
++        }
++    }
++
++    // ==========================================================
++    // Speech Recognition Evaluation Logic
++    // ==========================================================
++    function initSpeechRecitation() {
++        const micBtn = document.getElementById('practice-mic-btn');
++        const statusText = document.getElementById('practice-speech-status');
++        const transpBox = document.getElementById('practice-transcription');
++        const evalBox = document.getElementById('practice-evaluation');
++        
++        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
++
++        if (!SpeechRecognition) {
++            if (statusText) {
++                statusText.textContent = "⚠️ Browser voice input not supported (Chrome recommended)";
++                statusText.style.color = 'var(--danger)';
++            }
++            if (micBtn) micBtn.disabled = true;
++            return;
++        }
++
++        // Set up SpeechRecognition configuration
++        recognitionInstance = new SpeechRecognition();
++        recognitionInstance.continuous = false;
++        recognitionInstance.interimResults = false;
++
++        micBtn.addEventListener('click', () => {
++            if (isRecordingRecitation) {
++                stopRecitationRecording();
++            } else {
++                startRecitationRecording();
++            }
++        });
++
++        recognitionInstance.onstart = () => {
++            isRecordingRecitation = true;
++            statusText.textContent = "🎙️ सुनिरहेको छ... कण्ठ सुनाउनुहोस् (Listening...)";
++            statusText.style.color = 'var(--success)';
++            micBtn.style.background = 'var(--danger)';
++            micBtn.querySelector('.mic-pulse-ring').style.display = 'block';
++        };
++
++        recognitionInstance.onerror = (e) => {
++            console.error('Speech Recognition Error', e);
++            statusText.textContent = `Error: ${e.error || 'Unknown error occurred'}`;
++            statusText.style.color = 'var(--danger)';
++            stopRecitationRecording();
++        };
++
++        recognitionInstance.onend = () => {
++            stopRecitationRecording();
++        };
++
++        recognitionInstance.onresult = (e) => {
++            const resultText = e.results[0][0].transcript;
++            if (transpBox) transpBox.textContent = resultText;
++            evaluateRecitationText(resultText);
++        };
++    }
++
++    function startRecitationRecording() {
++        if (!recognitionInstance || !selectedPracticeVerse) return;
++        
++        // Dynamically set recognition language based on system active locale
++        const isEnglish = (localStorage.getItem('lang') || 'ne') === 'en';
++        recognitionInstance.lang = isEnglish ? 'en-US' : 'ne-NP';
++        
++        try {
++            recognitionInstance.start();
++        } catch (err) {
++            console.error(err);
++        }
++    }
++
++    function stopRecitationRecording() {
++        isRecordingRecitation = false;
++        const micBtn = document.getElementById('practice-mic-btn');
++        const statusText = document.getElementById('practice-speech-status');
++        
++        if (statusText) {
++            statusText.textContent = "माइक बन्द छ (Click button to start)";
++            statusText.style.color = 'var(--text-muted)';
++        }
++        if (micBtn) {
++            micBtn.style.background = 'var(--primary)';
++            const pulse = micBtn.querySelector('.mic-pulse-ring');
++            if (pulse) pulse.style.display = 'none';
++        }
++        
++        if (recognitionInstance) {
++            try {
++                recognitionInstance.stop();
++            } catch(e){}
++        }
++    }
++
++    function evaluateRecitationText(spokenText) {
++        const evalBox = document.getElementById('practice-evaluation');
++        if (!evalBox || !selectedPracticeVerse) return;
++
++        const lang = localStorage.getItem('lang') || 'ne';
++        const targetText = lang === 'en' ? selectedPracticeVerse.text_en : selectedPracticeVerse.text_ne;
++
++        // Clean formatting helper
++        const clean = (str) => {
++            return str.toLowerCase()
++                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?।]/g,"")
++                .trim()
++                .split(/\s+/);
++        };
++
++        const targetWords = clean(targetText);
++        const spokenWords = clean(spokenText);
++
++        evalBox.innerHTML = '';
++
++        // Match spoken words to target words
++        targetWords.forEach(word => {
++            const matchIndex = spokenWords.indexOf(word);
++            const span = document.createElement('span');
++            span.textContent = word;
++            
++            if (matchIndex !== -1) {
++                // Word matched successfully
++                span.className = 'practice-word-correct';
++                // Remove matched word from index so it doesn't double-match
++                spokenWords.splice(matchIndex, 1);
++            } else {
++                // Word was missed
++                span.className = 'practice-word-missing';
++            }
++            evalBox.appendChild(span);
++            evalBox.appendChild(document.createTextNode(' '));
++        });
++    }
++
++    // ==========================================================
++    // 📱 Simulated Notifications & Alerts Engine
++    // ==========================================================
++    function initAlertSimulators() {
++        const btnSimScore = document.getElementById('btn-simulate-score');
++        const btnSimSms = document.getElementById('btn-simulate-sms');
++
++        if (btnSimScore) {
++            btnSimScore.addEventListener('click', () => {
++                simulateNotification('score');
++            });
++        }
++        if (btnSimSms) {
++            btnSimSms.addEventListener('click', () => {
++                simulateNotification('sms');
++            });
++        }
++    }
++
++    window.simulateNotification = function(type) {
++        const lang = localStorage.getItem('lang') || 'ne';
++        let title = '';
++        let msg = '';
++        let borderClass = 'success';
++
++        if (type === 'score') {
++            title = lang === 'en' ? '🏅 Leaderboard Updated!' : '🏅 नयाँ स्कोर प्रकाशित!';
++            msg = lang === 'en' ? 'Abhishek Rai has scored 91 marks in Final Round!' : 'अभिषेक राईले फाइनल चरणमा ९१ अंक हासिल गर्नुभएको छ!';
++            borderClass = 'success';
++        } else {
++            title = lang === 'en' ? '📱 SMS Sent to Participant' : '📱 प्रतिस्पर्धीलाई SMS पठाइयो';
++            msg = lang === 'en' ? 'SMS Alert sent: "Dear Prasamsa, it is your turn next. Please proceed to Judge Panel 1."' : 'एसएमएस अलर्ट: "आदरणीय प्रशंसा, अब तपाइँको पालो भएको छ। कृपया जज प्यानल १ मा जानुहोला।"';
++            borderClass = 'warning';
++        }
++
++        // Show a premium toast alert
++        showFloatingPushToast(title, msg, borderClass);
++    };
++
++    function showFloatingPushToast(title, msg, borderType) {
++        const toast = document.createElement('div');
++        toast.className = 'toast';
++        toast.style.borderColor = borderType === 'success' ? 'var(--success)' : 'var(--gold)';
++        
++        toast.innerHTML = `
++            <div>
++                <div style="font-weight: 800; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem;">${title}</div>
++                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.95); line-height: 1.4;">${msg}</div>
++            </div>
++        `;
++        document.body.appendChild(toast);
++
++        // Slide out and remove toast
++        setTimeout(() => {
++            toast.style.animation = 'slideInLeft 0.3s reverse forwards';
++            setTimeout(() => {
++                toast.remove();
++            }, 300);
++        }, 5000);
++    }
++
++    window.initPracticePortal = initPracticePortal;
++
++});
++�्क गर्नेछौं।', 'success');
+                 contactForm.reset();
+             }
+         };
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

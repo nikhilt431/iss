@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Igniter Team - Bible Memorization Competition Public View Controller
  * Manages SPA navigation, Widgets, Countdown, Search Filters, Notice Ticker & Theme Toggles
  */
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const theme = currentTheme === 'light' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            showToast(theme === 'dark' ? 'डार्क मोड सक्रिय भयो' : 'लाइट मोड सक्रिय भयो');
+            showToast(theme === 'dark' ? 'डार�?�. म�<ड स�.�?रिय भय�<' : 'ला�?�Y म�<ड स�.�?रिय भय�<');
         });
     }
 
@@ -27,56 +27,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const TRANSLATIONS = {
         ne: {
             // Header tabs
-            'nav-org-home': '🏠 गृहपृष्ठ',
-            'nav-about': '📖 हाम्रो बारेमा (About Us)',
-            'nav-tournament-group': '🏆 प्रतियोगिता ▾',
-            'nav-home': 'ड्यासबोर्ड',
-            'nav-live-score': 'लाइभ नतिजा',
-            'nav-participants': 'सहभागीहरू',
-            'nav-downloads': 'डाउनलोडहरू',
-            'nav-notices': '🔔 समाचार',
-            'nav-gallery': '🖼️ ग्यालरी',
-            'nav-contact': '📞 सम्पर्क',
-            'nav-judge': '📝 जज प्यानल',
-            'nav-admin': '⚙️ एडमिन प्यानल',
-            'nav-login': '🔑 लगइन',
-            'logout-btn': '🚪 बाहिरिनुहोस्',
+            'nav-org-home': '�Y?� �-�fहप�fष�?ठ',
+            'nav-about': '�Y"- हाम�?र�< बार�?मा (About Us)',
+            'nav-tournament-group': '�Y?? प�?रतिय�<�-िता �-�',
+            'nav-home': 'ड�?यासब�<र�?ड',
+            'nav-live-score': 'ला�?भ नति�oा',
+            'nav-participants': 'सहभा�-�?हर�,',
+            'nav-downloads': 'डा�?नल�<डहर�,',
+            'nav-notices': '�Y"" समा�sार',
+            'nav-gallery': '�Y-��? �-�?यालर�?',
+            'nav-contact': '�Y"z सम�?पर�?�.',
+            'nav-judge': '�Y"? �o�o प�?यानल',
+            'nav-admin': '�sT�? �?डमिन प�?यानल',
+            'nav-login': '�Y"' ल�-�?न',
+            'logout-btn': '�Ys� बाहिरिन�?ह�<स�?',
             
             // Countdown section
-            'countdown-title': 'प्रतियोगिता सुरु हुन बाँकी समय',
-            'home-event-title': 'बाइबल पद कण्ठस्थ प्रतियोगिता २०८३',
-            'home-event-subtitle': 'इग्नाइटर टिम (Igniter Team)',
+            'countdown-title': 'प�?रतिय�<�-िता स�?र�? ह�?न बा�?�.�? समय',
+            'home-event-title': 'बा�?बल पद �.ण�?ठस�?थ प�?रतिय�<�-िता २०८३',
+            'home-event-subtitle': '�?�-�?ना�?�Yर �Yिम (Igniter Team)',
             
             // System roles
-            'role-viewer': 'दर्शक (Viewer)',
-            'role-judge': 'निर्णायक (Judge)',
-            'role-admin': 'सुपर एडमिन'
+            'role-viewer': 'दर�?श�. (Viewer)',
+            'role-judge': 'निर�?णाय�. (Judge)',
+            'role-admin': 'स�?पर �?डमिन'
         },
         en: {
             // Header tabs
-            'nav-org-home': '🏠 Home',
-            'nav-about': '📖 About Us',
-            'nav-tournament-group': '🏆 Tournament ▾',
+            'nav-org-home': '�Y?� Home',
+            'nav-about': '�Y"- About Us',
+            'nav-tournament-group': '�Y?? Tournament �-�',
             'nav-home': 'Dashboard',
             'nav-live-score': 'Live Result',
             'nav-participants': 'Participants',
             'nav-downloads': 'Downloads',
-            'nav-notices': '🔔 News',
-            'nav-gallery': '🖼️ Gallery',
-            'nav-contact': '📞 Contact',
-            'nav-judge': '📝 Judge Panel',
-            'nav-admin': '⚙️ Admin Panel',
-            'nav-login': '🔑 Login',
-            'logout-btn': '🚪 Logout',
+            'nav-notices': '�Y"" News',
+            'nav-gallery': '�Y-��? Gallery',
+            'nav-contact': '�Y"z Contact',
+            'nav-judge': '�Y"? Judge Panel',
+            'nav-admin': '�sT�? Admin Panel',
+            'nav-login': '�Y"' Login',
+            'logout-btn': '�Ys� Logout',
             
             // Countdown section
             'countdown-title': 'Time Remaining Until Competition Starts',
             'home-event-title': 'Bible Reading Memorization Contest 2026',
-            'home-event-subtitle': 'Igniter Team • Into the Way of Jesus Christ',
+            'home-event-subtitle': 'Igniter Team �?� Into the Way of Jesus Christ',
             
             // System roles
-            'role-viewer': 'Viewer (दर्शक)',
-            'role-judge': 'Judge (निर्णायक)',
+            'role-viewer': 'Viewer (दर�?श�.)',
+            'role-judge': 'Judge (निर�?णाय�.)',
             'role-admin': 'Super Admin'
         }
     };
@@ -92,15 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Toggle locale attributes
         document.documentElement.lang = lang;
-        document.title = lang === 'en' ? 'Bible Memorization Contest - Igniter Team' : 'बाइबल पद कण्ठस्थ प्रतियोगिता - इग्नाइटर टिम';
+        document.title = lang === 'en' ? 'Bible Memorization Contest - Igniter Team' : 'बा�?बल पद �.ण�?ठस�?थ प�?रतिय�<�-िता - �?�-�?ना�?�Yर �Yिम';
 
         // Translate countdown boxes labels
         const labels = document.querySelectorAll('.countdown-label');
         if (labels.length >= 4) {
             labels[0].textContent = lang === 'en' ? 'Days' : 'दिन';
-            labels[1].textContent = lang === 'en' ? 'Hours' : 'घण्टा';
-            labels[2].textContent = lang === 'en' ? 'Minutes' : 'मिनेट';
-            labels[3].textContent = lang === 'en' ? 'Seconds' : 'सेकेन्ड';
+            labels[1].textContent = lang === 'en' ? 'Hours' : '�~ण�?�Yा';
+            labels[2].textContent = lang === 'en' ? 'Minutes' : 'मिन�?�Y';
+            labels[3].textContent = lang === 'en' ? 'Seconds' : 'स�?�.�?न�?ड';
         }
 
         // Translate Stats Widgets
@@ -108,149 +108,149 @@ document.addEventListener('DOMContentLoaded', () => {
         const widgetDescs = document.querySelectorAll('.widget-desc');
         
         if (widgetTitles.length >= 3) {
-            widgetTitles[0].textContent = lang === 'en' ? 'Total Participants' : 'कुल सहभागीहरू (Total Participants)';
-            widgetTitles[1].textContent = lang === 'en' ? 'Total Regions (Illaka)' : 'सम्बद्ध इलाकाहरू (Total Regions)';
-            widgetTitles[2].textContent = lang === 'en' ? 'Top Scorer Competitor' : 'सर्वोत्कृष्ट प्रतियोगी (Top Scorer)';
+            widgetTitles[0].textContent = lang === 'en' ? 'Total Participants' : '�.�?ल सहभा�-�?हर�, (Total Participants)';
+            widgetTitles[1].textContent = lang === 'en' ? 'Total Regions (Illaka)' : 'सम�?बद�?ध �?ला�.ाहर�, (Total Regions)';
+            widgetTitles[2].textContent = lang === 'en' ? 'Top Scorer Competitor' : 'सर�?व�<त�?�.�fष�?�Y प�?रतिय�<�-�? (Top Scorer)';
         }
         
         if (widgetDescs.length >= 3) {
-            widgetDescs[0].textContent = lang === 'en' ? 'Competitors registered in the tournament' : 'प्रतियोगितामा दर्ता भएका जम्मा प्रतिस्पर्धी';
-            widgetDescs[1].textContent = lang === 'en' ? '4 regions and newly added areas' : '४ इलाकाहरू र थप नयाँ क्षेत्रहरू';
+            widgetDescs[0].textContent = lang === 'en' ? 'Competitors registered in the tournament' : 'प�?रतिय�<�-ितामा दर�?ता भ�?�.ा �oम�?मा प�?रतिस�?पर�?ध�?';
+            widgetDescs[1].textContent = lang === 'en' ? '4 regions and newly added areas' : '४ �?ला�.ाहर�, र थप नया�? �.�?ष�?त�?रहर�,';
             
             const ranked = window.db.getRankedParticipants();
             if (ranked.length === 0) {
-                widgetDescs[2].textContent = lang === 'en' ? 'Not evaluated yet' : 'अझै मूल्यांकन भएको छैन';
+                widgetDescs[2].textContent = lang === 'en' ? 'Not evaluated yet' : '�.�?�^ म�,ल�?या�T�?�.न भ�?�.�< �>�^न';
             }
         }
 
         // Translate Section Titles (Dashboard Home)
         const top3LeaderTitle = document.getElementById('top-3-leaderboard')?.previousElementSibling;
         if (top3LeaderTitle) {
-            top3LeaderTitle.textContent = lang === 'en' ? '🏆 Top 3 Leaderboard' : '🏆 शीर्ष ३ विजेताहरू (Top 3 Leaderboard)';
+            top3LeaderTitle.textContent = lang === 'en' ? '�Y?? Top 3 Leaderboard' : '�Y?? श�?र�?ष ३ वि�o�?ताहर�, (Top 3 Leaderboard)';
         }
 
         const recentNoticesTitle = document.getElementById('recent-notices-container')?.previousElementSibling;
         if (recentNoticesTitle) {
-            recentNoticesTitle.textContent = lang === 'en' ? '📢 Recent Notices & Updates' : '📢 भर्खरैका सूचनाहरू (Recent Updates)';
+            recentNoticesTitle.textContent = lang === 'en' ? '�Y"� Recent Notices & Updates' : '�Y"� भर�?�-र�^�.ा स�,�sनाहर�, (Recent Updates)';
         }
 
         // Translate Live Score Section
         const liveScoreHeader = document.querySelector('#section-live-score .action-row h2');
         if (liveScoreHeader) {
-            liveScoreHeader.textContent = lang === 'en' ? 'Live Scoreboard & Ranks' : 'लाइभ स्कोरबोर्ड र श्रेणीकरण (Live Rankings)';
+            liveScoreHeader.textContent = lang === 'en' ? 'Live Scoreboard & Ranks' : 'ला�?भ स�?�.�<रब�<र�?ड र श�?र�?ण�?�.रण (Live Rankings)';
         }
 
         const btnExport = document.querySelector('#section-live-score .action-row button[onclick*="exportLiveScores"]');
         if (btnExport) {
-            btnExport.textContent = lang === 'en' ? '📊 Export Excel/CSV' : '📊 Excel/CSV डाउनलोड';
+            btnExport.textContent = lang === 'en' ? '�Y"S Export Excel/CSV' : '�Y"S Excel/CSV डा�?नल�<ड';
         }
 
         const btnPrint = document.querySelector('#section-live-score .action-row button[onclick*="print"]');
         if (btnPrint) {
-            btnPrint.textContent = lang === 'en' ? '🖨️ Print Results Table' : '🖨️ नतिजा प्रिन्ट गर्नुहोस्';
+            btnPrint.textContent = lang === 'en' ? '�Y-��? Print Results Table' : '�Y-��? नति�oा प�?रिन�?�Y �-र�?न�?ह�<स�?';
         }
 
         // Translate table headers
         const tableThs = document.querySelectorAll('#section-live-score table th');
         if (tableThs.length >= 7) {
-            tableThs[0].textContent = lang === 'en' ? 'Rank (स्थान)' : 'स्थान (Rank)';
-            tableThs[1].textContent = lang === 'en' ? 'Competitor Name' : 'सहभागीको नाम (Name)';
-            tableThs[2].textContent = lang === 'en' ? 'Church' : 'मण्डली (Church)';
-            tableThs[3].textContent = lang === 'en' ? 'Region (Illaka)' : 'इलाका (Area)';
-            tableThs[4].textContent = lang === 'en' ? 'Score Categories Breakdown' : 'श्रेणीगत अंक (Score Categories Breakdown)';
-            tableThs[5].textContent = lang === 'en' ? 'Total Marks' : 'कुल प्राप्त अंक (Total)';
-            tableThs[6].textContent = lang === 'en' ? 'Action' : 'कार्य (Action)';
+            tableThs[0].textContent = lang === 'en' ? 'Rank (स�?थान)' : 'स�?थान (Rank)';
+            tableThs[1].textContent = lang === 'en' ? 'Competitor Name' : 'सहभा�-�?�.�< नाम (Name)';
+            tableThs[2].textContent = lang === 'en' ? 'Church' : 'मण�?डल�? (Church)';
+            tableThs[3].textContent = lang === 'en' ? 'Region (Illaka)' : '�?ला�.ा (Area)';
+            tableThs[4].textContent = lang === 'en' ? 'Score Categories Breakdown' : 'श�?र�?ण�?�-त �.�,�. (Score Categories Breakdown)';
+            tableThs[5].textContent = lang === 'en' ? 'Total Marks' : '�.�?ल प�?राप�?त �.�,�. (Total)';
+            tableThs[6].textContent = lang === 'en' ? 'Action' : '�.ार�?य (Action)';
         }
 
         // Translate Search & Filters
         const searchInput = document.getElementById('p-search-input');
         if (searchInput) {
-            searchInput.placeholder = lang === 'en' ? '🔍 Search competitor name or church...' : '🔍 सहभागीको नाम वा मण्डलीबाट खोज्नुहोस्...';
+            searchInput.placeholder = lang === 'en' ? '�Y"? Search competitor name or church...' : '�Y"? सहभा�-�?�.�< नाम वा मण�?डल�?बा�Y �-�<�o�?न�?ह�<स�?...';
         }
 
         const illakaFilter = document.getElementById('p-filter-illaka');
         if (illakaFilter && illakaFilter.options.length > 0) {
-            illakaFilter.options[0].textContent = lang === 'en' ? 'All Areas (सबै इलाकाहरू)' : 'सबै इलाकाहरू (All Areas)';
+            illakaFilter.options[0].textContent = lang === 'en' ? 'All Areas (सब�^ �?ला�.ाहर�,)' : 'सब�^ �?ला�.ाहर�, (All Areas)';
         }
 
         const pListHeader = document.querySelector('#section-participants .action-row h2');
         if (pListHeader) {
-            pListHeader.textContent = lang === 'en' ? 'Participants Directory' : 'प्रतिस्पर्धी सूची (Participants Directory)';
+            pListHeader.textContent = lang === 'en' ? 'Participants Directory' : 'प�?रतिस�?पर�?ध�? स�,�s�? (Participants Directory)';
         }
 
         // Translate Downloads Section
         const dlHeader = document.querySelector('#section-downloads h2');
         if (dlHeader) {
-            dlHeader.textContent = lang === 'en' ? '📥 Instruction Guidelines & Downloads' : '📥 निर्देशिका र सामग्री डाउनलोड (Downloads Section)';
+            dlHeader.textContent = lang === 'en' ? '�Y"� Instruction Guidelines & Downloads' : '�Y"� निर�?द�?शि�.ा र साम�-�?र�? डा�?नल�<ड (Downloads Section)';
         }
         const dlDesc = document.querySelector('#section-downloads p');
         if (dlDesc) {
-            dlDesc.textContent = lang === 'en' ? 'Download competition rules, Bible chapters study materials, and event schedules here.' : 'प्रतियोगितासम्बन्धी नियमहरू, बाइबल खण्डहरू र कार्यतालिकाहरू यहाँबाट डाउनलोड गर्न सकिनेछ।';
+            dlDesc.textContent = lang === 'en' ? 'Download competition rules, Bible chapters study materials, and event schedules here.' : 'प�?रतिय�<�-ितासम�?बन�?ध�? नियमहर�,, बा�?बल �-ण�?डहर�, र �.ार�?यतालि�.ाहर�, यहा�?बा�Y डा�?नल�<ड �-र�?न स�.�?न�?ह�?न�?�>।';
         }
 
         // Translate Notice Section
         const nHeader = document.querySelector('#section-notices h2');
         if (nHeader) {
-            nHeader.textContent = lang === 'en' ? '🔔 Official Notice Board' : '🔔 आधिकारिक सूचना बोर्ड (Notice Board)';
+            nHeader.textContent = lang === 'en' ? '�Y"" Official Notice Board' : '�Y"" �?धि�.ारि�. स�,�sना ब�<र�?ड (Notice Board)';
         }
         const nDesc = document.querySelector('#section-notices p');
         if (nDesc) {
-            nDesc.textContent = lang === 'en' ? 'The latest official tournament updates, schedules, and decisions are published here.' : 'कार्यक्रमसम्बन्धी पछिल्ला निर्णय तथा सूचनाहरू यहाँ प्रकाशन गरिनेछ।';
+            nDesc.textContent = lang === 'en' ? 'The latest official tournament updates, schedules, and decisions are published here.' : '�.ार�?य�.�?रमसम�?बन�?ध�? प�>िल�?ला निर�?णय तथा स�,�sनाहर�, यहा�? प�?र�.ाशन �-रिन�?�>।';
         }
 
         // Translate Secure Login Card
         const loginHeader = document.querySelector('#section-login h2');
         if (loginHeader) {
-            loginHeader.textContent = lang === 'en' ? 'Secure Portal Login' : 'सुरक्षित प्रणाली लगइन';
+            loginHeader.textContent = lang === 'en' ? 'Secure Portal Login' : 'स�?र�.�?षित प�?रणाल�? ल�-�?न';
         }
         const loginSub = document.querySelector('#section-login p');
         if (loginSub) {
-            loginSub.textContent = lang === 'en' ? 'Enter judge or administrator credentials' : 'एडमिन वा निर्णायक (Judge) विवरण प्रविष्ट गर्नुहोस्';
+            loginSub.textContent = lang === 'en' ? 'Enter judge or administrator credentials' : '�?डमिन वा निर�?णाय�. (Judge) विवरण प�?रविष�?�Y �-र�?न�?ह�<स�?';
         }
         const loginLabels = document.querySelectorAll('#section-login .form-label');
         if (loginLabels.length >= 2) {
-            loginLabels[0].textContent = lang === 'en' ? 'Username (युजरनेम):' : 'युजरनेम (Username):';
-            loginLabels[1].textContent = lang === 'en' ? 'Password (पासवर्ड):' : 'पासवर्ड (Password):';
+            loginLabels[0].textContent = lang === 'en' ? 'Username (य�?�oरन�?म):' : 'य�?�oरन�?म (Username):';
+            loginLabels[1].textContent = lang === 'en' ? 'Password (पासवर�?ड):' : 'पासवर�?ड (Password):';
         }
         const btnLoginSubmit = document.querySelector('#login-form button');
         if (btnLoginSubmit) {
-            btnLoginSubmit.textContent = lang === 'en' ? '🚪 Log In to Portal' : '🚪 प्रणालीमा प्रवेश गर्नुहोस्';
+            btnLoginSubmit.textContent = lang === 'en' ? '�Ys� Log In to Portal' : '�Ys� प�?रणाल�?मा प�?रव�?श �-र�?न�?ह�<स�?';
         }
         const loginHelp = document.querySelector('#section-login div p');
         if (loginHelp) {
-            loginHelp.textContent = lang === 'en' ? '🔑 Testing Credentials:' : '🔑 परीक्षणका लागि साख विवरण (Credentials):';
+            loginHelp.textContent = lang === 'en' ? '�Y"' Testing Credentials:' : '�Y"' पर�?�.�?षण�.ा ला�-ि सा�- विवरण (Credentials):';
         }
 
         // Translate Judge Portal Section
         const jHeader = document.querySelector('#section-judge .action-row h2');
         if (jHeader) {
-            jHeader.textContent = lang === 'en' ? 'Judges Portal Score Sheet' : 'निर्णायक अंक प्रविष्टि तालिका (Judges Portal)';
+            jHeader.textContent = lang === 'en' ? 'Judges Portal Score Sheet' : 'निर�?णाय�. �.�,�. प�?रविष�?�Yि तालि�.ा (Judges Portal)';
         }
         const jSub = document.querySelector('#section-judge .action-row p');
         if (jSub) {
-            jSub.textContent = lang === 'en' ? 'Select a competitor below to input score evaluations.' : 'सहभागी चयन गरी तत्काल श्रेणीगत अंक प्रविष्ट गर्नुहोस्।';
+            jSub.textContent = lang === 'en' ? 'Select a competitor below to input score evaluations.' : 'सहभा�-�? �sयन �-र�? तत�?�.ाल श�?र�?ण�?�-त �.�,�. प�?रविष�?�Y �-र�?न�?ह�<स�?।';
         }
         
         const judgeFilter = document.getElementById('judge-status-filter');
         if (judgeFilter && judgeFilter.options.length >= 3) {
-            judgeFilter.options[0].textContent = lang === 'en' ? 'All Participants (सबै सहभागीहरू)' : 'सबै सहभागीहरू (All)';
-            judgeFilter.options[1].textContent = lang === 'en' ? 'Pending Evaluation (बाँकी)' : 'मूल्यांकन बाँकी (Pending)';
-            judgeFilter.options[2].textContent = lang === 'en' ? 'Evaluated (मूल्यांकन गरिएका)' : 'मूल्यांकन गरिएका (Evaluated)';
+            judgeFilter.options[0].textContent = lang === 'en' ? 'All Participants (सब�^ सहभा�-�?हर�,)' : 'सब�^ सहभा�-�?हर�, (All)';
+            judgeFilter.options[1].textContent = lang === 'en' ? 'Pending Evaluation (बा�?�.�?)' : 'म�,ल�?या�,�.न बा�?�.�? (Pending)';
+            judgeFilter.options[2].textContent = lang === 'en' ? 'Evaluated (म�,ल�?या�,�.न �-रि�?�.ा)' : 'म�,ल�?या�,�.न �-रि�?�.ा (Evaluated)';
         }
 
         // Translate Admin Sidebar
         const adminHeader = document.querySelector('#section-admin .action-row h2');
         if (adminHeader) {
-            adminHeader.textContent = lang === 'en' ? '⚙️ Control Center (Admin Panel)' : '⚙️ नियन्त्रण कक्ष (Admin Panel)';
+            adminHeader.textContent = lang === 'en' ? '�sT�? Control Center (Admin Panel)' : '�sT�? नियन�?त�?रण �.�.�?ष (Admin Panel)';
         }
         
         const adminSubnavs = document.querySelectorAll('.admin-subnav-btn');
         if (adminSubnavs.length >= 5) {
-            adminSubnavs[0].textContent = lang === 'en' ? '👥 Competitors (सहभागी)' : '👥 सहभागी व्यवस्थापन';
-            adminSubnavs[1].textContent = lang === 'en' ? '📍 Regions (इलाका)' : '📍 इलाका व्यवस्थापन';
-            adminSubnavs[2].textContent = lang === 'en' ? '📢 Announcements (सूचना)' : '📢 सूचना व्यवस्थापन';
-            adminSubnavs[3].textContent = lang === 'en' ? '📁 Files & Downloads' : '📁 फाइल डाउनलोड व्यवस्थापन';
-            adminSubnavs[4].textContent = lang === 'en' ? '🛠️ Settings & Backups' : '🛠️ प्रणाली सेटिङ र ब्याकअप';
+            adminSubnavs[0].textContent = lang === 'en' ? '�Y'� Competitors (सहभा�-�?)' : '�Y'� सहभा�-�? व�?यवस�?थापन';
+            adminSubnavs[1].textContent = lang === 'en' ? '�Y"? Regions (�?ला�.ा)' : '�Y"? �?ला�.ा व�?यवस�?थापन';
+            adminSubnavs[2].textContent = lang === 'en' ? '�Y"� Announcements (स�,�sना)' : '�Y"� स�,�sना व�?यवस�?थापन';
+            adminSubnavs[3].textContent = lang === 'en' ? '�Y"? Files & Downloads' : '�Y"? फा�?ल डा�?नल�<ड व�?यवस�?थापन';
+            adminSubnavs[4].textContent = lang === 'en' ? '�Y>��? Settings & Backups' : '�Y>��? प�?रणाल�? स�?�Yि�T र ब�?या�.�.प';
         }
     };
 
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const lang = e.target.value;
             localStorage.setItem('lang', lang);
             window.translateUI(lang);
-            window.showToast(lang === 'en' ? 'Language switched to English' : 'भाषा नेपालीमा परिवर्तन भयो');
+            window.showToast(lang === 'en' ? 'Language switched to English' : 'भाषा न�?पाल�?मा परिवर�?तन भय�<');
             
             // Re-render current SPA view to pull new language details instantly
             const activeNavBtn = document.querySelector('.nav-item-btn.active');
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const landingContainer = document.getElementById('landing-page-container');
     const tournamentNavBar = document.getElementById('tournament-nav-bar');
-    const tournamentSections = ['section-home', 'section-live-score', 'section-participants', 'section-downloads'];
+    const tournamentSections = ['section-home', 'section-live-score', 'section-participants', 'section-downloads', 'section-practice'];
     const systemSections = ['section-login', 'section-admin', 'section-judge', 'section-participant-dashboard'];
     const allHiddenSections = [...tournamentSections, ...systemSections, 'section-team'];
     
@@ -364,6 +364,8 @@ document.addEventListener('DOMContentLoaded', () => {
             renderPublicParticipants();
         } else if (sectionId === 'section-downloads') {
             renderPublicDownloads();
+        } else if (sectionId === 'section-practice') {
+            initPracticePortal();
         }
     }
 
@@ -454,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Brand section click → go to landing home
+    // Brand section click �?' go to landing home
     const brandSection = document.querySelector('.brand-section');
     if (brandSection) {
         brandSection.addEventListener('click', () => {
@@ -525,7 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // ── Auto-refresh when Firebase pushes a live update ──────────────────
+    // �"?�"? Auto-refresh when Firebase pushes a live update �"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?�"?
     window.addEventListener('db_updated', () => {
         if (currentMode === 'tournament') {
             const activeBtn = document.querySelector('.tournament-nav-btn.active');
@@ -558,12 +560,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginNavBtn = document.getElementById('nav-login');
 
     // Default Role
-    window.currentUser = JSON.parse(sessionStorage.getItem('current_user')) || { role: 'viewer', name: 'अतिथि' };
+    window.currentUser = JSON.parse(sessionStorage.getItem('current_user')) || { role: 'viewer', name: '�.तिथि' };
 
     function updateAuthUI() {
         if (roleBadge) {
-            roleBadge.textContent = window.currentUser.role === 'superadmin' ? 'सुपर एडमिन' : 
-                                    window.currentUser.role === 'judge' ? 'निर्णायक (Judge)' : 'दर्शक (Viewer)';
+            roleBadge.textContent = window.currentUser.role === 'superadmin' ? 'स�?पर �?डमिन' : 
+                                    window.currentUser.role === 'judge' ? 'निर�?णाय�. (Judge)' : 'दर�?श�. (Viewer)';
         }
 
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -603,21 +605,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const authSettings = window.db.getAuthSettings();
 
             if (username === 'admin' && pass === authSettings.admin_pass) {
-                window.currentUser = { role: 'superadmin', name: 'सुपर एडमिन' };
+                window.currentUser = { role: 'superadmin', name: 'स�?पर �?डमिन' };
                 sessionStorage.setItem('current_user', JSON.stringify(window.currentUser));
-                showToast('सुपर एडमिन सफलतापूर्वक लगइन भयो!');
+                showToast('स�?पर �?डमिन सफलताप�,र�?व�. ल�-�?न भय�<!');
                 updateAuthUI();
-                // Initialize inline visual editor for admin
-                if (window.inlineEditor) window.inlineEditor.init();
                 navigateTo('nav-admin');
             } else if (username === 'judge' && pass === authSettings.judge_pass) {
-                window.currentUser = { role: 'judge', name: 'पास्टर प्रकाश लिम्बु' }; // pre-seeded judge
+                window.currentUser = { role: 'judge', name: 'पास�?�Yर प�?र�.ाश लिम�?ब�?' }; // pre-seeded judge
                 sessionStorage.setItem('current_user', JSON.stringify(window.currentUser));
-                showToast('निर्णायक सफलतापूर्वक लगइन भयो!');
+                showToast('निर�?णाय�. सफलताप�,र�?व�. ल�-�?न भय�<!');
                 updateAuthUI();
                 navigateTo('nav-judge');
             } else {
-                showToast('गलत युजरनेम वा पासवर्ड!', 'danger');
+                showToast('�-लत य�?�oरन�?म वा पासवर�?ड!', 'danger');
             }
             loginForm.reset();
         });
@@ -641,21 +641,21 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.innerHTML = `
             <div class="modal-content" style="max-width: 450px;">
                 <div class="modal-header">
-                    <h3 class="modal-title">🔑 पासवर्ड पुनः प्राप्ति (Reset Password)</h3>
-                    <button class="modal-close" onclick="closeActiveModals()">×</button>
+                    <h3 class="modal-title">�Y"' पासवर�?ड प�?न: प�?राप�?ति (Reset Password)</h3>
+                    <button class="modal-close" onclick="closeActiveModals()">�-</button>
                 </div>
                 <div class="modal-body" id="reset-modal-body">
                     <!-- Step 1: Select Role & Google Sign-In button -->
                     <div id="reset-step-1">
                         <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                            आफ्नो एडमिन वा जज पासवर्ड रिसेट गर्नका लागि सम्बन्धित खाता रोज्नुहोस् र Google खातामार्फत सुरक्षित रूपमा लगइन गर्नुहोस्।
+                            �?फ�?न�< �?डमिन वा �o�o पासवर�?ड रिस�?�Y �-र�?न�.ा ला�-ि सम�?बन�?धित �-ाता र�<�o�?न�?ह�<स�? र Google �-ाता मार�?फत स�?र�.�?षित र�,पमा ल�-�?न �-र�?न�?ह�<स�?।
                         </p>
                         
                         <div class="form-group">
-                            <label class="form-label" for="reset-role-select">कुन खाता रिसेट गर्ने? (Select Account):</label>
+                            <label class="form-label" for="reset-role-select">�.�?न �-ाता रिस�?�Y �-र�?न�?? (Select Account):</label>
                             <select id="reset-role-select" class="form-control" style="font-weight: 600;">
-                                <option value="admin">🔧 सुपर एडमिन (Super Admin)</option>
-                                <option value="judge">⚖️ निर्णायक (Judge)</option>
+                                <option value="admin">�Y"� स�?पर �?डमिन (Super Admin)</option>
+                                <option value="judge">�Y"? निर�?णाय�. (Judge)</option>
                             </select>
                         </div>
                         
@@ -668,13 +668,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <path fill="#FBBC05" d="M10.54 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.98-6.19z"/>
                                     <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.26-5.63c-2.2 1.47-5.01 2.36-8.63 2.36-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                                 </svg>
-                                Sign in with Google (गूगल मार्फत लगइन)
+                                Sign in with Google (�-�,�-ल मार�?फत ल�-�?न)
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline" onclick="closeActiveModals()">रद्द गर्नुहोस्</button>
+                    <button class="btn btn-outline" onclick="closeActiveModals()">रद�?द �-र�?न�?ह�<स�?</button>
                 </div>
             </div>
         `;
@@ -696,7 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
         popup.style.zIndex = '300';
         popup.id = 'google-popup-overlay';
 
-        const roleText = role === 'admin' ? 'सुपर एडमिन (Super Admin)' : 'निर्णायक (Judge)';
+        const roleText = role === 'admin' ? 'स�?पर �?डमिन (Super Admin)' : 'निर�?णाय�. (Judge)';
         const auth = window.db.getAuthSettings();
         const configuredEmail = role === 'admin' ? auth.admin_recovery_email : auth.judge_recovery_email;
         const fallbackEmail = role === 'admin' ? 'admin@gmail.com' : 'judge@gmail.com';
@@ -723,8 +723,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <input type="email" id="google-popup-email" class="form-control" style="background: #ffffff; border: 1px solid #dadce0; color: #000000; padding: 0.8rem 1rem; font-size: 1rem; border-radius: 4px;" placeholder="Enter recovery email" required>
                             
                             <div style="margin-top: 0.75rem; font-size: 0.8rem; line-height: 1.4; color: #5f6368; background: #f8f9fa; border: 1px solid #e8eaed; padding: 0.65rem; border-radius: 4px;">
-                                💡 <b>Recovery Tip:</b><br>
-                                ${configuredEmail ? `तपाईंको लागि सेट गरिएको रिकभरी इमेल: <b>${configuredEmail}</b> हो।` : `तपाईंले रिकभरी इमेल सेट गर्नुभएको छैन। परीक्षणका लागि डिफल्ट ईमेल <b>${fallbackEmail}</b> प्रयोग गर्नुहोस्।`}
+                                �Y'� <b>Recovery Tip:</b><br>
+                                ${configuredEmail ? `तपा�^�,�.�< ला�-ि स�?�Y �-रि�?�.�< रि�.भर�? �?म�?ल: <b>${configuredEmail}</b> ह�<।` : `तपा�^�,ल�? रि�.भर�? �?म�?ल स�?�Y �-र�?न�?भ�?�.�< �>�^न। पर�?�.�?षण�.ा ला�-ि डिफल�?�Y �^म�?ल <b>${fallbackEmail}</b> प�?रय�<�- �-र�?न�?ह�<स�?।`}
                             </div>
                         </div>
 
@@ -748,16 +748,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetEmail = (configuredEmail || fallbackEmail).trim().toLowerCase();
 
             if (!emailInput) {
-                showToast('कृपया ईमेल ठेगाना प्रविष्ट गर्नुहोस्!', 'warning');
+                showToast('�.�fपया �^म�?ल ठ�?�-ाना प�?रविष�?�Y �-र�?न�?ह�<स�?!', 'warning');
                 return;
             }
 
             if (emailInput === targetEmail) {
-                showToast('Google प्रमाणीकरण सफल भयो!', 'success');
+                showToast('Google प�?रमाण�?�.रण सफल भय�<!', 'success');
                 popup.remove();
                 showPasswordResetForm(role);
             } else {
-                showToast('इमेल ठेगाना मिलेन!', 'danger');
+                showToast('�?म�?ल ठ�?�-ाना मिल�?न!', 'danger');
             }
         });
     }
@@ -766,27 +766,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalBody = document.getElementById('reset-modal-body');
         if (!modalBody) return;
 
-        const roleText = role === 'admin' ? 'सुपर एडमिन (Super Admin)' : 'निर्णायक (Judge)';
+        const roleText = role === 'admin' ? 'स�?पर �?डमिन (Super Admin)' : 'निर�?णाय�. (Judge)';
 
         modalBody.innerHTML = `
             <div id="reset-step-2">
                 <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                    गूगल खाता प्रमाणीकरण पूरा भयो! अब <b style="color: var(--text-heading);">${roleText}</b> का लागि नयाँ सुरक्षित पासवर्ड प्रविष्ट गर्नुहोस्।
+                    �-�,�-ल �-ाता प�?रमाण�?�.रण प�,रा भय�<! �.ब <b style="color: var(--text-heading);">${roleText}</b> �.ा ला�-ि नया�? स�?र�.�?षित पासवर�?ड प�?रविष�?�Y �-र�?न�?ह�<स�?।
                 </p>
                 
                 <form id="password-change-form">
                     <div class="form-group">
-                        <label class="form-label" for="reset-new-pass">नयाँ पासवर्ड (New Password):</label>
-                        <input type="password" id="reset-new-pass" class="form-control" required placeholder="नयाँ पासवर्ड प्रविष्ट गर्नुहोस्" minlength="4">
+                        <label class="form-label" for="reset-new-pass">नया�? पासवर�?ड (New Password):</label>
+                        <input type="password" id="reset-new-pass" class="form-control" required placeholder="नया�? पासवर�?ड प�?रविष�?�Y �-र�?न�?ह�<स�?" minlength="4">
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="reset-confirm-pass">पासवर्ड पुनः पुष्टि गर्नुहोस् (Confirm Password):</label>
-                        <input type="password" id="reset-confirm-pass" class="form-control" required placeholder="पासवर्ड पुनः टाइप गर्नुहोस्">
+                        <label class="form-label" for="reset-confirm-pass">पासवर�?ड प�?न: प�?ष�?�Yि �-र�?न�?ह�<स�? (Confirm Password):</label>
+                        <input type="password" id="reset-confirm-pass" class="form-control" required placeholder="पासवर�?ड प�?न: �Yा�?प �-र�?न�?ह�<स�?">
                     </div>
                     
                     <div style="margin-top: 1.5rem;">
-                        <button type="submit" class="btn btn-gold" style="width: 100%;">💾 पासवर्ड परिवर्तन गर्नुहोस्</button>
+                        <button type="submit" class="btn btn-gold" style="width: 100%;">�Y'� पासवर�?ड परिवर�?तन �-र�?न�?ह�<स�?</button>
                     </div>
                 </form>
             </div>
@@ -800,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const confirmPass = document.getElementById('reset-confirm-pass').value.trim();
 
                 if (newPass !== confirmPass) {
-                    showToast('पासवर्डहरू मिलेनन्! (Passwords do not match)', 'danger');
+                    showToast('पासवर�?डहर�, मिल�?नन�?! (Passwords do not match)', 'danger');
                     return;
                 }
 
@@ -812,7 +812,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 window.db.saveAuthSettings(updates);
-                showToast('पासवर्ड सफलतापूर्वक परिवर्तन गरियो!', 'success');
+                showToast('पासवर�?ड सफलताप�,र�?व�. परिवर�?तन �-रिय�<!', 'success');
                 closeActiveModals();
                 
                 window.dispatchEvent(new Event('db_updated'));
@@ -822,11 +822,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            // Destroy inline editor before logout
-            if (window.inlineEditor) window.inlineEditor.destroy();
-            window.currentUser = { role: 'viewer', name: 'अतिथि' };
+            window.currentUser = { role: 'viewer', name: '�.तिथि' };
             sessionStorage.removeItem('current_user');
-            showToast('सफलतापूर्वक लगआउट भयो!');
+            showToast('सफलताप�,र�?व�. ल�-�?�?�Y भय�<!');
             updateAuthUI();
             navigateTo('nav-home');
         });
@@ -889,11 +887,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const notices = window.db.getNotices().filter(n => n.is_ticker);
         if (notices.length === 0) {
-            ticker.innerHTML = '<span class="ticker-item">बाइबल पद कण्ठस्थ प्रतियोगितामा यहाँहरूलाई स्वागत छ!</span>';
+            ticker.innerHTML = '<span class="ticker-item">बा�?बल पद �.ण�?ठस�?थ प�?रतिय�<�-ितामा यहा�?हर�,ला�^ स�?वा�-त �>!</span>';
             return;
         }
 
-        const tickerHtml = notices.map(n => `<span class="ticker-item">📢 ${n.title_ne}</span>`).join('');
+        const tickerHtml = notices.map(n => `<span class="ticker-item">�Y"� ${n.title_ne}</span>`).join('');
         ticker.innerHTML = tickerHtml;
     }
 
@@ -931,7 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!daysEl) return;
 
             if (distance < 0) {
-                document.getElementById('countdown-title').textContent = 'प्रतियोगिता समाप्त भएको छ वा सुरु भइसकेको छ।';
+                document.getElementById('countdown-title').textContent = 'प�?रतिय�<�-िता समाप�?त भ�?�.�< �> वा स�?र�? भ�?स�.�?�.�< �>।';
                 daysEl.textContent = '००';
                 hoursEl.textContent = '००';
                 minutesEl.textContent = '००';
@@ -984,10 +982,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const timeEl = document.getElementById('home-event-time');
-        if (timeEl) timeEl.textContent = settings.event_time || 'निर्धारित छैन';
+        if (timeEl) timeEl.textContent = settings.event_time || 'निर�?धारित �>�^न';
 
         const addressEl = document.getElementById('home-event-address');
-        if (addressEl) addressEl.textContent = settings.event_address || 'निर्धारित छैन';
+        if (addressEl) addressEl.textContent = settings.event_address || 'निर�?धारित �>�^न';
 
         // Map
         const mapEl = document.getElementById('home-event-map');
@@ -1043,8 +1041,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const dateObj = new Date(settings.event_date);
         document.getElementById('dashboard-event-date-display').textContent = dateObj.toLocaleDateString('ne-NP', { year: 'numeric', month: 'long', day: 'numeric' });
         
-        document.getElementById('dashboard-event-time').textContent = settings.event_time || 'निर्धारित छैन';
-        document.getElementById('dashboard-event-address').textContent = settings.event_address || 'निर्धारित छैन';
+        document.getElementById('dashboard-event-time').textContent = settings.event_time || 'निर�?धारित �>�^न';
+        document.getElementById('dashboard-event-address').textContent = settings.event_address || 'निर�?धारित �>�^न';
         
         const mapEl = document.getElementById('dashboard-event-map');
         const dashMapDirLink = document.getElementById('dashboard-map-directions-link');
@@ -1078,10 +1076,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (ranked.length > 0 && ranked[0].total_score > 0) {
             topScorerVal.textContent = ranked[0].name_ne;
-            topScorerDesc.textContent = `${ranked[0].total_score} अंक (${ranked[0].church_name})`;
+            topScorerDesc.textContent = `${ranked[0].total_score} �.�,�. (${ranked[0].church_name})`;
         } else {
             topScorerVal.textContent = 'N/A';
-            topScorerDesc.textContent = 'अझै मूल्यांकन भएको छैन';
+            topScorerDesc.textContent = '�.�?�^ म�,ल�?या�,�.न भ�?�.�< �>�^न';
         }
     }
 
@@ -1093,7 +1091,7 @@ document.addEventListener('DOMContentLoaded', () => {
         top3Grid.innerHTML = '';
 
         if (ranked.length === 0) {
-            top3Grid.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 2rem; color: var(--text-muted);">अंक प्रविष्टि सुरु भएपछि यहाँ सर्वोत्कृष्ट ३ प्रतियोगी देखिनेछ।</div>';
+            top3Grid.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 2rem; color: var(--text-muted);">�.�,�. प�?रविष�?�Yि स�?र�? भ�?प�>ि यहा�? �?त�?�.�fष�?�Y ३ प�?रतिय�<�-�? द�?�-िन�?�>।</div>';
             return;
         }
 
@@ -1108,15 +1106,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const imgSrc = isFS ? placeholder : (p.photo_url || placeholder);
 
             card.innerHTML = `
-                ${idx === 0 ? '<div class="champion-ribbon">👑</div>' : ''}
+                ${idx === 0 ? '<div class="champion-ribbon">�Y''</div>' : ''}
                 <div class="text-center">
                     <img class="avatar-large" ${isFS ? `data-fs-key="${fsKey}"` : ''} src="${imgSrc}" alt="${p.name_ne}" onerror="this.src='${placeholder}'">
                     <span class="rank-badge rank-${idx + 1}" style="margin-bottom: 0.5rem;">${idx + 1}</span>
                     <h3 style="font-size: 1.2rem; margin-bottom: 0.25rem;">${p.name_ne}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-muted);">${p.church_name}</p>
-                    <p style="font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-top: 0.25rem;">इलाका: ${p.illaka_name}</p>
+                    <p style="font-size: 0.8rem; font-weight: 600; color: var(--gold); margin-top: 0.25rem;">�?ला�.ा: ${p.illaka_name}</p>
                     <div style="font-size: 1.8rem; font-weight: 800; color: var(--text-heading); margin-top: 0.75rem; font-family: var(--font-heading);">
-                        ${p.total_score} <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">अंक</span>
+                        ${p.total_score} <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);">�.�,�.</span>
                     </div>
                 </div>
             `;
@@ -1132,7 +1130,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const notices = window.db.getNotices().slice(0, 3);
         if (notices.length === 0) {
-            container.innerHTML = '<div style="color: var(--text-muted);">कुनै सूचनाहरू उपलब्ध छैनन्।</div>';
+            container.innerHTML = '<div style="color: var(--text-muted);">�.�?न�^ स�,�sनाहर�, �?पलब�?ध �>�^नन�?।</div>';
             return;
         }
 
@@ -1166,11 +1164,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lockIndicator = document.getElementById('score-lock-indicator');
         if (lockIndicator) {
             lockIndicator.className = settings.lock_scores ? 'role-badge danger' : 'role-badge success';
-            lockIndicator.textContent = settings.lock_scores ? '🔒 अंक प्रविष्टि लक गरिएको छ' : '🟢 लाइभ अंक प्रविष्टि खुला छ';
+            lockIndicator.textContent = settings.lock_scores ? '�Y"' �.�,�. प�?रविष�?�Yि ल�. �-रि�?�.�< �>' : '�YY� ला�?भ �.�,�. प�?रविष�?�Yि �-�?ला �>';
         }
 
         if (ranked.length === 0) {
-            container.innerHTML = `<tr><td colspan="7" class="text-center" style="padding: 2rem; color: var(--text-muted);">कुनै प्रतियोगीहरू मूल्यांकन गरिएका छैनन् वा अंक प्रविष्टि गरिएको छैन।</td></tr>`;
+            container.innerHTML = `<tr><td colspan="7" class="text-center" style="padding: 2rem; color: var(--text-muted);">�.�?न�^ प�?रतिय�<�-�?हर�, म�,ल�?या�,�.न �-रि�?�.ा �>�^नन�? वा �.�,�. प�?रविष�?�Yि �-रि�?�.�< �>�^न।</td></tr>`;
             return;
         }
 
@@ -1178,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         ranked.forEach((p, idx) => {
             const rankColor = idx < 3 ? 'var(--gold)' : 'var(--text-muted)';
-            const rankIcon = idx === 0 ? '👑' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : ''));
+            const rankIcon = idx === 0 ? '�Y''' : (idx === 1 ? '�Y�^' : (idx === 2 ? '�Y�?' : ''));
             
             const rounds = window.db.getRounds();
             let breakdownHtml = rounds.map(r => {
@@ -1187,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `<span style="font-size: 0.75rem; background: var(--bg-main); padding: 0.1rem 0.3rem; border-radius: 4px; margin-right: 0.25rem;">${shortName}: ${marks}</span>`;
             }).join('');
 
-            const eliminatedBadge = p.eliminated ? '<br><span class="role-badge warning" style="margin-top: 0.25rem;">बाहिरिएको (Eliminated)</span>' : '';
+            const eliminatedBadge = p.eliminated ? '<br><span class="role-badge warning" style="margin-top: 0.25rem;">बाहिरि�?�.�< (Eliminated)</span>' : '';
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -1200,7 +1198,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><span style="font-weight: 600; color: var(--gold);">${p.illaka_name}</span></td>
                 <td><div style="display: flex; flex-wrap: wrap; max-width: 350px;">${breakdownHtml}</div></td>
                 <td style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading); font-family: var(--font-heading);">${p.total_score}</td>
-                <td><button class="btn btn-outline btn-sm no-print" onclick="viewParticipantDetails('${p.id}')">🔍 विवरण</button></td>
+                <td><button class="btn btn-outline btn-sm no-print" onclick="viewParticipantDetails('${p.id}')">�Y"? विवरण</button></td>
             `;
             container.appendChild(tr);
         });
@@ -1210,7 +1208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.exportLiveScoresToExcel = function() {
         const ranked = window.db.getRankedParticipants();
         if (ranked.length === 0) {
-            showToast('निर्यात गर्न कुनै डाटा छैन!', 'danger');
+            showToast('निर�?यात �-र�?न �.�?न�^ डा�Yा �>�^न!', 'danger');
             return;
         }
 
@@ -1218,11 +1216,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Define CSV Headers
         let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // Include BOM for Nepali text in Excel
-        csvContent += "Rank (स्थान),Name (सहभागी),Church (मण्डली),Illaka (इलाका),Age Group (समूह),Status (स्थिति),";
+        csvContent += "Rank (स�?थान),Name (सहभा�-�?),Church (मण�?डल�?),Illaka (�?ला�.ा),Age Group (सम�?ह),Status (स�?थिति),";
         rounds.forEach(r => {
             csvContent += `${r.name.replace(/,/g, '')},`;
         });
-        csvContent += "Total Score (कुल अंक)\n";
+        csvContent += "Total Score (�.�?ल �.�,�.)\n";
 
         // Append Data Row
         ranked.forEach(p => {
@@ -1243,7 +1241,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        showToast('नतिजा सफलतापूर्वक Excel/CSV मा निर्यात भयो!');
+        showToast('नति�oा सफलताप�,र�?व�. Excel/CSV मा निर�?यात भय�<!');
     };
 
     // Trigger Print layout
@@ -1284,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (filtered.length === 0) {
-            container.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">कुनै सहभागी फेला परेन।</div>';
+            container.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">�.�?न�^ सहभा�-�? फ�?ला पर�?न।</div>';
             return;
         }
 
@@ -1312,14 +1310,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">उमेर समूह:</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">�?म�?र सम�?ह:</span>
                         <div style="font-size: 0.85rem; font-weight: 700;">${p.age_group}</div>
                     </div>
                     
                     <div class="text-right">
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">अंक स्थिति:</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">�.�,�. स�?थिति:</span>
                         <div>
-                            ${p.eliminated ? '<span class="role-badge warning">बाहिरएको (Eliminated)</span>' : (hasEvaluated ? `<span class="role-badge success">${scoreObj.total_score} अंक (Rank: ${scoreObj.rank})</span>` : '<span class="role-badge" style="background: rgba(100,116,139,0.1); color: var(--text-muted); border: 1px solid var(--border)">बाँकी</span>')}
+                            ${p.eliminated ? '<span class="role-badge warning">बाहिरि�?�.�< (Eliminated)</span>' : (hasEvaluated ? `<span class="role-badge success">${scoreObj.total_score} �.�,�. (Rank: ${scoreObj.rank})</span>` : '<span class="role-badge" style="background: rgba(100,116,139,0.1); color: var(--text-muted); border: 1px solid var(--border)">बा�?�.�?</span>')}
                         </div>
                     </div>
                 </div>
@@ -1327,14 +1325,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                     ${hasEvaluated ? `
                         <button class="btn btn-gold btn-sm" style="flex: 1; min-width: 120px;" onclick="viewCertificateModal('${p.id}', false)">
-                            🏆 प्राप्ति प्रमाणपत्र
+                            �Y?? प�?राप�?ति प�?रमाणपत�?र
                         </button>
                         <button class="btn btn-outline btn-sm" style="flex: 1; min-width: 120px;" onclick="viewParticipantDetails('${p.id}')">
-                            📊 स्कोर कार्ड
+                            �Y"S स�?�.�<र �.ार�?ड
                         </button>
                     ` : ''}
                     <button class="btn btn-primary btn-sm" style="flex: 1; min-width: 120px;" onclick="viewCertificateModal('${p.id}', true)">
-                        🎓 सहभागिता प्रमाणपत्र
+                        �YZ" सहभा�-िता प�?रमाणपत�?र
                     </button>
                 </div>
             `;
@@ -1354,7 +1352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const materials = window.db.getMaterials();
         if (materials.length === 0) {
-            container.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 2rem; color: var(--text-muted);">कुनै डाउनलोड सामग्रीहरू उपलब्ध छैनन्।</div>';
+            container.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 2rem; color: var(--text-muted);">�.�?न�^ डा�?नल�<ड साम�-�?र�?हर�, �?पलब�?ध �>�^नन�?।</div>';
             return;
         }
 
@@ -1373,7 +1371,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h4 style="font-size: 1rem; font-weight: 700; color: var(--text-heading); margin-bottom: 0.75rem;">${m.title_ne}</h4>
                 </div>
                 <button class="btn btn-primary btn-sm" style="margin-top: 1rem;" onclick="triggerDownload('${m.id}')">
-                    ⬇️ डाउनलोड गर्नुहोस्
+                    �?�? डा�?नल�<ड �-र�?न�?ह�<स�?
                 </button>
             `;
             container.appendChild(card);
@@ -1384,7 +1382,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const materials = window.db.getMaterials();
         const m = materials.find(x => x.id === id);
         if (!m || !m.file_url || m.file_url === '#') {
-            showToast('यस सामग्रीको फाइल उपलब्ध छैन।', 'danger');
+            showToast('यस साम�-�?र�?�.�< फा�?ल �?पलब�?ध �>�^न।', 'danger');
             return;
         }
 
@@ -1395,7 +1393,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // File stored in IndexedDB
             const fsKey = m.file_url.slice('filestore://'.length);
             window.FileStore.get(fsKey).then(data => {
-                if (!data) { showToast('फाइल फेला परेन!', 'danger'); return; }
+                if (!data) { showToast('फा�?ल फ�?ला पर�?न!', 'danger'); return; }
                 let ext = m.file_type ? m.file_type.toLowerCase() : 'file';
                 if (ext === 'link' || ext === 'external') ext = 'pdf';
                 const a = document.createElement('a');
@@ -1404,8 +1402,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                showToast(`'${m.title_ne}' डाउनलोड सुरु भयो!`);
-            }).catch(() => showToast('फाइल डाउनलोड गर्न समस्या भयो!', 'danger'));
+                showToast(`'${m.title_ne}' डा�?नल�<ड स�?र�? भय�<!`);
+            }).catch(() => showToast('फा�?ल डा�?नल�<ड �-र�?न समस�?या भय�<!', 'danger'));
         } else if (m.file_url.startsWith('data:')) {
             // Legacy base64 inline data
             let ext = m.file_type ? m.file_type.toLowerCase() : 'file';
@@ -1417,9 +1415,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showToast(`'${m.title_ne}' डाउनलोड सुरु भयो!`);
+            showToast(`'${m.title_ne}' डा�?नल�<ड स�?र�? भय�<!`);
         } else {
-            showToast('यस सामग्रीको फाइल उपलब्ध छैन।', 'danger');
+            showToast('यस साम�-�?र�?�.�< फा�?ल �?पलब�?ध �>�^न।', 'danger');
         }
     };
 
@@ -1431,7 +1429,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const notices = window.db.getNotices();
         if (notices.length === 0) {
-            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted);">हाल कुनै सूचनाहरू प्रकाशित छैनन्।</div>';
+            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted);">हाल �.�?न�^ स�,�sनाहर�, प�?र�.ाशित �>�^नन�?।</div>';
             return;
         }
 
@@ -1445,7 +1443,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 style="font-size: 1.15rem; color: var(--text-heading);">${n.title_ne}</h3>
                     <span style="font-size: 0.8rem; background: var(--gold-light); padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600;">${dateStr}</span>
                 </div>
-                <p style="color: var(--text-main); font-size: 0.95rem;">${n.content_ne || 'विवरण उपलब्ध छैन।'}</p>
+                <p style="color: var(--text-main); font-size: 0.95rem;">${n.content_ne || 'विवरण �?पलब�?ध �>�^न।'}</p>
             `;
             container.appendChild(card);
         });
@@ -1460,7 +1458,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prizes = window.db.getPrizes();
 
         if (prizes.length === 0) {
-            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">कुनै पुरस्कार घोषणा गरिएको छैन।</div>';
+            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">�.�?न�^ प�?रस�?�.ार �~�<षणा �-रि�?�.�< �>�^न।</div>';
             return;
         }
 
@@ -1472,7 +1470,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'card card-accent';
             card.style.textAlign = 'center';
             card.innerHTML = `
-                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;"></div>
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${idx === 0 ? '�Y??' : (idx === 1 ? '�Y�^' : (idx === 2 ? '�Y�?' : '�YZ-�?'))}</div>
                 <h3 style="font-size: 1.2rem; color: ${color}; margin-bottom: 0.5rem;">${p.title_ne}</h3>
                 <div style="font-size: 1.5rem; font-weight: 900; color: var(--gold); margin-bottom: 0.5rem; font-family: var(--font-heading);">${p.amount}</div>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">${p.description_ne || ''}</p>
@@ -1503,7 +1501,7 @@ document.addEventListener('DOMContentLoaded', () => {
             slider.innerHTML = '';
 
             if (gallery.length === 0) {
-                slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">कुनै तस्बिर उपलब्ध छैन।</div>';
+                slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">�.�?न�^ तस�?बिर �?पलब�?ध �>�^न।</div>';
                 if (caption) caption.style.display = 'none';
                 return;
             }
@@ -1547,39 +1545,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Render Public Contact Info ---
-    function renderPublicContactInfo() {
-        const contactSettings = window.db.getContactSettings ? window.db.getContactSettings() : null;
-        if (!contactSettings) return;
-
-        const pTags = document.querySelectorAll('#section-contact .contact-icon-row p');
-        if (pTags.length >= 3) {
-            pTags[0].textContent = contactSettings.address || '';
-            pTags[1].textContent = contactSettings.phone || '';
-            pTags[2].textContent = contactSettings.email || '';
-        }
-
-        let mapWrapper = document.getElementById('public-map-wrapper');
-        if (!mapWrapper) {
-            mapWrapper = document.createElement('div');
-            mapWrapper.id = 'public-map-wrapper';
-            mapWrapper.className = 'card';
-            mapWrapper.style.marginTop = '2rem';
-            mapWrapper.style.padding = '0';
-            mapWrapper.style.overflow = 'hidden';
-            
-            // Insert it at the end of section-contact
-            const sectionContact = document.getElementById('section-contact');
-            if (sectionContact) sectionContact.appendChild(mapWrapper);
-        }
-
-        if (contactSettings.google_map_url) {
-            mapWrapper.innerHTML = `<iframe src="${contactSettings.google_map_url}" width="100%" height="450" style="border:0; display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-        } else {
-            mapWrapper.innerHTML = '';
-        }
-    }
-
     // --- Render Public Team ---
     function renderPublicTeam() {
         const container = document.getElementById('public-team-grid');
@@ -1588,7 +1553,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const team = window.db.getTeamMembers();
         if (team.length === 0) {
-            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">कुनै टिम सदस्य थपिएको छैन।</div>';
+            container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">�.�?न�^ �Yिम सदस�?य थपि�?�.�< �>�^न।</div>';
             return;
         }
 
@@ -1654,7 +1619,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="modal-content" style="max-width: 410px; border-top: 4px solid var(--danger);">
                     <div class="modal-header" style="background: var(--danger); border-bottom: none;">
                         <h3 class="modal-title">? ?????? ???? ???? (Not Found)</h3>
-                        <button class="modal-close" onclick="closeActiveModals()">×</button>
+                        <button class="modal-close" onclick="closeActiveModals()">�</button>
                     </div>
                     <div class="modal-body text-center" style="padding: 2rem 1.5rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">???</div>
@@ -1698,7 +1663,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">?????? ????????? ?????</h3>
-                    <button class="modal-close" onclick="closeActiveModals()">×</button>
+                    <button class="modal-close" onclick="closeActiveModals()">�</button>
                 </div>
                 <div class="modal-body" id="score-print-area">
                     <div style="text-align: center; margin-bottom: 1.5rem;">
@@ -1771,7 +1736,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="modal-content modal-content-lg">
                 <div class="modal-header">
                     <h3 class="modal-title">${title}</h3>
-                    <button class="modal-close" onclick="closeActiveModals()">×</button>
+                    <button class="modal-close" onclick="closeActiveModals()">�</button>
                 </div>
                 <div class="modal-body text-center" style="background: #e2e8f0; overflow-x: auto; padding: 2rem;">
                     <canvas id="modal-certificate-canvas" style="max-width: 100%; height: auto; display: block; margin: 0 auto; box-shadow: var(--shadow-premium); border-radius: 4px;"></canvas>
@@ -1859,6 +1824,448 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // ==========================================================
+    // ?? PARTICIPANT SELF-PRACTICE & SPEECH RECITATION ENGINE
+    // ==========================================================
+    let activePracticeMode = 'flashcard'; // 'flashcard' | 'fill' | 'prompt'
+    let selectedPracticeVerse = null;
+    let recognitionInstance = null;
+    let isRecordingRecitation = false;
+
+    function initPracticePortal() {
+        const verses = window.db.getPracticeVerses();
+        const selectEl = document.getElementById('practice-verse-select');
+        if (!selectEl) return;
+
+        // Populate verses dropdown
+        selectEl.innerHTML = '';
+        verses.forEach((v, index) => {
+            const opt = document.createElement('option');
+            opt.value = v.id;
+            const lang = localStorage.getItem('lang') || 'ne';
+            opt.textContent = lang === 'en' ? `${v.ref_en} (${v.text_en.substring(0, 20)}...)` : `${v.ref_ne} (${v.text_ne.substring(0, 15)}...)`;
+            if (index === 0) opt.selected = true;
+            selectEl.appendChild(opt);
+        });
+
+        // Dropdown listener
+        selectEl.addEventListener('change', (e) => {
+            loadSelectedVerse(e.target.value);
+        });
+
+        // Mode switch listeners
+        document.querySelectorAll('.practice-mode-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.practice-mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activePracticeMode = btn.dataset.mode;
+                renderActivePracticeMode();
+            });
+        });
+
+        // Load initial verse
+        if (verses.length > 0) {
+            loadSelectedVerse(verses[0].id);
+        }
+
+        // Initialize Speech recognition elements
+        initSpeechRecitation();
+
+        // Initialize notification simulation triggers
+        initAlertSimulators();
+    }
+
+    function loadSelectedVerse(id) {
+        const verses = window.db.getPracticeVerses();
+        selectedPracticeVerse = verses.find(v => v.id === id) || verses[0];
+
+        const refDisplay = document.getElementById('practice-ref-display');
+        const textDisplay = document.getElementById('practice-original-text');
+        
+        if (refDisplay && textDisplay && selectedPracticeVerse) {
+            const lang = localStorage.getItem('lang') || 'ne';
+            refDisplay.textContent = lang === 'en' ? selectedPracticeVerse.ref_en : selectedPracticeVerse.ref_ne;
+            textDisplay.textContent = lang === 'en' ? selectedPracticeVerse.text_en : selectedPracticeVerse.text_ne;
+        }
+
+        // Clear speech boxes
+        const transp = document.getElementById('practice-transcription');
+        const evalBox = document.getElementById('practice-evaluation');
+        if (transp) transp.textContent = '';
+        if (evalBox) evalBox.textContent = '';
+
+        renderActivePracticeMode();
+    }
+
+    function renderActivePracticeMode() {
+        const boardContent = document.getElementById('practice-board-content');
+        const boardFooter = document.getElementById('practice-board-footer');
+        const boardModeBadge = document.getElementById('practice-board-mode');
+        
+        if (!boardContent || !boardFooter || !selectedPracticeVerse) return;
+
+        const lang = localStorage.getItem('lang') || 'ne';
+        const verseText = lang === 'en' ? selectedPracticeVerse.text_en : selectedPracticeVerse.text_ne;
+        const verseRef = lang === 'en' ? selectedPracticeVerse.ref_en : selectedPracticeVerse.ref_ne;
+
+        // Reset workspace
+        boardContent.innerHTML = '';
+        boardFooter.innerHTML = '';
+
+        if (activePracticeMode === 'flashcard') {
+            boardModeBadge.textContent = lang === 'en' ? 'Flashcard' : '????????????';
+            
+            const card = document.createElement('div');
+            card.className = 'flashcard-box';
+            card.innerHTML = `
+                <div class="flashcard-content">
+                    <div style="font-size: 0.9rem; color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;">
+                        ${lang === 'en' ? 'Click to Flip' : '????? ??? ????????????'}
+                    </div>
+                    <div style="font-size: 1.3rem;">?</div>
+                </div>
+            `;
+
+            let isFlipped = false;
+            card.addEventListener('click', () => {
+                isFlipped = !isFlipped;
+                card.classList.toggle('flipped', isFlipped);
+                if (isFlipped) {
+                    card.innerHTML = `
+                        <div class="flashcard-content" style="transform: rotateY(180deg);">
+                            <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.75rem;">"${verseText}"</p>
+                            <span style="font-size: 0.85rem; color: var(--gold); font-weight: bold;">- ${verseRef}</span>
+                        </div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="flashcard-content">
+                            <div style="font-size: 0.9rem; color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: bold;">
+                                ${lang === 'en' ? 'Click to Flip' : '????? ??? ????????????'}
+                            </div>
+                            <div style="font-size: 1.3rem;">?</div>
+                        </div>
+                    `;
+                }
+            });
+            boardContent.appendChild(card);
+
+        } else if (activePracticeMode === 'fill') {
+            boardModeBadge.textContent = lang === 'en' ? 'Fill In Blanks' : '???? ???? ?????????';
+
+            // Clean & Split verse words
+            const words = verseText.split(/\s+/);
+            const container = document.createElement('div');
+            container.style.fontSize = '1.05rem';
+            container.style.lineHeight = '2';
+            container.style.textAlign = 'left';
+            container.style.width = '100%';
+
+            const blankIndexes = [];
+            words.forEach((w, index) => {
+                // Hide roughly 30% of the words (every 3rd word, excluding tiny punctuations)
+                if (index > 0 && index % 3 === 0 && w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").length > 1) {
+                    blankIndexes.push(index);
+                    
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'practice-blank-input';
+                    input.dataset.correct = w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                    input.style.width = `${Math.max(w.length * 15, 60)}px`;
+                    input.style.border = 'none';
+                    input.style.borderBottom = '1.5px solid var(--gold)';
+                    input.style.background = 'rgba(255,255,255,0.08)';
+                    input.style.color = 'var(--text-main)';
+                    input.style.padding = '0 0.25rem';
+                    input.style.margin = '0 0.25rem';
+                    input.style.textAlign = 'center';
+                    input.style.outline = 'none';
+                    input.style.borderRadius = '2px';
+                    
+                    container.appendChild(input);
+                    // Add back punctuation if word had any
+                    const punctuation = w.match(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g);
+                    if (punctuation) {
+                        const span = document.createElement('span');
+                        span.textContent = punctuation.join('') + ' ';
+                        container.appendChild(span);
+                    } else {
+                        container.appendChild(document.createTextNode(' '));
+                    }
+                } else {
+                    const span = document.createElement('span');
+                    span.textContent = w + ' ';
+                    container.appendChild(span);
+                }
+            });
+
+            boardContent.appendChild(container);
+
+            // Add "Check Answers" controls in footer
+            boardFooter.innerHTML = `
+                <button class="btn btn-gold btn-sm" id="btn-check-fill" style="width: auto;">�o"�? �oा�?�s�?न�?ह�<स�? (Check Blanks)</button>
+                <div id="fill-result-msg" style="margin-top: 0.5rem; font-weight: bold; font-size: 0.85rem;"></div>
+            `;
+
+            document.getElementById('btn-check-fill').addEventListener('click', () => {
+                const inputs = container.querySelectorAll('.practice-blank-input');
+                let correctCount = 0;
+                inputs.forEach(inp => {
+                    const userVal = inp.value.trim().toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                    const correctVal = inp.dataset.correct.toLowerCase();
+                    if (userVal === correctVal) {
+                        inp.style.borderBottom = '2px solid #10b981';
+                        inp.style.background = 'rgba(16, 185, 129, 0.1)';
+                        correctCount++;
+                    } else {
+                        inp.style.borderBottom = '2px solid #ef4444';
+                        inp.style.background = 'rgba(239, 68, 68, 0.1)';
+                        inp.title = `Correct: ${inp.dataset.correct}`;
+                    }
+                });
+
+                const msg = document.getElementById('fill-result-msg');
+                if (correctCount === inputs.length) {
+                    msg.textContent = lang === 'en' ? '�YZ? Perfect! All blanks are correct.' : '�YZ? �?त�?�.�fष�?�Y! सब�^ �-ाल�? ठा�?�?हर�, सह�? �>न�?।';
+                    msg.style.color = '#10b981';
+                } else {
+                    msg.textContent = lang === 'en' ? `�s��? Correct: ${correctCount}/${inputs.length}. Hover red blanks to see hints.` : `�s��? सह�? परिणाम: ${correctCount}/${inputs.length}। �-लत ठा�?�?मा स�,�.�?त ह�?र�?न मा�?स ल�^�oान�?ह�<स�?।`;
+                    msg.style.color = '#f59e0b';
+                }
+            });
+
+        } else if (activePracticeMode === 'prompt') {
+            boardModeBadge.textContent = lang === 'en' ? 'First Letter' : 'पहिल�< �.�.�?षर स�T�?�.�?त';
+
+            const words = verseText.split(/\s+/);
+            const container = document.createElement('div');
+            container.style.fontSize = '1.05rem';
+            container.style.lineHeight = '2';
+            container.style.textAlign = 'left';
+            container.style.width = '100%';
+
+            words.forEach(w => {
+                const cleanWord = w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                if (cleanWord.length > 0) {
+                    const firstChar = cleanWord.charAt(0);
+                    const restLength = cleanWord.length - 1;
+                    const underscores = '_'.repeat(restLength);
+                    
+                    // Replace in string
+                    const promptWord = w.replace(cleanWord, `${firstChar}${underscores}`);
+                    
+                    const span = document.createElement('span');
+                    span.textContent = promptWord + ' ';
+                    container.appendChild(span);
+                } else {
+                    const span = document.createElement('span');
+                    span.textContent = w + ' ';
+                    container.appendChild(span);
+                }
+            });
+
+            boardContent.appendChild(container);
+            boardFooter.innerHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">�Y'� प�?रत�?य�?�. शब�?द�.�< पहिल�< �.�.�?षर द�?�-ा�?�?�.�< �>, यसल�? �.ण�?ठस�?थता बलिय�< पार�?�>।</span>`;
+        }
+    }
+
+    // ==========================================================
+    // Speech Recognition Evaluation Logic
+    // ==========================================================
+    function initSpeechRecitation() {
+        const micBtn = document.getElementById('practice-mic-btn');
+        const statusText = document.getElementById('practice-speech-status');
+        const transpBox = document.getElementById('practice-transcription');
+        const evalBox = document.getElementById('practice-evaluation');
+        
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            if (statusText) {
+                statusText.textContent = "�s��? Browser voice input not supported (Chrome recommended)";
+                statusText.style.color = 'var(--danger)';
+            }
+            if (micBtn) micBtn.disabled = true;
+            return;
+        }
+
+        // Set up SpeechRecognition configuration
+        recognitionInstance = new SpeechRecognition();
+        recognitionInstance.continuous = false;
+        recognitionInstance.interimResults = false;
+
+        micBtn.addEventListener('click', () => {
+            if (isRecordingRecitation) {
+                stopRecitationRecording();
+            } else {
+                startRecitationRecording();
+            }
+        });
+
+        recognitionInstance.onstart = () => {
+            isRecordingRecitation = true;
+            statusText.textContent = "�YZT�? स�?निरह�?�.�< �>... �.ण�?ठ स�?ना�?न�?ह�<स�? (Listening...)";
+            statusText.style.color = 'var(--success)';
+            micBtn.style.background = 'var(--danger)';
+            micBtn.querySelector('.mic-pulse-ring').style.display = 'block';
+        };
+
+        recognitionInstance.onerror = (e) => {
+            console.error('Speech Recognition Error', e);
+            statusText.textContent = `Error: ${e.error || 'Unknown error occurred'}`;
+            statusText.style.color = 'var(--danger)';
+            stopRecitationRecording();
+        };
+
+        recognitionInstance.onend = () => {
+            stopRecitationRecording();
+        };
+
+        recognitionInstance.onresult = (e) => {
+            const resultText = e.results[0][0].transcript;
+            if (transpBox) transpBox.textContent = resultText;
+            evaluateRecitationText(resultText);
+        };
+    }
+
+    function startRecitationRecording() {
+        if (!recognitionInstance || !selectedPracticeVerse) return;
+        
+        // Dynamically set recognition language based on system active locale
+        const isEnglish = (localStorage.getItem('lang') || 'ne') === 'en';
+        recognitionInstance.lang = isEnglish ? 'en-US' : 'ne-NP';
+        
+        try {
+            recognitionInstance.start();
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    function stopRecitationRecording() {
+        isRecordingRecitation = false;
+        const micBtn = document.getElementById('practice-mic-btn');
+        const statusText = document.getElementById('practice-speech-status');
+        
+        if (statusText) {
+            statusText.textContent = "मा�?�. बन�?द �> (Click button to start)";
+            statusText.style.color = 'var(--text-muted)';
+        }
+        if (micBtn) {
+            micBtn.style.background = 'var(--primary)';
+            const pulse = micBtn.querySelector('.mic-pulse-ring');
+            if (pulse) pulse.style.display = 'none';
+        }
+        
+        if (recognitionInstance) {
+            try {
+                recognitionInstance.stop();
+            } catch(e){}
+        }
+    }
+
+    function evaluateRecitationText(spokenText) {
+        const evalBox = document.getElementById('practice-evaluation');
+        if (!evalBox || !selectedPracticeVerse) return;
+
+        const lang = localStorage.getItem('lang') || 'ne';
+        const targetText = lang === 'en' ? selectedPracticeVerse.text_en : selectedPracticeVerse.text_ne;
+
+        // Clean formatting helper
+        const clean = (str) => {
+            return str.toLowerCase()
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?।]/g,"")
+                .trim()
+                .split(/\s+/);
+        };
+
+        const targetWords = clean(targetText);
+        const spokenWords = clean(spokenText);
+
+        evalBox.innerHTML = '';
+
+        // Match spoken words to target words
+        targetWords.forEach(word => {
+            const matchIndex = spokenWords.indexOf(word);
+            const span = document.createElement('span');
+            span.textContent = word;
+            
+            if (matchIndex !== -1) {
+                // Word matched successfully
+                span.className = 'practice-word-correct';
+                // Remove matched word from index so it doesn't double-match
+                spokenWords.splice(matchIndex, 1);
+            } else {
+                // Word was missed
+                span.className = 'practice-word-missing';
+            }
+            evalBox.appendChild(span);
+            evalBox.appendChild(document.createTextNode(' '));
+        });
+    }
+
+    // ==========================================================
+    // �Y"� Simulated Notifications & Alerts Engine
+    // ==========================================================
+    function initAlertSimulators() {
+        const btnSimScore = document.getElementById('btn-simulate-score');
+        const btnSimSms = document.getElementById('btn-simulate-sms');
+
+        if (btnSimScore) {
+            btnSimScore.addEventListener('click', () => {
+                simulateNotification('score');
+            });
+        }
+        if (btnSimSms) {
+            btnSimSms.addEventListener('click', () => {
+                simulateNotification('sms');
+            });
+        }
+    }
+
+    window.simulateNotification = function(type) {
+        const lang = localStorage.getItem('lang') || 'ne';
+        let title = '';
+        let msg = '';
+        let borderClass = 'success';
+
+        if (type === 'score') {
+            title = lang === 'en' ? '�Y?. Leaderboard Updated!' : '�Y?. नया�? स�?�.�<र प�?र�.ाशित!';
+            msg = lang === 'en' ? 'Abhishek Rai has scored 91 marks in Final Round!' : '�.भिष�?�. रा�^ल�? फा�?नल �sरणमा ९१ �.�,�. हासिल �-र�?न�?भ�?�.�< �>!';
+            borderClass = 'success';
+        } else {
+            title = lang === 'en' ? '�Y"� SMS Sent to Participant' : '�Y"� प�?रतिस�?पर�?ध�?ला�^ SMS पठा�?य�<';
+            msg = lang === 'en' ? 'SMS Alert sent: "Dear Prasamsa, it is your turn next. Please proceed to Judge Panel 1."' : '�?स�?म�?स �.लर�?�Y: "�?दरण�?य प�?रश�,सा, �.ब तपा�?�?�.�< पाल�< भ�?�.�< �>। �.�fपया �o�o प�?यानल १ मा �oान�?ह�<ला।"';
+            borderClass = 'warning';
+        }
+
+        // Show a premium toast alert
+        showFloatingPushToast(title, msg, borderClass);
+    };
+
+    function showFloatingPushToast(title, msg, borderType) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.style.borderColor = borderType === 'success' ? 'var(--success)' : 'var(--gold)';
+        
+        toast.innerHTML = `
+            <div>
+                <div style="font-weight: 800; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem;">${title}</div>
+                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.95); line-height: 1.4;">${msg}</div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+
+        // Slide out and remove toast
+        setTimeout(() => {
+            toast.style.animation = 'slideInLeft 0.3s reverse forwards';
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 5000);
+    }
+
+    window.initPracticePortal = initPracticePortal;
 
     // 12. App Initialization
     window.translateUI(savedLang);
@@ -1883,17 +2290,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderHomeEventDetails();
     }
 
-    // Apply saved page content and section config from inline editor
-    if (window.inlineEditor) {
-        window.inlineEditor.applyPageContent();
-        window.inlineEditor.applySectionConfig();
-        window.inlineEditor.renderCustomSections();
-        // If admin is already logged in (page refresh), re-init the editor FAB
-        if (window.currentUser && window.currentUser.role === 'superadmin') {
-            window.inlineEditor.init();
-        }
-    }
-
     // Parse URL parameter to show participant detailed marks on QR scan
     const urlParams = new URLSearchParams(window.location.search);
     const qParticipantId = urlParams.get('participant');
@@ -1915,22 +2311,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     modal.innerHTML = `
                         <div class="modal-content" style="max-width: 400px;">
                             <div class="modal-header">
-                                <h3 class="modal-title">सहभागी विवरण (Competitor Info)</h3>
-                                <button class="modal-close" onclick="closeActiveModals()">×</button>
+                                <h3 class="modal-title">सहभा�-�? विवरण (Competitor Info)</h3>
+                                <button class="modal-close" onclick="closeActiveModals()">�-</button>
                             </div>
                             <div class="modal-body text-center">
-                                <div style="font-size: 3.5rem; margin-bottom: 1rem;">👤</div>
+                                <div style="font-size: 3.5rem; margin-bottom: 1rem;">�Y'�</div>
                                 <h2 style="color: var(--text-heading);">${p.name_ne}</h2>
                                 <p style="color: var(--text-muted); font-size: 0.95rem;">${p.church_name}</p>
                                 <p style="color: var(--gold); font-weight: bold; margin-top: 0.5rem;">${illaka ? illaka.name_ne : ''}</p>
                                 
                                 <div style="margin-top: 1.5rem; background: #fffbeb; border: 1px solid #fde8c3; color: #b7791f; padding: 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600;">
-                                    मूल्याङ्कन हुन बाँकी छ...<br>
+                                    म�,ल्या�T्�.न हुन बाँ�.�? �>...<br>
                                     (Evaluation Pending)
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-outline" onclick="closeActiveModals()">बन्द गर्नुहोस्</button>
+                                <button class="btn btn-outline" onclick="closeActiveModals()">बन्द �-र्नुह�<स्</button>
                             </div>
                         </div>
                     `;
@@ -1944,27 +2340,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.innerHTML = `
                     <div class="modal-content" style="max-width: 410px; border-top: 4px solid var(--danger);">
                         <div class="modal-header" style="background: var(--danger); border-bottom: none;">
-                            <h3 class="modal-title">⚠️ सहभागी फेला परेन (Not Found)</h3>
-                            <button class="modal-close" onclick="closeActiveModals()">×</button>
+                            <h3 class="modal-title">�s�️ सहभा�-�? फ�?ला पर�?न (Not Found)</h3>
+                            <button class="modal-close" onclick="closeActiveModals()">�-</button>
                         </div>
                         <div class="modal-body text-center" style="padding: 2rem 1.5rem;">
-                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍❌</div>
-                            <h3 style="color: var(--danger); margin-bottom: 0.75rem;">सहभागीको विवरण फेला परेन!</h3>
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">�Y"��O</div>
+                            <h3 style="color: var(--danger); margin-bottom: 0.75rem;">सहभा�-�?�.�< विवरण फ�?ला पर�?न!</h3>
                             <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1rem;">
-                                स्क्यान गरिएको QR कोडको सहभागी ID (<b>${qParticipantId}</b>) यस मोबाइल/उपकरणको स्थानीय डाटाबेसमा फेला परेन।
+                                स्�.्यान �-रिए�.�< QR �.�<ड�.�< सहभा�-�? ID (<b>${qParticipantId}</b>) यस म�<बा�?ल/�?प�.रण�.�< स्थान�?य डा�Yाब�?समा फ�?ला पर�?न।
                             </p>
                             
                             <div style="text-align: left; background: var(--bg-main); border: 1px solid var(--border); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 0.78rem; line-height: 1.45;">
-                                💡 <b>किन यसो भयो? (Why did this happen):</b><br>
-                                यो प्रतियोगिता <b>अफलाइन-फर्स्ट</b> (Offline-first) भएकोले डाटा सुरक्षित रूपमां तपाईंको ब्राउजरको <code>localStorage</code> मा मात्र भण्डारण हुन्छ।<br><br>
-                                🔄 <b>यसलाई कसरी मिलाउने (How to Sync):</b><br>
-                                १. जुन कम्प्युटरमा सहभागी दर्ता गर्नुभएको थियो, त्यसको <b>एडमिन प्यानल</b>मा जानुहोस्।<br>
-                                २. 🛠 <b>प्रणाली सेटिङ र ब्याकअप</b> मा गरि <b>ब्याकअप JSON डाउनलोड गर्नुहोस्</b>।<br>
-                                ३. त्यसपछि यो फोनको एडमिन प्यानलमा आई उक्त ब्याकअप फाइल <b>पुनर्स्थापना (Restore)</b> गर्नुहोस्।
+                                �Y'� <b>�.िन यस�< भय�<? (Why did this happen):</b><br>
+                                य�< प्रतिय�<�-िता <b>�.फला�?न-फर्स्�Y</b> (Offline-first) भए�.�<ल�? डा�Yा सुर�.्षित र�,पमा�, तपा�^�,�.�< ब्रा�?�oर�.�< <code>localStorage</code> मा मात्र भण्डारण हुन्�>।<br><br>
+                                �Y"" <b>यसला�^ �.सर�? मिला�?न�? (How to Sync):</b><br>
+                                १. �oुन �.म्प्यु�Yरमा सहभा�-�? दर्ता �-र्नुभए�.�< थिय�<, त्यस�.�< <b>एडमिन प्यानल</b>मा �oानुह�<स्।<br>
+                                २. �Y>� <b>प्रणाल�? स�?�Yि�T र ब्या�.�.प</b> मा �-रि <b>ब्या�.�.प JSON डा�?नल�<ड �-र्नुह�<स्</b>।<br>
+                                ३. त्यसप�>ि य�< फ�<न�.�< एडमिन प्यानलमा �?�^ �?�.्त ब्या�.�.प फा�?ल <b>पुनर्स्थापना (Restore)</b> �-र्नुह�<स्।
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-danger" style="width: 100%;" onclick="closeActiveModals()">बन्द गर्नुहोस् (Close)</button>
+                            <button class="btn btn-danger" style="width: 100%;" onclick="closeActiveModals()">बन्द �-र्नुह�<स् (Close)</button>
                         </div>
                     </div>
                 `;
@@ -1973,3 +2369,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     }
 });
+

@@ -175,7 +175,38 @@ const INITIAL_DATA = {
         email: 'info@igniterteam.org',
         google_map_url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113032.64621396606!2d85.25005527299307!3d27.708942726359553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1717240324869!5m2!1sen!2snp'
     },
-    messages: [] // Contact form submissions
+    messages: [], // Contact form submissions
+    page_content: {
+        org_hero_title: 'Igniter Team',
+        org_hero_subtitle: 'Into the Way of Jesus Christ',
+        purpose_heading: '\u0939\u093e\u092e\u094d\u0930\u094b \u0909\u0926\u094d\u0926\u0947\u0936\u094d\u092f (Our Purpose)',
+        purpose_text: '\u0916\u094d\u0930\u0940\u0937\u094d\u091f\u093f\u092f\u0928 \u092f\u0941\u0935\u093e \u0924\u0925\u093e \u092c\u093e\u0932\u092c\u093e\u0932\u093f\u0915\u093e\u0939\u0930\u0942\u0932\u093e\u0908 \u092a\u0930\u092e\u0947\u0936\u094d\u0935\u0930\u0915\u094b \u0935\u091a\u0928 (\u092c\u093e\u0907\u092c\u0932) \u0905\u0927\u094d\u092f\u092f\u0928 \u0930 \u0915\u0923\u094d\u0920\u0938\u094d\u0925 \u0917\u0930\u094d\u0928 \u092a\u094d\u0930\u094b\u0924\u094d\u0938\u093e\u0939\u093f\u0924 \u0917\u0930\u094d\u0928\u0941 \u0939\u093e\u092e\u094d\u0930\u094b \u092e\u0941\u0916\u094d\u092f \u0909\u0926\u094d\u0926\u0947\u0936\u094d\u092f \u0939\u094b\u0964',
+        events_heading: '\u0906\u0917\u093e\u092e\u0940 \u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e (Upcoming Events)',
+        events_text: '\u092c\u093e\u0907\u092c\u0932 \u092a\u0926 \u0915\u0923\u094d\u0920\u0938\u094d\u0925 \u092a\u094d\u0930\u0924\u093f\u092f\u094b\u0917\u093f\u0924\u093e \u0968\u0966\u096e\u0969 \u0915\u093e \u0932\u093e\u0917\u093f \u0924\u092f\u093e\u0930\u0940 \u0938\u0941\u0930\u0941 \u092d\u0907\u0938\u0915\u0947\u0915\u094b \u091b\u0964 \u0915\u0943\u092a\u092f\u093e \"\u092a\u094d\u0930\u0924\u093f\u092f\u094b\u0917\u093f\u0924\u093e\" \u092e\u0947\u0928\u0941\u092c\u093e\u091f \u0925\u092a \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0932\u093f\u0928\u0941\u0939\u094b\u0938\u094d\u0964',
+        about_title: '\u0939\u093e\u092e\u094d\u0930\u094b \u092c\u093e\u0930\u0947\u092e\u093e (About Us)',
+        about_subtitle: '\u0907\u0917\u094d\u0928\u093e\u0907\u091f\u0930 \u091f\u093f\u092e (Igniter Team) \u092a\u0930\u092e\u0947\u0936\u094d\u0935\u0930\u0915\u094b \u0935\u091a\u0928\u0932\u093e\u0908 \u092f\u0941\u0935\u093e \u092a\u0941\u0938\u094d\u0924\u093e\u092e\u093e \u092a\u0941\u0930\u094d\u092f\u093e\u0909\u0928\u0947 \u090f\u0909\u091f\u093e \u0938\u0915\u094d\u0930\u093f\u092f \u0938\u092e\u0942\u0939 \u0939\u094b\u0964',
+        story_heading: '\u0939\u093e\u092e\u094d\u0930\u094b \u0915\u0925\u093e (Our Story)',
+        story_text_en: 'Igniter Team started with a simple vision: to ignite the passion for Jesus Christ among the youth. We organize events, study sessions, and competitions that challenge individuals to dive deeper into the Holy Scriptures.',
+        story_text_ne: '\u092f\u0938 \u0938\u092e\u0942\u0939\u0932\u0947 \u0935\u093f\u0936\u0947\u0937\u0917\u0930\u0940 \u092c\u093e\u0907\u092c\u0932 \u092a\u0926 \u0915\u0923\u094d\u0920\u0938\u094d\u0925 \u092a\u094d\u0930\u0924\u093f\u092f\u094b\u0917\u093f\u0924\u093e \u0932\u0917\u093e\u092f\u0924\u0915\u093e \u0935\u093f\u092d\u093f\u0928\u094d\u0928 \u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e\u0939\u0930\u0942 \u092e\u093e\u0930\u094d\u092b\u0924 \u092e\u0923\u094d\u0921\u0932\u0940\u0915\u093e \u092f\u0941\u0935\u093e \u0924\u0925\u093e \u092c\u093e\u0932\u092c\u093e\u0932\u093f\u0915\u093e\u0939\u0930\u0942\u0932\u093e\u0908 \u0906\u0924\u094d\u092e\u093f\u0915 \u0930\u0942\u092a\u092e\u093e \u0935\u0943\u0926\u094d\u0927\u093f \u0939\u0941\u0928 \u092e\u0926\u094d\u0926\u0924 \u0917\u0930\u093f\u0930\u0939\u0947\u0915\u094b \u091b\u0964',
+        team_heading: '\u0939\u093e\u092e\u094d\u0930\u094b \u091f\u093f\u092e (Our Team)',
+        team_subtitle: '\u0907\u0917\u094d\u0928\u093e\u0907\u091f\u0930 \u091f\u093f\u092e - \u092f\u0938\u0915\u093e \u0938\u0915\u094d\u0930\u093f\u092f \u0938\u0926\u0938\u094d\u092f\u0939\u0930\u0942 \u091c\u0938\u0932\u0947 \u092f\u094b \u092a\u094d\u0930\u0924\u093f\u092f\u094b\u0917\u093f\u0924\u093e \u0938\u092b\u0932 \u092a\u093e\u0930\u094d\u0928 \u0930\u093e\u0924\u0926\u093f\u0928 \u092e\u0947\u0939\u0947\u0928\u0924 \u0917\u0930\u093f\u0930\u0939\u0928\u0941\u092d\u090f\u0915\u094b \u091b\u0964',
+        gallery_title: '\u0939\u093e\u092e\u094d\u0930\u094b \u0917\u094d\u092f\u093e\u0932\u0930\u0940 (Our Gallery)',
+        gallery_subtitle: '\u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e\u0915\u093e \u091d\u0932\u0915\u0939\u0930\u0942',
+        notices_title: '\ud83d\udd14 \u0906\u0927\u093f\u0915\u093e\u0930\u093f\u0915 \u0938\u0942\u091a\u0928\u093e \u092c\u094b\u0930\u094d\u0921 (Notice Board)',
+        notices_subtitle: '\u0915\u093e\u0930\u094d\u092f\u0915\u094d\u0930\u092e\u0938\u092e\u094d\u092c\u0928\u094d\u0927\u0940 \u092a\u091b\u093f\u0932\u094d\u0932\u093e \u0928\u093f\u0930\u094d\u0923\u092f \u0924\u0925\u093e \u0938\u0942\u091a\u0928\u093e\u0939\u0930\u0942 \u092f\u0939\u093e\u0901 \u092a\u094d\u0930\u0915\u093e\u0936\u0928 \u0917\u0930\u093f\u0928\u094d\u091b\u0964',
+        contact_title: '\u0938\u092e\u094d\u092a\u0930\u094d\u0915 \u0917\u0930\u094d\u0928\u0941\u0939\u094b\u0938\u094d (Contact Us)',
+        contact_form_title: '\u0939\u093e\u092e\u0940\u0932\u093e\u0908 \u0938\u0928\u094d\u0926\u0947\u0936 \u092a\u0920\u093e\u0909\u0928\u0941\u0939\u094b\u0938\u094d',
+        footer_verse: '"\u0924\u0947\u0930\u094b \u0935\u091a\u0928 \u092e\u0947\u0930\u094b \u092a\u093e\u0907\u0932\u093e\u0915\u093e \u0928\u093f\u092e\u094d\u0924\u093f \u092c\u0924\u094d\u0924\u0940, \u092e\u0947\u0930\u094b \u092c\u093e\u091f\u094b\u0915\u093e \u0928\u093f\u092e\u094d\u0924\u093f \u0909\u091c\u094d\u092f\u093e\u0932\u094b \u0939\u094b\u0964" - \u092d\u091c\u0928\u0938\u0902\u0917\u094d\u0930\u0939 \u0967\u0967\u096f:\u0967\u0966\u096b',
+        footer_copyright: '\u092a\u094d\u0930\u0935\u093f\u0927\u093f \u0935\u093f\u0915\u093e\u0938 \u0930 \u0935\u094d\u092f\u0935\u0938\u094d\u0925\u093e\u092a\u0928: \u0907\u0917\u094d\u0928\u093e\u0907\u091f\u0930 \u091f\u093f\u092e (Igniter Team) | \u00a9 \u0968\u0966\u0968\u096c\u0964 \u0938\u092c\u0948 \u0905\u0927\u093f\u0915\u093e\u0930 \u0938\u0941\u0930\u0915\u094d\u0937\u093f\u0924\u0964'
+    },
+    section_config: [
+        { id: 'section-org-home', label: '\u0917\u0943\u0939\u092a\u0943\u0937\u094d\u0920 (Home)', visible: true, order: 1, removable: false },
+        { id: 'section-about', label: '\u0939\u093e\u092e\u094d\u0930\u094b \u092c\u093e\u0930\u0947\u092e\u093e (About Us)', visible: true, order: 2, removable: false },
+        { id: 'section-gallery', label: '\u0917\u094d\u092f\u093e\u0932\u0930\u0940 (Gallery)', visible: true, order: 3, removable: true },
+        { id: 'section-notices', label: '\u0938\u0942\u091a\u0928\u093e (Notices)', visible: true, order: 4, removable: true },
+        { id: 'section-contact', label: '\u0938\u092e\u094d\u092a\u0930\u094d\u0915 (Contact)', visible: true, order: 5, removable: false }
+    ],
+    custom_sections: []
 };
 
 class LocalDatabase {
@@ -214,6 +245,7 @@ class LocalDatabase {
                         { id: 'r3', name: 'फाइनल (Final)' }
                     ];
                 }
+
                 if (this.state.certificate_settings && this.state.certificate_settings.description_ne) {
                     if (this.state.certificate_settings.description_ne.includes('पढ')) {
                         this.state.certificate_settings.description_ne = this.state.certificate_settings.description_ne.replace(/पढ/g, 'पद');
@@ -304,6 +336,7 @@ class LocalDatabase {
     getIllakas() {
         return this.state.illakas;
     }
+
 
     getIllakaById(id) {
         return this.state.illakas.find(i => i.id === id);
@@ -777,6 +810,63 @@ class LocalDatabase {
 
     updateContactSettings(settings) {
         this.state.contact_settings = { ...this.state.contact_settings, ...settings };
+        this.save();
+    }
+
+    // --- Page Content (Inline Editor) ---
+    getPageContent() {
+        return { ...this.state.page_content };
+    }
+
+    updatePageContent(key, value) {
+        if (!this.state.page_content) this.state.page_content = {};
+        this.state.page_content[key] = value;
+        this.save();
+    }
+
+    updatePageContentBatch(updates) {
+        if (!this.state.page_content) this.state.page_content = {};
+        Object.assign(this.state.page_content, updates);
+        this.save();
+    }
+
+    // --- Section Config (Inline Editor) ---
+    getSectionConfig() {
+        return JSON.parse(JSON.stringify(this.state.section_config || []));
+    }
+
+    updateSectionConfig(config) {
+        this.state.section_config = config;
+        this.save();
+    }
+
+    // --- Custom Sections (Inline Editor) ---
+    getCustomSections() {
+        return JSON.parse(JSON.stringify(this.state.custom_sections || []));
+    }
+
+    addCustomSection(section) {
+        if (!this.state.custom_sections) this.state.custom_sections = [];
+        this.state.custom_sections.push(section);
+        this.save();
+    }
+
+    updateCustomSection(id, updates) {
+        if (!this.state.custom_sections) return;
+        const idx = this.state.custom_sections.findIndex(s => s.id === id);
+        if (idx !== -1) {
+            this.state.custom_sections[idx] = { ...this.state.custom_sections[idx], ...updates };
+            this.save();
+        }
+    }
+
+    removeCustomSection(id) {
+        if (!this.state.custom_sections) return;
+        this.state.custom_sections = this.state.custom_sections.filter(s => s.id !== id);
+        // Also remove from section_config
+        if (this.state.section_config) {
+            this.state.section_config = this.state.section_config.filter(s => s.id !== id);
+        }
         this.save();
     }
 }

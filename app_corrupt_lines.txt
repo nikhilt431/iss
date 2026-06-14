@@ -1,0 +1,144 @@
+﻿18: showToast(theme === 'dark' ? 'डार�?क मोड सक�?रिय भयो' : 'लाइट मोड सक�?रिय भयो');
+30: 'nav-org-home': '�?� गृहपृष�?ठ',
+31: 'nav-about': '📖 हाम�?रो बारेमा (About Us)',
+32: 'nav-tournament-group': '�?� प�?रतियोगिता ▾',
+33: 'nav-home': 'ड�?यासबोर�?ड',
+38: 'nav-gallery': '🖼�? ग�?यालरी',
+39: 'nav-contact': '📞 सम�?पर�?क',
+40: 'nav-judge': '�? जज प�?यानल',
+41: 'nav-admin': '⚙�? �?डमिन प�?यानल',
+43: 'logout-btn': '🚪 बाहिरिन�?होस�?',
+46: 'countdown-title': 'प�?रतियोगिता स�?र�? ह�?न बा�?की समय',
+47: 'home-event-title': 'बाइबल पद कण�?ठस�?थ प�?रतियोगिता २०८३',
+48: 'home-event-subtitle': 'इग�?नाइटर टिम (Igniter Team)',
+51: 'role-viewer': 'दर�?शक (Viewer)',
+52: 'role-judge': 'निर�?णायक (Judge)',
+53: 'role-admin': 'स�?पर �?डमिन'
+57: 'nav-org-home': '�?� Home',
+59: 'nav-tournament-group': '�?� Tournament ▾',
+65: 'nav-gallery': '🖼�? Gallery',
+67: 'nav-judge': '�? Judge Panel',
+68: 'nav-admin': '⚙�? Admin Panel',
+78: 'role-viewer': 'Viewer (दर�?शक)',
+79: 'role-judge': 'Judge (निर�?णायक)',
+95: document.title = lang === 'en' ? 'Bible Memorization Contest - Igniter Team' : 'बाइबल पद कण�?ठस�?थ प�?रतियोगिता - इग�?नाइटर टिम';
+101: labels[1].textContent = lang === 'en' ? 'Hours' : 'घण�?टा';
+103: labels[3].textContent = lang === 'en' ? 'Seconds' : 'सेकेन�?ड';
+111: widgetTitles[0].textContent = lang === 'en' ? 'Total Participants' : 'क�?ल सहभागीहरू (Total Participants)';
+112: widgetTitles[1].textContent = lang === 'en' ? 'Total Regions (Illaka)' : 'सम�?बद�?ध इलाकाहरू (Total Regions)';
+113: widgetTitles[2].textContent = lang === 'en' ? 'Top Scorer Competitor' : 'सर�?वोत�?कृष�?ट प�?रतियोगी (Top Scorer)';
+117: widgetDescs[0].textContent = lang === 'en' ? 'Competitors registered in the tournament' : 'प�?रतियोगितामा दर�?ता भ�?का जम�?मा प�?रतिस�?पर�?धी';
+118: widgetDescs[1].textContent = lang === 'en' ? '4 regions and newly added areas' : '४ इलाकाहरू र थप नया�? क�?षेत�?रहरू';
+122: widgetDescs[2].textContent = lang === 'en' ? 'Not evaluated yet' : 'अ�?ै मूल�?याङ�?कन भ�?को छैन';
+129: top3LeaderTitle.textContent = lang === 'en' ? '�?� Top 3 Leaderboard' : '�?� शीर�?ष ३ विजेताहरू (Top 3 Leaderboard)';
+134: recentNoticesTitle.textContent = lang === 'en' ? '📢 Recent Notices & Updates' : '📢 भर�?खरैका सूचनाहरू (Recent Updates)';
+140: liveScoreHeader.textContent = lang === 'en' ? 'Live Scoreboard & Ranks' : 'लाइभ स�?कोरबोर�?ड र श�?रेणीकरण (Live Rankings)';
+150: btnPrint.textContent = lang === 'en' ? '🖨�? Print Results Table' : '🖨�? नतिजा प�?रिन�?ट गर�?न�?होस�?';
+156: tableThs[0].textContent = lang === 'en' ? 'Rank (स�?थान)' : 'स�?थान (Rank)';
+158: tableThs[2].textContent = lang === 'en' ? 'Church' : 'मण�?डली (Church)';
+160: tableThs[4].textContent = lang === 'en' ? 'Score Categories Breakdown' : 'श�?रेणीगत अंक (Score Categories Breakdown)';
+161: tableThs[5].textContent = lang === 'en' ? 'Total Marks' : 'क�?ल प�?राप�?त अंक (Total)';
+162: tableThs[6].textContent = lang === 'en' ? 'Action' : 'कार�?य (Action)';
+168: searchInput.placeholder = lang === 'en' ? '�? Search competitor name or church...' : '�? सहभागीको नाम वा मण�?डलीबाट खोज�?न�?होस�?...';
+178: pListHeader.textContent = lang === 'en' ? 'Participants Directory' : 'प�?रतिस�?पर�?धी सूची (Participants Directory)';
+184: dlHeader.textContent = lang === 'en' ? '📥 Instruction Guidelines & Downloads' : '📥 निर�?देशिका र सामग�?री डाउनलोड (Downloads Section)';
+188: dlDesc.textContent = lang === 'en' ? 'Download competition rules, Bible chapters study materials, and event schedules here.' : 'प�?रतियोगितासम�?बन�?धी नियमहरू, बाइबल खण�?डहरू र कार�?यतालिकाहरू यहा�?बाट डाउनलोड गर�?न सक�?न�?ह�?न�?छ।';
+194: nHeader.textContent = lang === 'en' ? '🔔 Official Notice Board' : '🔔 आधिकारिक सूचना बोर�?ड (Notice Board)';
+198: nDesc.textContent = lang === 'en' ? 'The latest official tournament updates, schedules, and decisions are published here.' : 'कार�?यक�?रमसम�?बन�?धी पछिल�?ला निर�?णय तथा सूचनाहरू यहा�? प�?रकाशन गरिन�?छ।';
+204: loginHeader.textContent = lang === 'en' ? 'Secure Portal Login' : 'स�?रक�?षित प�?रणाली लगइन';
+208: loginSub.textContent = lang === 'en' ? 'Enter judge or administrator credentials' : '�?डमिन वा निर�?णायक (Judge) विवरण प�?रविष�?ट गर�?न�?होस�?';
+212: loginLabels[0].textContent = lang === 'en' ? 'Username (य�?जरनेम):' : 'य�?जरनेम (Username):';
+213: loginLabels[1].textContent = lang === 'en' ? 'Password (पासवर�?ड):' : 'पासवर�?ड (Password):';
+217: btnLoginSubmit.textContent = lang === 'en' ? '🚪 Log In to Portal' : '🚪 प�?रणालीमा प�?रवेश गर�?न�?होस�?';
+221: loginHelp.textContent = lang === 'en' ? '🔑 Testing Credentials:' : '🔑 परीक�?षणका लागि साख विवरण (Credentials):';
+227: jHeader.textContent = lang === 'en' ? 'Judges Portal Score Sheet' : 'निर�?णायक अंक प�?रविष�?टि तालिका (Judges Portal)';
+231: jSub.textContent = lang === 'en' ? 'Select a competitor below to input score evaluations.' : 'सहभागी चयन गरी तत�?काल श�?रेणीगत अंक प�?रविष�?ट गर�?न�?होस�?।';
+237: judgeFilter.options[1].textContent = lang === 'en' ? 'Pending Evaluation (बा�?की)' : 'मूल�?यांकन बा�?की (Pending)';
+238: judgeFilter.options[2].textContent = lang === 'en' ? 'Evaluated (मूल�?यांकन गरि�?का)' : 'मूल�?यांकन गरि�?का (Evaluated)';
+244: adminHeader.textContent = lang === 'en' ? '⚙�? Control Center (Admin Panel)' : '⚙�? नियन�?त�?रण कक�?ष (Admin Panel)';
+249: adminSubnavs[0].textContent = lang === 'en' ? '👥 Competitors (सहभागी)' : '👥 सहभागी व�?यवस�?थापन';
+250: adminSubnavs[1].textContent = lang === 'en' ? '�? Regions (इलाका)' : '�? इलाका व�?यवस�?थापन';
+251: adminSubnavs[2].textContent = lang === 'en' ? '📢 Announcements (सूचना)' : '📢 सूचना व�?यवस�?थापन';
+252: adminSubnavs[3].textContent = lang === 'en' ? '�? Files & Downloads' : '�? फाइल डाउनलोड व�?यवस�?थापन';
+253: adminSubnavs[4].textContent = lang === 'en' ? '🛠�? Settings & Backups' : '🛠�? प�?रणाली सेटिङ र ब�?याकअप';
+263: window.showToast(lang === 'en' ? 'Language switched to English' : 'भाषा नेपालीमा परिवर�?तन भयो');
+567: roleBadge.textContent = window.currentUser.role === 'superadmin' ? 'स�?पर �?डमिन' :
+568: window.currentUser.role === 'judge' ? 'निर�?णायक (Judge)' : 'दर�?शक (Viewer)';
+608: window.currentUser = { role: 'superadmin', name: 'स�?पर �?डमिन' };
+610: showToast('स�?पर �?डमिन सफलतापूर�?वक लगइन भयो!');
+614: window.currentUser = { role: 'judge', name: 'पास�?टर प�?रकाश लिम�?ब�?' }; // pre-seeded judge
+616: showToast('निर�?णायक सफलतापूर�?वक लगइन भयो!');
+620: showToast('गलत य�?जरनेम वा पासवर�?ड!', 'danger');
+644: <h3 class="modal-title">🔑 पासवर�?ड प�?न: प�?राप�?ति (Reset Password)</h3>
+651: आफ�?नो �?डमिन वा जज पासवर�?ड रिसेट गर�?नका लागि सम�?बन�?धित खाता रोज�?न�?होस�? र Google खाता मार�?फत स�?रक�?षित रूपमा लगइन गर�?न�?होस�?।
+655: <label class="form-label" for="reset-role-select">क�?न खाता रिसेट गर�?ने? (Select Account):</label>
+657: <option value="admin">🔧 स�?पर �?डमिन (Super Admin)</option>
+658: <option value="judge">�? निर�?णायक (Judge)</option>
+671: Sign in with Google (गूगल मार�?फत लगइन)
+677: <button class="btn btn-outline" onclick="closeActiveModals()">रद�?द गर�?न�?होस�?</button>
+699: const roleText = role === 'admin' ? 'स�?पर �?डमिन (Super Admin)' : 'निर�?णायक (Judge)';
+727: ${configuredEmail ? `तपाईंको लागि सेट गरि�?को रिकभरी इमेल: <b>${configuredEmail}</b> हो।` : `तपाईंले रिकभरी इमेल सेट गर�?न�?भ�?को छैन। परीक�?षणका लागि डिफल�?ट ईमेल <b>${fallbackEmail}</b> प�?रयोग गर�?न�?होस�?।`}
+751: showToast('कृपया ईमेल ठेगाना प�?रविष�?ट गर�?न�?होस�?!', 'warning');
+756: showToast('Google प�?रमाणीकरण सफल भयो!', 'success');
+769: const roleText = role === 'admin' ? 'स�?पर �?डमिन (Super Admin)' : 'निर�?णायक (Judge)';
+774: गूगल खाता प�?रमाणीकरण पूरा भयो! अब <b style="color: var(--text-heading);">${roleText}</b> का लागि नया�? स�?रक�?षित पासवर�?ड प�?रविष�?ट गर�?न�?होस�?।
+779: <label class="form-label" for="reset-new-pass">नया�? पासवर�?ड (New Password):</label>
+780: <input type="password" id="reset-new-pass" class="form-control" required placeholder="नया�? पासवर�?ड प�?रविष�?ट गर�?न�?होस�?" minlength="4">
+784: <label class="form-label" for="reset-confirm-pass">पासवर�?ड प�?न: प�?ष�?टि गर�?न�?होस�? (Confirm Password):</label>
+785: <input type="password" id="reset-confirm-pass" class="form-control" required placeholder="पासवर�?ड प�?न: टाइप गर�?न�?होस�?">
+789: <button type="submit" class="btn btn-gold" style="width: 100%;">💾 पासवर�?ड परिवर�?तन गर�?न�?होस�?</button>
+803: showToast('पासवर�?डहरू मिलेनन�?! (Passwords do not match)', 'danger');
+815: showToast('पासवर�?ड सफलतापूर�?वक परिवर�?तन गरियो!', 'success');
+827: showToast('सफलतापूर�?वक लगआउट भयो!');
+890: ticker.innerHTML = '<span class="ticker-item">बाइबल पद कण�?ठस�?थ प�?रतियोगितामा यहा�?हरूलाई स�?वागत छ!</span>';
+932: document.getElementById('countdown-title').textContent = 'प�?रतियोगिता समाप�?त भ�?को छ वा स�?र�? भइसकेको छ।';
+985: if (timeEl) timeEl.textContent = settings.event_time || 'निर�?धारित छैन';
+988: if (addressEl) addressEl.textContent = settings.event_address || 'निर�?धारित छैन';
+1044: document.getElementById('dashboard-event-time').textContent = settings.event_time || 'निर�?धारित छैन';
+1045: document.getElementById('dashboard-event-address').textContent = settings.event_address || 'निर�?धारित छैन';
+1082: topScorerDesc.textContent = 'अ�?ै मूल�?यांकन भ�?को छैन';
+1094: top3Grid.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 2rem; color: var(--text-muted);">अंक प�?रविष�?टि स�?र�? भ�?पछि यहा�? उत�?कृष�?ट ३ प�?रतियोगी देखिनेछ।</div>';
+1133: container.innerHTML = '<div style="color: var(--text-muted);">क�?नै सूचनाहरू उपलब�?ध छैनन�?।</div>';
+1167: lockIndicator.textContent = settings.lock_scores ? '🔒 अंक प�?रविष�?टि लक गरि�?को छ' : '🟢 लाइभ अंक प�?रविष�?टि ख�?ला छ';
+1171: container.innerHTML = `<tr><td colspan="7" class="text-center" style="padding: 2rem; color: var(--text-muted);">क�?नै प�?रतियोगीहरू मूल�?यांकन गरि�?का छैनन�? वा अंक प�?रविष�?टि गरि�?को छैन।</td></tr>`;
+1188: const eliminatedBadge = p.eliminated ? '<br><span class="role-badge warning" style="margin-top: 0.25rem;">बाहिरि�?को (Eliminated)</span>' : '';
+1201: <td><button class="btn btn-outline btn-sm no-print" onclick="viewParticipantDetails('${p.id}')">�? विवरण</button></td>
+1211: showToast('निर�?यात गर�?न क�?नै डाटा छैन!', 'danger');
+1219: csvContent += "Rank (स�?थान),Name (सहभागी),Church (मण�?डली),Illaka (इलाका),Age Group (सम�?ह),Status (स�?थिति),";
+1223: csvContent += "Total Score (क�?ल अंक)\n";
+1244: showToast('नतिजा सफलतापूर�?वक Excel/CSV मा निर�?यात भयो!');
+1285: container.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 3rem; color: var(--text-muted);">क�?नै सहभागी फेला परेन।</div>';
+1313: <span style="font-size: 0.75rem; color: var(--text-muted);">उमेर सम�?ह:</span>
+1318: <span style="font-size: 0.75rem; color: var(--text-muted);">अंक स�?थिति:</span>
+1320: ${p.eliminated ? '<span class="role-badge warning">बाहिरि�?को (Eliminated)</span>' : (hasEvaluated ? `<span class="role-badge success">${scoreObj.total_score} अंक (Rank: ${scoreObj.rank})</span>` : '<span class="role-badge" style="background: rgba(100,116,139,0.1); color: var(--text-muted); border: 1px solid var(--border)">बा�?की</span>')}
+1328: �?� प�?राप�?ति प�?रमाणपत�?र
+1331: 📊 स�?कोर कार�?ड
+1335: 🎓 सहभागिता प�?रमाणपत�?र
+1355: container.innerHTML = '<div class="text-center" style="grid-column: 1/-1; padding: 2rem; color: var(--text-muted);">क�?नै डाउनलोड सामग�?रीहरू उपलब�?ध छैनन�?।</div>';
+1374: ⬇�? डाउनलोड गर�?न�?होस�?
+1385: showToast('यस सामग�?रीको फाइल उपलब�?ध छैन।', 'danger');
+1405: showToast(`'${m.title_ne}' डाउनलोड स�?र�? भयो!`);
+1406: }).catch(() => showToast('फाइल डाउनलोड गर�?न समस�?या भयो!', 'danger'));
+1418: showToast(`'${m.title_ne}' डाउनलोड स�?र�? भयो!`);
+1420: showToast('यस सामग�?रीको फाइल उपलब�?ध छैन।', 'danger');
+1432: container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted);">हाल क�?नै सूचनाहरू प�?रकाशित छैनन�?।</div>';
+1446: <p style="color: var(--text-main); font-size: 0.95rem;">${n.content_ne || 'विवरण उपलब�?ध छैन।'}</p>
+1461: container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">क�?नै प�?रस�?कार घोषणा गरि�?को छैन।</div>';
+1473: <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">${idx === 0 ? '�?�' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '🎖�?'))}</div>
+1504: slider.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">क�?नै तस�?बिर उपलब�?ध छैन।</div>';
+1556: container.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--text-muted); grid-column: 1 / -1;">क�?नै टिम सदस�?य थपि�?को छैन।</div>';
+1622: <button class="modal-close" onclick="closeActiveModals()">�</button>
+1666: <button class="modal-close" onclick="closeActiveModals()">�</button>
+1739: <button class="modal-close" onclick="closeActiveModals()">�</button>
+2006: <button class="btn btn-gold btn-sm" id="btn-check-fill" style="width: auto;">✔�? जा�?च�?न�?होस�? (Check Blanks)</button>
+2029: msg.textContent = lang === 'en' ? '🎉 Perfect! All blanks are correct.' : '🎉 उत�?कृष�?ट! सबै खाली ठाउ�?हरू सही छन�?।';
+2032: msg.textContent = lang === 'en' ? `⚠�? Correct: ${correctCount}/${inputs.length}. Hover red blanks to see hints.` : `⚠�? सही परिणाम: ${correctCount}/${inputs.length}। गलत ठाउ�?मा संकेत हेर�?न माउस लैजान�?होस�?।`;
+2038: boardModeBadge.textContent = lang === 'en' ? 'First Letter' : 'पहिलो अक�?षर सङ�?केत';
+2068: boardFooter.innerHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">💡 प�?रत�?येक शब�?दको पहिलो अक�?षर देखाइ�?को छ, यसले कण�?ठस�?थता बलियो पार�?छ।</span>`;
+2085: statusText.textContent = "⚠�? Browser voice input not supported (Chrome recommended)";
+2107: statusText.textContent = "🎙�? स�?निरहेको छ... कण�?ठ स�?नाउन�?होस�? (Listening...)";
+2151: statusText.textContent = "माइक बन�?द छ (Click button to start)";
+2233: title = lang === 'en' ? '�?� Leaderboard Updated!' : '�?� नया�? स�?कोर प�?रकाशित!';
+2234: msg = lang === 'en' ? 'Abhishek Rai has scored 91 marks in Final Round!' : 'अभिषेक राईले फाइनल चरणमा ९१ अंक हासिल गर�?न�?भ�?को छ!';
+2237: title = lang === 'en' ? '📱 SMS Sent to Participant' : '📱 प�?रतिस�?पर�?धीलाई SMS पठाइयो';
+2238: msg = lang === 'en' ? 'SMS Alert sent: "Dear Prasamsa, it is your turn next. Please proceed to Judge Panel 1."' : '�?स�?म�?स अलर�?ट: "आदरणीय प�?रशंसा, अब तपाइ�?को पालो भ�?को छ। कृपया जज प�?यानल १ मा जान�?होला।"';

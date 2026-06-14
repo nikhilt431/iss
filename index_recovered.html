@@ -1,0 +1,258 @@
+﻿Created At: 2026-06-13T12:43:30Z
+Completed At: 2026-06-13T12:43:31Z
+File Path: `file:///C:/Users/Nikhi/.gemini/antigravity/scratch/bible-quiz-app/index.html`
+Total Lines: 1099
+Total Bytes: 87044
+Showing lines 1 to 250
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: <!DOCTYPE html>
+2: <html lang="ne">
+3: <head>
+4:     <meta charset="UTF-8">
+5:     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+6:     <title>बाइबल पद कण्ठस्थ प्रतियोगिता - इग्नाइटर टिम</title>
+7:     <meta name="description" content="इग्नाइटर टिमद्वारा आयोजित बाइबल पद कण्ठस्थ प्रतियोगिताको आधिकारिक लाइभ ड्यासबोर्ड।">
+8:     
+9:     <!-- Design Stylesheets -->
+10:     <link rel="stylesheet" href="css/style.css">
+11:     <link rel="stylesheet" href="css/components.css">
+12:     <!-- Google Identity Services client script for real integration drop-in -->
+13:     <script src="https://accounts.google.com/gsi/client" async defer></script>
+14: </head>
+15: <body>
+16: 
+17:     <div class="app-container">
+18:         
+19:         <!-- HEADER brand section -->
+20:         <header>
+21:             <div class="nav-wrapper">
+22:                 <div class="brand-section">
+23:                     <!-- Unified High-Fidelity Vector Logo for Igniter Team (Menorah + Serif IGNITER + Sub-banner) -->
+24:                     <svg class="brand-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 310" fill="none" style="height: 60px; width: auto;">
+25:                         <!-- Menorah Branches -->
+26:                         <g stroke="currentColor" stroke-width="6" stroke-linecap="round">
+27:                             <!-- Center shaft -->
+28:                             <path d="M250,150 L250,60" />
+29:                             <!-- Inner branch pair -->
+30:                             <path d="M250,115 C210,115 190,95 190,60" />
+31:                             <path d="M250,115 C290,115 310,95 310,60" />
+32:                             <!-- Middle branch pair -->
+33:                             <path d="M250,130 C170,130 140,100 140,60" />
+34:                             <path d="M250,130 C330,130 360,100 360,60" />
+35:                             <!-- Outer branch pair -->
+36:                             <path d="M250,145 C130,145 90,105 90,60" />
+37:                             <path d="M250,145 C370,145 410,105 410,60" />
+38:                             
+39:                             <!-- Pedestal stand base -->
+40:                             <path d="M220,170 H280 M250,145 V170" stroke-width="8" />
+41:                             <path d="M205,178 H295" stroke="var(--gold)" stroke-width="6" />
+42:                         </g>
+43:                         <!-- Droplet flames (Gold) -->
+44:                         <g fill="var(--gold)">
+45:                             <path d="M250,48 C253,42 250,32 250,32 C250,32 247,42 250,48 Z" />
+46:                             <path d="M190,48 C193,42 190,32 190,32 C190,32 187,42 190,48 Z" />
+47:                             <path d="M310,48 C313,42 310,32 310,32 C310,32 307,42 310,48 Z" />
+48:                             <path d="M140,48 C143,42 140,32 140,32 C140,32 137,42 140,48 Z" />
+49:                             <path d="M360,48 C363,42 360,32 360,32 C360,32 357,42 360,48 Z" />
+50:                             <path d="M90,48 C93,42 90,32 90,32 C90,32 87,42 90,48 Z" />
+51:                             <path d="M410,48 C413,42 410,32 410,32 C410,32 407,42 410,48 Z" />
+52:                         </g>
+53:                         <!-- Bold Serif "IGNITER" Text -->
+54:                         <text x="250" y="235" font-family="'Cinzel', 'Georgia', 'Times New Roman', serif" font-size="76" font-weight="900" fill="currentColor" text-anchor="middle" letter-spacing="4">IGNITER</text>
+55:                         
+56:                         <!-- Bottom banner block background -->
+57:                         <rect x="10" y="258" width="480" height="46" fill="currentColor" rx="4" />
+58:                         
+59:                         <!-- Dashed line on left -->
+60:                         <line x1="25" y1="281" x2="235" y2="281" stroke="var(--gold)" stroke-width="4" stroke-dasharray="8 6" />
+61:                         
+62:                         <!-- White script text inside banner -->
+63:                         <text x="365" y="287" font-family="'Outfit', 'Comfortaa', 'Inter', sans-serif" font-size="14.5" font-weight="800" fill="var(--bg-card)" text-anchor="middle">into the way of Jesus Christ</text>
+64:                     </svg>
+65:                     
+66:                     <!-- Vertical Divider Line -->
+67:                     <div style="width: 2px; height: 48px; background: rgba(255, 255, 255, 0.2); margin: 0 0.5rem 0 0.25rem;" class="no-print"></div>
+68: 
+69:                     <div class="brand-title-group">
+70:                         <h1 style="font-size: 1.15rem; font-weight: 700;">बाइबल पद कण्ठस्थ प्रतियोगिता</h1>
+71:                         <p style="font-size: 0.7rem; color: var(--gold); font-weight: bold; text-transform: uppercase;">प्रतियोगिता नियन्त्रण प्रणाली</p>
+72:                     </div>
+73:                 </div>
+74: 
+75:                 <!-- Mobile Menu Toggle -->
+76:                 <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation">
+77:                     <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+78:                         <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+79:                     </svg>
+80:                 </button>
+81: 
+82:                 <div class="nav-controls">
+83:                     <ul class="nav-links">
+84:                         <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
+85:                         <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
+86:                     </ul>
+87:                     <button class="btn btn-danger btn-sm hidden" id="logout-btn" style="padding: 0.25rem 0.55rem; font-size: 0.75rem; font-weight: 700; width: auto;">🚪 बाहिरिनुहोस्</button>
+88:                 </div>
+89: 
+90:                 <div class="header-actions-right" style="display: flex; align-items: center; gap: 0.5rem; margin-left: auto; margin-right: 0.5rem;">
+91:                     <!-- Bilingual Language Selector Dropdown -->
+92:                     <div class="lang-switch-wrapper">
+93:                         <select id="lang-select" style="padding: 0.2rem 0.45rem; font-size: 0.75rem; font-family: var(--font-heading); font-weight: 700; width: auto; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1.2px solid var(--gold); border-radius: var(--radius-sm); cursor: pointer; outline: none; transition: var(--transition);">
+94:                             <option value="ne" style="color: #000;" selected>🇳🇵 नेपाली</option>
+95:                             <option value="en" style="color: #000;">🇺🇸 English</option>
+96:                         </select>
+97:                     </div>
+98: 
+99:                     <!-- Theme Selector -->
+100:                     <div class="theme-switch-wrapper" style="margin: 0;">
+101:                         <label class="theme-switch" for="theme-toggle">
+102:                             <input type="checkbox" id="theme-toggle" />
+103:                             <div class="slider-round"></div>
+104:                         </label>
+105:                     </div>
+106: 
+107:                     <!-- Role Badge / Auth Button -->
+108:                     <button class="btn btn-gold btn-sm" id="nav-login" style="padding: 0.25rem 0.55rem; font-size: 0.75rem; font-weight: 700; width: auto; margin: 0;">🔑 लगइन</button>
+109:                 </div>
+110:             </div>
+111:         </header>
+112: 
+113:         <!-- Live Announcement Ticker -->
+114:         <div class="ticker-wrap">
+115:             <div class="ticker-title">लाइभ अपडेट</div>
+116:             <div class="ticker">
+117:                 <div id="ticker-marquee" style="display: flex;">
+118:                     <!-- notices loaded dynamically -->
+119:                 </div>
+120:             </div>
+121:         </div>
+122: 
+123:         <!-- TOURNAMENT SUB-NAVIGATION BAR (hidden by default) -->
+124:         <div id="tournament-nav-bar" class="tournament-nav-bar hidden">
+125:             <div class="tournament-nav-inner">
+126:                 <button class="btn btn-outline btn-sm tournament-back-btn" id="tournament-back-btn">⬅ फिर्ता (Back)</button>
+127:                 <div class="tournament-nav-links">
+128:                     <button class="tournament-nav-btn active" data-target="section-home">📊 ड्यासबोर्ड</button>
+129:                     <button class="tournament-nav-btn" data-target="section-live-score">🏅 लाइभ स्कोर</button>
+130:                     <button class="tournament-nav-btn" data-target="section-participants">👥 सहभागीहरू</button>
+131:                     <button class="tournament-nav-btn" data-target="section-downloads">📥 डाउनलोडहरू</button>
+132:                 </div>
+133:             </div>
+134:         </div>
+135: 
+136:         <!-- MAIN APP CONTENT PANELS -->
+137:         <main>
+138:             
+139:             <!-- ========== LANDING PAGE (SCROLLABLE SECTIONS) ========== -->
+140:             <div id="landing-page-container">
+141: 
+142:             <!-- SECTION 0: ORGANIZATION HOME PAGE -->
+143:             <section id="section-org-home" class="scroll-section">
+144:                 <div class="about-hero" style="margin-bottom: 2rem;">
+145:                     <h1 id="org-hero-title" style="font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-heading); font-weight: 900;">Igniter Team</h1>
+146:                     <p id="org-hero-subtitle" style="font-size: 1.25rem; font-weight: 500; opacity: 0.9;">Into the Way of Jesus Christ</p>
+147:                 </div>
+148:                 
+149:                 <!-- Event Countdown Widget (Only shows if active) -->
+150:                 <div id="org-countdown-wrapper" class="card card-accent text-center hidden" style="margin-bottom: 2rem;">
+151:                     <h2 id="home-event-title" style="font-size: 1.8rem; color: var(--text-heading); margin-bottom: 0.5rem;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३</h2>
+152:                     <p id="home-event-subtitle" style="font-size: 1rem; color: var(--gold); font-weight: 600; text-transform: uppercase;">इग्नाइटर टिम (Igniter Team)</p>
+153:                     
+154:                     <div style="margin-top: 1.5rem;">
+155:                         <h4 id="countdown-title" style="font-size: 0.95rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">प्रतियोगिता सुरु हुन बाँकी समय</h4>
+156:                         <div class="countdown-container">
+157:                             <div class="countdown-box">
+158:                                 <div class="countdown-value" id="cd-days">००</div>
+159:                                 <div class="countdown-label">दिन</div>
+160:                             </div>
+161:                             <div class="countdown-box">
+162:                                 <div class="countdown-value" id="cd-hours">००</div>
+163:                                 <div class="countdown-label">घण्टा</div>
+164:                             </div>
+165:                             <div class="countdown-box">
+166:                                 <div class="countdown-value" id="cd-minutes">००</div>
+167:                                 <div class="countdown-label">मिनेट</div>
+168:                             </div>
+169:                             <div class="countdown-box">
+170:                                 <div class="countdown-value" id="cd-seconds">००</div>
+171:                                 <div class="countdown-label">सेकेन्ड</div>
+172:                             </div>
+173:                         </div>
+174:                     </div>
+175:                 </div>
+176: 
+177:                 <!-- Participant Portal Widget (controlled by admin toggle) -->
+178:                 <div id="org-participant-portal-wrapper" class="card card-accent text-center" style="margin-bottom: 2rem; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; padding: 2rem;" onclick="if (window.switchToTournamentMode) { window.switchToTournamentMode('section-home'); }" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='var(--shadow-premium)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-lg)';">
+179:                     <div style="font-size: 3rem; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);">🏆</div>
+180:                     <h2 style="font-size: 1.8rem; color: var(--text-heading); margin-bottom: 0.5rem; font-weight: 800;">प्रतियोगिता र सहभागी पोर्टल (Tournament & Participant Portal)</h2>
+181:                     <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem;">बाइबल क्विज प्रतियोगिताको लाइभ स्कोरबोर्ड, सहभागीहरू र पुरस्कार विवरणहरू हेर्नुहोस्।</p>
+182:                     <span class="btn btn-gold btn-sm" style="display: inline-block; width: auto; font-weight: 700; text-transform: uppercase;">प्रवेश गर्नुहोस् (Enter Portal) ❯</span>
+183:                 </div>
+184: 
+185:                 <div class="card-grid">
+186:                     <div class="card">
+187:                         <h3 style="color: var(--text-heading); margin-bottom: 1rem;">हाम्रो उद्देश्य (Our Purpose)</h3>
+188:                         <p style="color: var(--text-main); line-height: 1.6;">ख्रीष्टियन युवा तथा बालबालिकाहरूलाई परमेश्वरको वचन (बाइबल) अध्ययन र कण्ठस्थ गर्न प्रोत्साहित गर्नु हाम्रो मुख्य उद्देश्य हो।</p>
+189:                     </div>
+190:                     <div class="card">
+191:                         <h3 style="color: var(--text-heading); margin-bottom: 1rem;">आगामी कार्यक्रम (Upcoming Events)</h3>
+192:                         <p style="color: var(--text-main); line-height: 1.6;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३ का लागि तयारी सुरु भइसकेको छ। कृपया "प्रतियोगिता" मेनुबाट थप जानकारी लिनुहोस्।</p>
+193:                     </div>
+194:                 </div>
+195: 
+196:                 <!-- Event Details on Homepage (controlled by admin toggle) -->
+197:                 <div id="home-event-details-wrapper" class="hidden" style="margin-top: 2.5rem;">
+198:                     <h2 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 1.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+199:                         ⛪ कार्यक्रम विवरण (Event Details)
+200:                     </h2>
+201:                     <div id="home-event-details" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1000px;">
+202:                         <!-- Left: Church Image -->
+203:                         <div class="card card-accent" style="overflow: hidden; padding: 0; min-height: 250px;">
+204:                             <img id="home-church-image" src="" alt="Event Venue" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+205:                         </div>
+206:                         <!-- Right: Details + Map -->
+207:                         <div style="display: flex; flex-direction: column; gap: 1rem;">
+208:                             <div class="card" style="padding: 1.5rem;">
+209:                                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+210:                                     <span style="font-size: 2rem;">📍</span>
+211:                                     <div>
+212:                                         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">ठेगाना (Address)</div>
+213:                                         <div id="home-event-address" style="font-size: 1.1rem; font-weight: 700; color: var(--text-heading);"></div>
+214:                                     </div>
+215:                                 </div>
+216:                                 <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+217:                                     <span style="font-size: 2rem;">🕐</span>
+218:                                     <div>
+219:                                         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">समय (Time)</div>
+220:                                         <div id="home-event-time" style="font-size: 1.1rem; font-weight: 700; color: var(--gold);"></div>
+221:                                     </div>
+222:                                 </div>
+223:                                 <div style="display: flex; align-items: center; gap: 0.75rem;">
+224:                                     <span style="font-size: 2rem;">📅</span>
+225:                                     <div>
+226:                                         <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">मिति (Date)</div>
+227:                                         <div id="home-event-date" style="font-size: 1.1rem; font-weight: 700; color: var(--text-heading);"></div>
+228:                                     </div>
+229:                                 </div>
+230:                             </div>
+231:                             <div class="card map-clickable-wrapper" style="padding: 0; overflow: hidden; flex: 1; min-height: 160px; position: relative;">
+232:                                 <iframe id="home-event-map" src="" width="100%" height="100%" style="border: 0; min-height: 160px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+233:                                 <a id="home-map-directions-link" href="#" target="_blank" rel="noopener" class="map-directions-overlay" title="Google Maps मा खोल्नुहोस्">
+234:                                     <span>📍 Google Maps मा दिशानिर्देश हेर्नुहोस् (Get Directions)</span>
+235:                                 </a>
+236:                             </div>
+237:                         </div>
+238:                     </div>
+239:                 </div>
+240:             </section>
+241: 
+242:             <!-- SECTION: ABOUT US -->
+243:             <section id="section-about" class="scroll-section">
+244:                 <div class="about-hero">
+245:                     <h2 id="about-title" style="font-size: 2.5rem; margin-bottom: 1rem;">हाम्रो बारेमा (About Us)</h2>
+246:                     <p id="about-subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">इग्नाइटर टिम (Igniter Team) परमेश्वरको वचनलाई युवा पुस्तामा पुर्याउने एउटा सक्रिय समूह हो।</p>
+247:                 </div>
+248:                 
+249:                 <div style="background: var(--bg-card); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+250:                     <h3 style="color: var(--text-heading); margin-bottom: 1.5rem; font-size: 1.5rem;">हाम्रो कथा (Our Story)</h3>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

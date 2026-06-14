@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ne">
 <head>
     <meta charset="UTF-8">
@@ -84,37 +84,26 @@
                         <li><button class="nav-item-btn hidden" id="nav-judge">📝 जज प्यानल</button></li>
                         <li><button class="nav-item-btn hidden" id="nav-admin">⚙️ एडमिन प्यानल</button></li>
                     </ul>
-                    <button class="btn btn-danger btn-sm hidden" id="logout-btn" style="padding: 0.25rem 0.55rem; font-size: 0.75rem; font-weight: 700; width: auto;">🚪 बाहिरिनुहोस्</button>
-                </div>
 
-                <div class="header-actions-right" style="display: flex; align-items: center; gap: 0.5rem; margin-left: auto; margin-right: 0.5rem;">
                     <!-- Bilingual Language Selector Dropdown -->
-                    <div class="lang-switch-wrapper">
+                    <div class="lang-switch-wrapper" style="margin-left: 0.75rem; margin-right: 0.5rem;">
                         <select id="lang-select" style="padding: 0.2rem 0.45rem; font-size: 0.75rem; font-family: var(--font-heading); font-weight: 700; width: auto; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1.2px solid var(--gold); border-radius: var(--radius-sm); cursor: pointer; outline: none; transition: var(--transition);">
                             <option value="ne" style="color: #000;" selected>🇳🇵 नेपाली</option>
                             <option value="en" style="color: #000;">🇺🇸 English</option>
                         </select>
                     </div>
 
-                    <!-- Theme Selector Button with SVG Icon -->
-                    <button id="theme-toggle-btn" class="theme-btn" title="Toggle Light/Dark Mode">
-                        <!-- Sun Icon (shown in dark mode) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-sun">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                        <!-- Moon Icon (shown in light mode) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon">
-                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                        </svg>
-                    </button>
+                    <!-- Theme Selector -->
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" for="theme-toggle">
+                            <input type="checkbox" id="theme-toggle" />
+                            <div class="slider-round"></div>
+                        </label>
+                    </div>
+
+                    <!-- Role Badge / Auth Button -->
+                    <button class="btn btn-gold btn-sm" id="nav-login" style="padding: 0.25rem 0.55rem; font-size: 0.75rem; font-weight: 700; width: auto;">🔑 लगइन</button>
+                    <button class="btn btn-danger btn-sm hidden" id="logout-btn" style="padding: 0.25rem 0.55rem; font-size: 0.75rem; font-weight: 700; width: auto;">🚪 बाहिरिनुहोस्</button>
                 </div>
             </div>
         </header>
@@ -151,8 +140,8 @@
             <!-- SECTION 0: ORGANIZATION HOME PAGE -->
             <section id="section-org-home" class="scroll-section">
                 <div class="about-hero" style="margin-bottom: 2rem;">
-                    <h1 id="org-hero-title" data-editable="org_hero_title" style="font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-heading); font-weight: 900;">Igniter Team</h1>
-                    <p id="org-hero-subtitle" data-editable="org_hero_subtitle" style="font-size: 1.25rem; font-weight: 500; opacity: 0.9;">Into the Way of Jesus Christ</p>
+                    <h1 id="org-hero-title" style="font-size: 3rem; margin-bottom: 1rem; font-family: var(--font-heading); font-weight: 900;">Igniter Team</h1>
+                    <p id="org-hero-subtitle" style="font-size: 1.25rem; font-weight: 500; opacity: 0.9;">Into the Way of Jesus Christ</p>
                 </div>
                 
                 <!-- Event Countdown Widget (Only shows if active) -->
@@ -193,12 +182,12 @@
 
                 <div class="card-grid">
                     <div class="card">
-                        <h3 data-editable="purpose_heading" style="color: var(--text-heading); margin-bottom: 1rem;">हाम्रो उद्देश्य (Our Purpose)</h3>
-                        <p data-editable="purpose_text" style="color: var(--text-main); line-height: 1.6;">ख्रीष्टियन युवा तथा बालबालिकाहरूलाई परमेश्वरको वचन (बाइबल) अध्ययन र कण्ठस्थ गर्न प्रोत्साहित गर्नु हाम्रो मुख्य उद्देश्य हो।</p>
+                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">हाम्रो उद्देश्य (Our Purpose)</h3>
+                        <p style="color: var(--text-main); line-height: 1.6;">ख्रीष्टियन युवा तथा बालबालिकाहरूलाई परमेश्वरको वचन (बाइबल) अध्ययन र कण्ठस्थ गर्न प्रोत्साहित गर्नु हाम्रो मुख्य उद्देश्य हो।</p>
                     </div>
                     <div class="card">
-                        <h3 data-editable="events_heading" style="color: var(--text-heading); margin-bottom: 1rem;">आगामी कार्यक्रम (Upcoming Events)</h3>
-                        <p data-editable="events_text" style="color: var(--text-main); line-height: 1.6;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३ का लागि तयारी सुरु भइसकेको छ। कृपया "प्रतियोगिता" मेनुबाट थप जानकारी लिनुहोस्।</p>
+                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">आगामी कार्यक्रम (Upcoming Events)</h3>
+                        <p style="color: var(--text-main); line-height: 1.6;">बाइबल पद कण्ठस्थ प्रतियोगिता २०८३ का लागि तयारी सुरु भइसकेको छ। कृपया "प्रतियोगिता" मेनुबाट थप जानकारी लिनुहोस्।</p>
                     </div>
                 </div>
 
@@ -251,25 +240,25 @@
             <!-- SECTION: ABOUT US -->
             <section id="section-about" class="scroll-section">
                 <div class="about-hero">
-                    <h2 id="about-title" data-editable="about_title" style="font-size: 2.5rem; margin-bottom: 1rem;">हाम्रो बारेमा (About Us)</h2>
-                    <p id="about-subtitle" data-editable="about_subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">इग्नाइटर टिम (Igniter Team) परमेश्वरको वचनलाई युवा पुस्तामा पुर्याउने एउटा सक्रिय समूह हो।</p>
+                    <h2 id="about-title" style="font-size: 2.5rem; margin-bottom: 1rem;">हाम्रो बारेमा (About Us)</h2>
+                    <p id="about-subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.6;">इग्नाइटर टिम (Igniter Team) परमेश्वरको वचनलाई युवा पुस्तामा पुर्याउने एउटा सक्रिय समूह हो।</p>
                 </div>
                 
                 <div style="background: var(--bg-card); padding: 3rem; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 2rem;">
-                    <h3 data-editable="story_heading" style="color: var(--text-heading); margin-bottom: 1.5rem; font-size: 1.5rem;">हाम्रो कथा (Our Story)</h3>
-                    <p data-editable="story_text_en" style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--text-heading); margin-bottom: 1.5rem; font-size: 1.5rem;">हाम्रो कथा (Our Story)</h3>
+                    <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
                         Igniter Team started with a simple vision: to ignite the passion for Jesus Christ among the youth. 
                         We organize events, study sessions, and competitions that challenge individuals to dive deeper into the Holy Scriptures.
                     </p>
-                    <p data-editable="story_text_ne" style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8;">
+                    <p style="color: var(--text-main); font-size: 1.1rem; line-height: 1.8;">
                         यस समूहले विशेषगरी बाइबल पद कण्ठस्थ प्रतियोगिता लगायतका विभिन्न कार्यक्रमहरू मार्फत मण्डलीका युवा तथा बालबालिकाहरूलाई आत्मिक रूपमा वृद्धि हुन मद्दत गरिरहेको छ।
                     </p>
                 </div>
                 
-                <h3 data-editable="team_heading" style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem; margin-top: 2rem;">
+                <h3 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem; margin-top: 2rem;">
                     हाम्रो टिम (Our Team)
                 </h3>
-                <p data-editable="team_subtitle" style="color: var(--text-muted); margin-bottom: 2rem;">इग्नाइटर टिम - यसका सक्रिय सदस्यहरू जसले यो प्रतियोगिता सफल पार्न रातदिन मेहेनत गरिरहनुभएको छ।</p>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">इग्नाइटर टिम - यसका सक्रिय सदस्यहरू जसले यो प्रतियोगिता सफल पार्न रातदिन मेहेनत गरिरहनुभएको छ।</p>
                 
                 <div class="card-grid" id="public-team-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
                     <!-- Dynamic team cards -->
@@ -278,8 +267,8 @@
 
             <!-- SECTION: GLOBAL GALLERY -->
             <section id="section-gallery" class="scroll-section">
-                <h2 data-editable="gallery_title" style="font-size: 2rem; color: var(--text-heading); margin-bottom: 1rem;">हाम्रो ग्यालरी (Our Gallery)</h2>
-                <p data-editable="gallery_subtitle" style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमका झलकहरू</p>
+                <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 1rem;">हाम्रो ग्यालरी (Our Gallery)</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमका झलकहरू</p>
                 
                 <!-- We will reuse the slider from the dashboard here for now -->
                 <div class="card card-accent" style="padding: 1rem;">
@@ -294,10 +283,10 @@
 
             <!-- SECTION: NOTICES -->
             <section id="section-notices" class="scroll-section">
-                <h2 data-editable="notices_title" style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
+                <h2 style="font-size: 1.6rem; color: var(--text-heading); margin-bottom: 0.5rem; border-bottom: 2px solid var(--gold); padding-bottom: 0.25rem;">
                     🔔 आधिकारिक सूचना बोर्ड (Notice Board)
                 </h2>
-                <p data-editable="notices_subtitle" style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमसम्बन्धी पछिल्ला निर्णय तथा सूचनाहरू यहाँ प्रकाशन गरिन्छ।</p>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">कार्यक्रमसम्बन्धी पछिल्ला निर्णय तथा सूचनाहरू यहाँ प्रकाशन गरिन्छ।</p>
                 
                 <div id="public-notices-container">
                     <!-- Dynamic notice bulletin cards -->
@@ -306,7 +295,7 @@
 
             <!-- SECTION: CONTACT US -->
             <section id="section-contact" class="scroll-section">
-                <h2 data-editable="contact_title" style="font-size: 2rem; color: var(--text-heading); margin-bottom: 2rem; text-align: center;">सम्पर्क गर्नुहोस् (Contact Us)</h2>
+                <h2 style="font-size: 2rem; color: var(--text-heading); margin-bottom: 2rem; text-align: center;">सम्पर्क गर्नुहोस् (Contact Us)</h2>
                 
                 <div class="contact-grid">
                     <div class="contact-info">
@@ -341,7 +330,7 @@
                     
                     <div class="contact-form-wrapper">
                         <div class="card">
-                            <h3 data-editable="contact_form_title" style="color: var(--text-heading); margin-bottom: 1.5rem;">हामीलाई सन्देश पठाउनुहोस्</h3>
+                            <h3 style="color: var(--text-heading); margin-bottom: 1.5rem;">हामीलाई सन्देश पठाउनुहोस्</h3>
                             <form id="public-contact-form" onsubmit="event.preventDefault(); showToast('सन्देश सफलतापूर्वक पठाइयो! हामी छिट्टै सम्पर्क गर्नेछौं।', 'success'); this.reset();">
                                 <div class="form-group">
                                     <label class="form-label">पूरा नाम (Full Name)</label>
@@ -362,7 +351,6 @@
                 </div>
             </section>
 
-            <div id="custom-sections-container"></div>
             </div> <!-- END landing-page-container -->
 
             <!-- ========== TOURNAMENT SECTIONS (CLICK-TO-VIEW) ========== -->
@@ -1066,11 +1054,8 @@
                 <div class="footer-logo-text">
                     ⛪ <span>Bible पद कण्ठस्थ प्रतियोगिता</span>
                 </div>
-                <p data-editable="footer_copyright">प्रविधि विकास र व्यवस्थापन: इग्नाइटर टिम (Igniter Team) | © २०२६। सबै अधिकार सुरक्षित।</p>
-                <p data-editable="footer_verse" style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">"तेरो वचन मेरो पाइलाका निम्ति बत्ती, मेरो बाटोका निम्ति उज्यालो हो।" - भजनसंग्रह ११९:१०५</p>
-                <div style="margin-top: 1.25rem;">
-                    <button class="btn btn-gold btn-sm" id="nav-login" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; font-weight: 700; width: auto; margin: 0 auto; display: inline-flex;">🔑 लगइन</button>
-                </div>
+                <p>प्रविधि विकास र व्यवस्थापन: इग्नाइटर टिम (Igniter Team) | © २०२६। सबै अधिकार सुरक्षित।</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">"तेरो वचन मेरो पाइलाका निम्ति बत्ती, मेरो बाटोका निम्ति उज्यालो हो।" - भजनसंग्रह ११९:१०५</p>
             </div>
         </footer>
 
@@ -1104,9 +1089,9 @@
     <script src="js/app.js"></script>
     <script src="js/judge.js"></script>
     <script src="js/admin.js"></script>
-    <script src="js/inline-editor.js"></script>
 
 </body>
 </html>
+
 
 
